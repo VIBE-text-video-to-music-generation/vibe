@@ -580,6 +580,10 @@ section h2 { margin-bottom: 8px; }
 .chip-love         { background: #e9619e; }
 .chip-happy        { background: #e0a52a; }
 .chip-motivational { background: #e8533f; }
+.chip-tempo        { background: var(--accent); }
+
+/* requested tempo highlighted inline in the prompt (measured value is on the pill) */
+.bpm-hl { color: var(--accent); font-weight: 700; }
 
 @media (max-width: 760px) {
   .if-sample { grid-template-columns: 1fr; gap: 18px; }
