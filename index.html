@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VIBE — Supplementary Materials</title>
+<meta name="description" content="Supplementary materials for VIBE: Video Instruction-aligned Background music gEneration." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500;6..72,600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <div class="nav-brand">VIBE<span class="accent">.</span></div>
+    <ul class="nav-links">
+      <li><a href="#comparison">Comparison</a></li>
+      <li><a href="#instruction-following">Instruction Following</a></li>
+      <li><a href="#mel-comparison">Mel-spectrograms</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="header">
+  <div class="container reveal">
+    <div class="hero-row">
+      <img class="hero-logo" src="assets/vibe_logo.png" alt="VIBE logo" />
+      <h1>VIBE: Video Instruction-aligned <span class="accent">Background music</span> gEneration.</h1>
+    </div>
+  </div>
+</header>
+
+<!-- architecture -->
+<div class="container reveal arch-wrap">
+  <img class="vibe-arch" src="assets/main_arch.png" alt="VIBE model architecture" />
+</div>
+
+<!-- ============== COMPARISON ============== -->
+<section id="comparison">
+  <div class="container reveal">
+    <h2>Comparison with other state-of-the-art models</h2>
+
+    <div class="cmp-sample">
+      <div class="cmp-hero">
+        <div class="cmp-hero-card">
+        <div class="video-card ours">
+          <video src="samples/video_1/vibe.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
+            <span class="cond-badge cond-vt">Video + Text</span>
+          </div>
+        </div>
+        </div>
+        <div class="cmp-caption">
+          <div class="prompt-label">Caption</div>
+          <div class="prompt-text"><strong class="cap-hi">A dark, atmospheric Trap track</strong> at 150 BPM in B Minor, featuring a deep, resonant 808 bass, crisp trap drums with tight kicks, snappy snares, and rapid hi-hat rolls in a half-time feel, layered with moody synth pads and a haunting bell-like melody, evoking <strong class="cap-hi">a brooding, introspective mood</strong> that shifts from energetic momentum to subdued melancholy, rooted in a static, hypnotic B Minor tonal center with no chord changes, creating a searching, melancholic atmosphere that aligns with the dark trap sub-genre&#x27;s cinematic, urban aesthetic.</div>
+        </div>
+      </div>
+      <div class="video-grid cmp-others">
+        <div class="video-card">
+          <video src="samples/video_1/cmt.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">CMT</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_1/gvmgen.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">GVMGen</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_1/vidmuse.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">VidMuse</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_1/video2music.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">Video2Music</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_1/m2ugen.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">M2UGen</span>
+            <span class="cond-badge cond-generic">Generic text</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cmp-sample">
+      <div class="cmp-hero">
+        <div class="cmp-hero-card">
+        <div class="video-card ours">
+          <video src="samples/video_2/vibe.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
+            <span class="cond-badge cond-vt">Video + Text</span>
+          </div>
+        </div>
+        </div>
+        <div class="cmp-caption">
+          <div class="prompt-label">Caption</div>
+          <div class="prompt-text"><strong class="cap-hi">A high-energy Trap-Hip-Hop track</strong> at 93.75 BPM in F minor, featuring a deep, resonant 808 sub-bass, crisp trap drums with rapid hi-hat rolls, and a bright, melodic synth lead that carries the main hook, layered with a serene and awe-inspiring atmosphere that contrasts the energetic beat, evoking <strong class="cap-hi">a sense of wonder and tranquility</strong> while serving as an ambient backdrop to a nighttime spectacle, blending modern technological elements with universally accessible instrumentation.</div>
+        </div>
+      </div>
+      <div class="video-grid cmp-others">
+        <div class="video-card">
+          <video src="samples/video_2/cmt.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">CMT</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_2/gvmgen.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">GVMGen</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_2/vidmuse.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">VidMuse</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_2/video2music.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">Video2Music</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_2/m2ugen.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">M2UGen</span>
+            <span class="cond-badge cond-generic">Generic text</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cmp-sample">
+      <div class="cmp-hero">
+        <div class="cmp-hero-card">
+        <div class="video-card ours">
+          <video src="samples/video_3/vibe.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
+            <span class="cond-badge cond-vt">Video + Text</span>
+          </div>
+        </div>
+        </div>
+        <div class="cmp-caption">
+          <div class="prompt-label">Caption</div>
+          <div class="prompt-text"><strong class="cap-hi">A dark, atmospheric electronic track</strong> at 76.9 BPM in C Major with a subtle lean toward minor tonalities, featuring evolving synth pads, a deep resonant synth bass, a sparse electronic drum pattern with soft kick, crisp snare, and subtle hi-hats, and a clean, immersive stereo mix that emphasizes gentle compression and dynamic breathing, conveying <strong class="cap-hi">an introspective and slightly ominous mood</strong> with a hypnotic, steady 4/4 groove that remains detached and non-synchronized, evoking late-night cityscapes and contemplative visual media through a minimalist, genre-blurring fusion of ambient-electronic and downtempo trip-hop sensibilities.</div>
+        </div>
+      </div>
+      <div class="video-grid cmp-others">
+        <div class="video-card">
+          <video src="samples/video_3/cmt.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">CMT</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_3/gvmgen.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">GVMGen</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_3/vidmuse.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">VidMuse</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_3/video2music.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">Video2Music</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_3/m2ugen.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">M2UGen</span>
+            <span class="cond-badge cond-generic">Generic text</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cmp-sample">
+      <div class="cmp-hero">
+        <div class="cmp-hero-card">
+        <div class="video-card ours">
+          <video src="samples/video_4/vibe.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
+            <span class="cond-badge cond-vt">Video + Text</span>
+          </div>
+        </div>
+        </div>
+        <div class="cmp-caption">
+          <div class="prompt-label">Caption</div>
+          <div class="prompt-text"><strong class="cap-hi">An ambient electronic track</strong> at ≈81 BPM in E Major, featuring layered evolving synth pads, a deep resonant synth bass, and a simple repetitive synth melody, creating <strong class="cap-hi">a serene, introspective atmosphere with a calm and meditative flow</strong>, devoid of emotional depth or dynamic contrast, serving as a universally accessible backdrop that evokes a sense of spacious stillness and quiet reflection.</div>
+        </div>
+      </div>
+      <div class="video-grid cmp-others">
+        <div class="video-card">
+          <video src="samples/video_4/cmt.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">CMT</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_4/gvmgen.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">GVMGen</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_4/vidmuse.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">VidMuse</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_4/video2music.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">Video2Music</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_4/m2ugen.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">M2UGen</span>
+            <span class="cond-badge cond-generic">Generic text</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cmp-sample">
+      <div class="cmp-hero">
+        <div class="cmp-hero-card">
+        <div class="video-card ours">
+          <video src="samples/video_5/vibe.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
+            <span class="cond-badge cond-vt">Video + Text</span>
+          </div>
+        </div>
+        </div>
+        <div class="cmp-caption">
+          <div class="prompt-label">Caption</div>
+          <div class="prompt-text"><strong class="cap-hi">A relaxed, atmospheric Lo-fi Hip-Hop track</strong> at ≈83 BPM in F♯ minor, featuring a deep, smooth synth bass, a laid-back drum-machine groove, warm sustained synth pads, and a bright, bell-like synth melody in a subtle minor-key progression—F♯m → C♯m → Amaj7 → Dmaj7 → C♯m7 → F♯m7—that drifts across the stereo field, creating <strong class="cap-hi">a calm, contemplative mood with a dreamy, introspective vibe</strong>, evoking a peaceful late-night atmosphere while subtly layering a sense of melancholy and introspection over its chillwave-inspired, low-fi production.</div>
+        </div>
+      </div>
+      <div class="video-grid cmp-others">
+        <div class="video-card">
+          <video src="samples/video_5/cmt.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">CMT</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_5/gvmgen.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">GVMGen</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_5/vidmuse.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">VidMuse</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_5/video2music.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">Video2Music</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_5/m2ugen.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">M2UGen</span>
+            <span class="cond-badge cond-generic">Generic text</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cmp-sample">
+      <div class="cmp-hero">
+        <div class="cmp-hero-card">
+        <div class="video-card ours">
+          <video src="samples/video_6/vibe.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
+            <span class="cond-badge cond-vt">Video + Text</span>
+          </div>
+        </div>
+        </div>
+        <div class="cmp-caption">
+          <div class="prompt-label">Caption</div>
+          <div class="prompt-text"><strong class="cap-hi">A modern ambient-electronic track</strong> at ≈96.8 BPM in C♯ Major, featuring lush, evolving synth pads, a delicate arpeggiated synth line, and a deep, sustained synth bass, blending ethereal textures with a subtle downtempo groove to evoke <strong class="cap-hi">a serene, introspective, and slightly wistful East Asian Lunar New Year ambiance</strong>, underlining a restrained cultural reverence and traditional reverence without mirroring the visual exuberance, with a calm and contemplative atmosphere layered over a gentle harmonic journey through major-sixth chords and a brief C♯ minor shift, creating a meditative, immersive soundscape rooted in the 2010s–2020s ambient-electronic tradition.</div>
+        </div>
+      </div>
+      <div class="video-grid cmp-others">
+        <div class="video-card">
+          <video src="samples/video_6/cmt.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">CMT</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_6/gvmgen.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">GVMGen</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_6/vidmuse.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">VidMuse</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_6/video2music.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">Video2Music</span>
+            <span class="cond-badge cond-video">Video-only</span>
+          </div>
+        </div>
+        <div class="video-card">
+          <video src="samples/video_6/m2ugen.mp4" controls playsinline preload="metadata"></video>
+          <div class="video-meta">
+            <span class="model-name">M2UGen</span>
+            <span class="cond-badge cond-generic">Generic text</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== INSTRUCTION FOLLOWING ============== -->
+<section id="instruction-following">
+  <div class="container reveal">
+    <h2>Instruction Following</h2>
+
+    <!-- Sample 1 — DIY textured canvas painting -->
+    <div class="if-sample">
+      <div class="if-source-col">
+        <div class="if-label">Input video</div>
+        <video src="instruction_following/sample_1/source.mp4" controls playsinline preload="metadata" muted></video>
+        <div class="if-scene">DIY textured canvas painting</div>
+        <div class="if-sub">Same video → 2 prompts</div>
+      </div>
+      <div class="if-variants">
+        <div class="if-variant">
+          <video src="instruction_following/sample_1/sad.mp4" controls playsinline preload="metadata"></video>
+          <span class="emotion-chip chip-sad">Sad</span>
+          <p class="prompt-text">A deeply sad, melancholic piano ballad …, quiet sorrow …</p>
+        </div>
+        <div class="if-variant">
+          <video src="instruction_following/sample_1/love.mp4" controls playsinline preload="metadata"></video>
+          <span class="emotion-chip chip-love">Love</span>
+          <p class="prompt-text">A warm, romantic love theme …, gentle heartfelt melody …</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sample 2 — Cute dogs (playful) -->
+    <div class="if-sample">
+      <div class="if-source-col">
+        <div class="if-label">Input video</div>
+        <video src="instruction_following/sample_2/source.mp4" controls playsinline preload="metadata" muted></video>
+        <div class="if-scene">Playful dogs</div>
+        <div class="if-sub">Same video → 2 prompts</div>
+      </div>
+      <div class="if-variants">
+        <div class="if-variant">
+          <video src="instruction_following/sample_2/sad.mp4" controls playsinline preload="metadata"></video>
+          <span class="emotion-chip chip-sad">Sad</span>
+          <p class="prompt-text">A deeply sad, melancholic piano ballad …, quiet sorrow …</p>
+        </div>
+        <div class="if-variant">
+          <video src="instruction_following/sample_2/love.mp4" controls playsinline preload="metadata"></video>
+          <span class="emotion-chip chip-love">Love</span>
+          <p class="prompt-text">A warm, romantic love theme …, gentle heartfelt melody …</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sample 3 — Cute dogs -->
+    <div class="if-sample">
+      <div class="if-source-col">
+        <div class="if-label">Input video</div>
+        <video src="instruction_following/sample_3/source.mp4" controls playsinline preload="metadata" muted></video>
+        <div class="if-scene">Dogs at play</div>
+        <div class="if-sub">Same video → 2 prompts</div>
+      </div>
+      <div class="if-variants">
+        <div class="if-variant">
+          <video src="instruction_following/sample_3/happy.mp4" controls playsinline preload="metadata"></video>
+          <span class="emotion-chip chip-happy">Happy</span>
+          <p class="prompt-text">A bright, joyful, upbeat acoustic-pop track …, pure happiness and fun …</p>
+        </div>
+        <div class="if-variant">
+          <video src="instruction_following/sample_3/motivational.mp4" controls playsinline preload="metadata"></video>
+          <span class="emotion-chip chip-motivational">Motivational</span>
+          <p class="prompt-text">A powerful, motivational cinematic anthem …, inspiring triumphant build …</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sample 4 — Taj Mahal -->
+    <div class="if-sample">
+      <div class="if-source-col">
+        <div class="if-label">Input video</div>
+        <video src="instruction_following/sample_4/source.mp4" controls playsinline preload="metadata" muted></video>
+        <div class="if-scene">Taj Mahal</div>
+        <div class="if-sub">Same video → 3 prompts</div>
+      </div>
+      <div class="if-variants">
+        <div class="if-variant">
+          <video src="instruction_following/sample_4/sad.mp4" controls playsinline preload="metadata"></video>
+          <span class="emotion-chip chip-sad">Sad</span>
+          <p class="prompt-text">A deeply sad, melancholic piano ballad …, quiet sorrow …</p>
+        </div>
+        <div class="if-variant">
+          <video src="instruction_following/sample_4/happy.mp4" controls playsinline preload="metadata"></video>
+          <span class="emotion-chip chip-happy">Happy</span>
+          <p class="prompt-text">A bright, joyful, upbeat acoustic-pop track …, pure happiness and fun …</p>
+        </div>
+        <div class="if-variant">
+          <video src="instruction_following/sample_4/motivational.mp4" controls playsinline preload="metadata"></video>
+          <span class="emotion-chip chip-motivational">Motivational</span>
+          <p class="prompt-text">A powerful, motivational cinematic anthem …, inspiring triumphant build …</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== MEL-SPECTROGRAM COMPARISON ============== -->
+<section id="mel-comparison">
+  <div class="container reveal">
+    <h2>Mel-spectrogram comparison</h2>
+    <p class="mel-sub">Log-power mel-spectrograms (0–8&nbsp;kHz) of each system's output for the same input video.</p>
+    <div class="mel-compare-grid">
+      <div class="mel-col ours">
+        <div class="mel-col-label">VIBE <span class="ours-tag">Ours</span></div>
+        <video src="samples/video_6/vibe.mp4" controls playsinline preload="metadata"></video>
+        <img src="samples/video_6/mel_vibe.png" alt="VIBE mel-spectrogram" loading="lazy" />
+      </div>
+      <div class="mel-col">
+        <div class="mel-col-label">CMT</div>
+        <video src="samples/video_6/cmt.mp4" controls playsinline preload="metadata"></video>
+        <img src="samples/video_6/mel_cmt.png" alt="CMT mel-spectrogram" loading="lazy" />
+      </div>
+      <div class="mel-col">
+        <div class="mel-col-label">GVMGen</div>
+        <video src="samples/video_6/gvmgen.mp4" controls playsinline preload="metadata"></video>
+        <img src="samples/video_6/mel_gvmgen.png" alt="GVMGen mel-spectrogram" loading="lazy" />
+      </div>
+      <div class="mel-col">
+        <div class="mel-col-label">VidMuse</div>
+        <video src="samples/video_6/vidmuse.mp4" controls playsinline preload="metadata"></video>
+        <img src="samples/video_6/mel_vidmuse.png" alt="VidMuse mel-spectrogram" loading="lazy" />
+      </div>
+      <div class="mel-col">
+        <div class="mel-col-label">Video2Music</div>
+        <video src="samples/video_6/video2music.mp4" controls playsinline preload="metadata"></video>
+        <img src="samples/video_6/mel_video2music.png" alt="Video2Music mel-spectrogram" loading="lazy" />
+      </div>
+      <div class="mel-col">
+        <div class="mel-col-label">M2UGen</div>
+        <video src="samples/video_6/m2ugen.mp4" controls playsinline preload="metadata"></video>
+        <img src="samples/video_6/mel_m2ugen.png" alt="M2UGen mel-spectrogram" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Supplementary Materials · Anonymous Submission
+</footer>
+
+<script src="scripts/main.js"></script>
+</body>
+</html>
