@@ -1,76 +1,100 @@
 (function () {
-  function videosIn(sectionId) {
-    const sec = document.getElementById(sectionId);
-    if (!sec) return [];
-    return Array.from(sec.querySelectorAll('video'));
-  }
+  // VIBE generations: silent looping preview that becomes a full player on click.
+  // Everything else (baselines, instruction-following) is a plain native player.
+  var loops = Array.prototype.slice.call(document.querySelectorAll('video[data-loop]'));
 
-  window.playAll = function (sectionId) {
-    videosIn(sectionId).forEach(v => { try { v.currentTime = 0; v.play(); } catch (e) {} });
-  };
-  window.pauseAll = function (sectionId) {
-    videosIn(sectionId).forEach(v => v.pause());
-  };
-  window.restartAll = function (sectionId) {
-    videosIn(sectionId).forEach(v => { v.pause(); v.currentTime = 0; });
-  };
-
-  // exclusive playback — only one clip sounds at a time, except within a shared
-  // [data-syncgroup] (the comparison grids, where "Play all" is intentional).
-  function syncGroupOf(el) {
-    const g = el.closest('[data-syncgroup]');
-    return g || el; // ungrouped media is its own group → fully exclusive
-  }
-  document.addEventListener('play', function (e) {
-    const el = e.target;
-    if (!(el instanceof HTMLMediaElement)) return;
-    const group = syncGroupOf(el);
-    document.querySelectorAll('video, audio').forEach(function (other) {
-      if (other !== el && syncGroupOf(other) !== group) other.pause();
+  // pause/mute every other sound source, keeping the silent VIBE loops running
+  function solo(keep) {
+    document.querySelectorAll('video, audio').forEach(function (m) {
+      if (m === keep) return;
+      if (m.hasAttribute('data-loop') && m.dataset.activated !== '1') {
+        m.muted = true;
+      } else {
+        try { m.pause(); } catch (e) {}
+      }
     });
+  }
+
+  var vio = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var v = e.target;
+      if (v.dataset.activated === '1') return;      // user is controlling it now
+      if (e.isIntersecting) v.play().catch(function () {});
+      else v.pause();
+    });
+  }, { threshold: 0.2 }) : null;
+
+  loops.forEach(function (v) {
+    v.muted = true; v.loop = true;
+    // a "static" loop (e.g. the instruction-following source video) just plays
+    // silently on a loop — no sound, no player handoff.
+    if (v.hasAttribute('data-static')) {
+      if (vio) vio.observe(v);
+      return;
+    }
+    var wrap = document.createElement('div');
+    wrap.className = 'loopvid-wrap';
+    v.parentNode.insertBefore(wrap, v);
+    wrap.appendChild(v);
+    var badge = document.createElement('button');
+    badge.type = 'button';
+    badge.className = 'sound-badge';
+    badge.textContent = '🔇';
+    badge.setAttribute('aria-label', 'Play with sound');
+    wrap.appendChild(badge);
+
+    function activate(e) {
+      if (e) { e.stopPropagation(); e.preventDefault(); }
+      if (v.dataset.activated === '1') return;
+      v.dataset.activated = '1';
+      solo(v);
+      v.loop = false;
+      v.controls = true;          // hand over the native player
+      v.muted = false;
+      try { v.currentTime = 0; } catch (_) {}   // start audio from the beginning
+      v.play().catch(function () {});
+      wrap.classList.add('audio-on');
+      badge.remove();
+      v.removeEventListener('click', activate);
+      if (vio) vio.unobserve(v);
+    }
+    v.addEventListener('click', activate);
+    badge.addEventListener('click', activate);
+    if (vio) vio.observe(v);
+  });
+
+  // a controls video/audio (baseline, instruction-following, or an activated VIBE) owns the sound
+  document.addEventListener('play', function (e) {
+    var el = e.target;
+    if (el.hasAttribute && el.hasAttribute('data-loop') && el.dataset.activated !== '1') return;
+    solo(el);
   }, true);
 
-  // sticky nav active-state via IntersectionObserver
-  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-  const sections = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-  const linkFor = new Map();
-  navLinks.forEach(a => linkFor.set(a.getAttribute('href').slice(1), a));
-
+  // ---------- sticky nav active-state ----------
+  var navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  var sections = Array.prototype.slice.call(navLinks)
+    .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+    .filter(Boolean);
+  var linkFor = new Map();
+  navLinks.forEach(function (a) { linkFor.set(a.getAttribute('href').slice(1), a); });
   if (sections.length) {
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
+    var nav = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
         if (e.isIntersecting) {
-          navLinks.forEach(l => l.classList.remove('active'));
-          const link = linkFor.get(e.target.id);
+          navLinks.forEach(function (l) { l.classList.remove('active'); });
+          var link = linkFor.get(e.target.id);
           if (link) link.classList.add('active');
         }
       });
     }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
-    sections.forEach(s => obs.observe(s));
+    sections.forEach(function (s) { nav.observe(s); });
   }
 
-  // reveal-on-scroll
-  const revealObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        revealObs.unobserve(e.target);
-      }
+  // ---------- reveal on scroll ----------
+  var revealObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
     });
   }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-  // gallery tabs
-  document.querySelectorAll('.gallery-tabs').forEach(group => {
-    const buttons = group.querySelectorAll('button[data-tab]');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const tab = btn.dataset.tab;
-        buttons.forEach(b => b.classList.toggle('active', b === btn));
-        document.querySelectorAll('.gallery-panel').forEach(p => {
-          p.classList.toggle('active', p.dataset.tab === tab);
-        });
-      });
-    });
-  });
+  document.querySelectorAll('.reveal').forEach(function (el) { revealObs.observe(el); });
 })();

@@ -8,9 +8,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500;6..72,600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <link rel="stylesheet" href="styles/main.css" />
 </head>
@@ -31,7 +29,7 @@
   <div class="container reveal">
     <div class="hero-row">
       <img class="hero-logo" src="assets/vibe_logo.png" alt="VIBE logo" />
-      <h1>VIBE: Video Instruction-aligned <span class="accent">Background music</span> gEneration.</h1>
+      <h1>VIBE: Video Instruction-aligned Background music gEneration.</h1>
     </div>
   </div>
 </header>
@@ -50,7 +48,7 @@
       <div class="cmp-hero">
         <div class="cmp-hero-card">
         <div class="video-card ours">
-          <video src="samples/video_1/vibe.mp4" controls playsinline preload="metadata"></video>
+          <video src="samples/video_1/vibe.mp4" muted loop playsinline preload="metadata" data-loop></video>
           <div class="video-meta">
             <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
             <span class="cond-badge cond-vt">Video + Text</span>
@@ -104,7 +102,7 @@
       <div class="cmp-hero">
         <div class="cmp-hero-card">
         <div class="video-card ours">
-          <video src="samples/video_2/vibe.mp4" controls playsinline preload="metadata"></video>
+          <video src="samples/video_2/vibe.mp4" muted loop playsinline preload="metadata" data-loop></video>
           <div class="video-meta">
             <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
             <span class="cond-badge cond-vt">Video + Text</span>
@@ -158,7 +156,7 @@
       <div class="cmp-hero">
         <div class="cmp-hero-card">
         <div class="video-card ours">
-          <video src="samples/video_3/vibe.mp4" controls playsinline preload="metadata"></video>
+          <video src="samples/video_3/vibe.mp4" muted loop playsinline preload="metadata" data-loop></video>
           <div class="video-meta">
             <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
             <span class="cond-badge cond-vt">Video + Text</span>
@@ -212,7 +210,7 @@
       <div class="cmp-hero">
         <div class="cmp-hero-card">
         <div class="video-card ours">
-          <video src="samples/video_4/vibe.mp4" controls playsinline preload="metadata"></video>
+          <video src="samples/video_4/vibe.mp4" muted loop playsinline preload="metadata" data-loop></video>
           <div class="video-meta">
             <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
             <span class="cond-badge cond-vt">Video + Text</span>
@@ -266,7 +264,7 @@
       <div class="cmp-hero">
         <div class="cmp-hero-card">
         <div class="video-card ours">
-          <video src="samples/video_5/vibe.mp4" controls playsinline preload="metadata"></video>
+          <video src="samples/video_5/vibe.mp4" muted loop playsinline preload="metadata" data-loop></video>
           <div class="video-meta">
             <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
             <span class="cond-badge cond-vt">Video + Text</span>
@@ -320,7 +318,7 @@
       <div class="cmp-hero">
         <div class="cmp-hero-card">
         <div class="video-card ours">
-          <video src="samples/video_6/vibe.mp4" controls playsinline preload="metadata"></video>
+          <video src="samples/video_6/vibe.mp4" muted loop playsinline preload="metadata" data-loop></video>
           <div class="video-meta">
             <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
             <span class="cond-badge cond-vt">Video + Text</span>
@@ -382,18 +380,18 @@
     <div class="if-sample">
       <div class="if-source-col">
         <div class="if-label">Input video</div>
-        <video src="instruction_following/sample_1/source.mp4" controls playsinline preload="metadata" muted></video>
+        <video src="instruction_following/sample_1/source.mp4" muted loop playsinline preload="metadata" data-loop data-static></video>
         <div class="if-scene">DIY textured canvas painting</div>
         <div class="if-sub">Same video → 2 prompts</div>
       </div>
       <div class="if-variants">
         <div class="if-variant">
-          <video src="instruction_following/sample_1/sad.mp4" controls playsinline preload="metadata"></video>
+          <video src="instruction_following/sample_1/sad.mp4" muted loop playsinline preload="metadata" data-loop></video>
           <span class="emotion-chip chip-sad">Sad</span>
           <p class="prompt-text">A deeply sad, melancholic piano ballad …, quiet sorrow …</p>
         </div>
         <div class="if-variant">
-          <video src="instruction_following/sample_1/love.mp4" controls playsinline preload="metadata"></video>
+          <video src="instruction_following/sample_1/love.mp4" muted loop playsinline preload="metadata" data-loop></video>
           <span class="emotion-chip chip-love">Love</span>
           <p class="prompt-text">A warm, romantic love theme …, gentle heartfelt melody …</p>
         </div>
@@ -404,18 +402,18 @@
     <div class="if-sample">
       <div class="if-source-col">
         <div class="if-label">Input video</div>
-        <video src="instruction_following/sample_2/source.mp4" controls playsinline preload="metadata" muted></video>
+        <video src="instruction_following/sample_2/source.mp4" muted loop playsinline preload="metadata" data-loop data-static></video>
         <div class="if-scene">Playful dogs</div>
         <div class="if-sub">Same video → 2 prompts</div>
       </div>
       <div class="if-variants">
         <div class="if-variant">
-          <video src="instruction_following/sample_2/sad.mp4" controls playsinline preload="metadata"></video>
+          <video src="instruction_following/sample_2/sad.mp4" muted loop playsinline preload="metadata" data-loop></video>
           <span class="emotion-chip chip-sad">Sad</span>
           <p class="prompt-text">A deeply sad, melancholic piano ballad …, quiet sorrow …</p>
         </div>
         <div class="if-variant">
-          <video src="instruction_following/sample_2/love.mp4" controls playsinline preload="metadata"></video>
+          <video src="instruction_following/sample_2/love.mp4" muted loop playsinline preload="metadata" data-loop></video>
           <span class="emotion-chip chip-love">Love</span>
           <p class="prompt-text">A warm, romantic love theme …, gentle heartfelt melody …</p>
         </div>
@@ -426,18 +424,18 @@
     <div class="if-sample">
       <div class="if-source-col">
         <div class="if-label">Input video</div>
-        <video src="instruction_following/sample_3/source.mp4" controls playsinline preload="metadata" muted></video>
+        <video src="instruction_following/sample_3/source.mp4" muted loop playsinline preload="metadata" data-loop data-static></video>
         <div class="if-scene">Dogs at play</div>
         <div class="if-sub">Same video → 2 prompts</div>
       </div>
       <div class="if-variants">
         <div class="if-variant">
-          <video src="instruction_following/sample_3/happy.mp4" controls playsinline preload="metadata"></video>
+          <video src="instruction_following/sample_3/happy.mp4" muted loop playsinline preload="metadata" data-loop></video>
           <span class="emotion-chip chip-happy">Happy</span>
           <p class="prompt-text">A bright, joyful, upbeat acoustic-pop track …, pure happiness and fun …</p>
         </div>
         <div class="if-variant">
-          <video src="instruction_following/sample_3/motivational.mp4" controls playsinline preload="metadata"></video>
+          <video src="instruction_following/sample_3/motivational.mp4" muted loop playsinline preload="metadata" data-loop></video>
           <span class="emotion-chip chip-motivational">Motivational</span>
           <p class="prompt-text">A powerful, motivational cinematic anthem …, inspiring triumphant build …</p>
         </div>
@@ -448,23 +446,23 @@
     <div class="if-sample">
       <div class="if-source-col">
         <div class="if-label">Input video</div>
-        <video src="instruction_following/sample_4/source.mp4" controls playsinline preload="metadata" muted></video>
+        <video src="instruction_following/sample_4/source.mp4" muted loop playsinline preload="metadata" data-loop data-static></video>
         <div class="if-scene">Taj Mahal</div>
         <div class="if-sub">Same video → 3 prompts</div>
       </div>
       <div class="if-variants">
         <div class="if-variant">
-          <video src="instruction_following/sample_4/sad.mp4" controls playsinline preload="metadata"></video>
+          <video src="instruction_following/sample_4/sad.mp4" muted loop playsinline preload="metadata" data-loop></video>
           <span class="emotion-chip chip-sad">Sad</span>
           <p class="prompt-text">A deeply sad, melancholic piano ballad …, quiet sorrow …</p>
         </div>
         <div class="if-variant">
-          <video src="instruction_following/sample_4/happy.mp4" controls playsinline preload="metadata"></video>
+          <video src="instruction_following/sample_4/happy.mp4" muted loop playsinline preload="metadata" data-loop></video>
           <span class="emotion-chip chip-happy">Happy</span>
           <p class="prompt-text">A bright, joyful, upbeat acoustic-pop track …, pure happiness and fun …</p>
         </div>
         <div class="if-variant">
-          <video src="instruction_following/sample_4/motivational.mp4" controls playsinline preload="metadata"></video>
+          <video src="instruction_following/sample_4/motivational.mp4" muted loop playsinline preload="metadata" data-loop></video>
           <span class="emotion-chip chip-motivational">Motivational</span>
           <p class="prompt-text">A powerful, motivational cinematic anthem …, inspiring triumphant build …</p>
         </div>
@@ -478,36 +476,48 @@
   <div class="container reveal">
     <h2>Mel-spectrogram comparison</h2>
     <p class="mel-sub">Log-power mel-spectrograms (0–8&nbsp;kHz) of each system's output for the same input video.</p>
-    <div class="mel-compare-grid">
-      <div class="mel-col ours">
-        <div class="mel-col-label">VIBE <span class="ours-tag">Ours</span></div>
-        <video src="samples/video_6/vibe.mp4" controls playsinline preload="metadata"></video>
-        <img src="samples/video_6/mel_vibe.png" alt="VIBE mel-spectrogram" loading="lazy" />
+    <div class="mel-rows">
+      <div class="mel-row ours">
+        <div class="mel-row-label">VIBE <span class="ours-tag">Ours</span></div>
+        <div class="mel-row-body">
+          <video class="mel-row-video" src="samples/video_6/vibe.mp4" muted loop playsinline preload="metadata" data-loop></video>
+          <img class="mel-row-img" src="samples/video_6/mel_vibe.png" alt="VIBE mel-spectrogram" loading="lazy" />
+        </div>
       </div>
-      <div class="mel-col">
-        <div class="mel-col-label">CMT</div>
-        <video src="samples/video_6/cmt.mp4" controls playsinline preload="metadata"></video>
-        <img src="samples/video_6/mel_cmt.png" alt="CMT mel-spectrogram" loading="lazy" />
+      <div class="mel-row">
+        <div class="mel-row-label">CMT</div>
+        <div class="mel-row-body">
+          <video class="mel-row-video" src="samples/video_6/cmt.mp4" controls playsinline preload="metadata"></video>
+          <img class="mel-row-img" src="samples/video_6/mel_cmt.png" alt="CMT mel-spectrogram" loading="lazy" />
+        </div>
       </div>
-      <div class="mel-col">
-        <div class="mel-col-label">GVMGen</div>
-        <video src="samples/video_6/gvmgen.mp4" controls playsinline preload="metadata"></video>
-        <img src="samples/video_6/mel_gvmgen.png" alt="GVMGen mel-spectrogram" loading="lazy" />
+      <div class="mel-row">
+        <div class="mel-row-label">GVMGen</div>
+        <div class="mel-row-body">
+          <video class="mel-row-video" src="samples/video_6/gvmgen.mp4" controls playsinline preload="metadata"></video>
+          <img class="mel-row-img" src="samples/video_6/mel_gvmgen.png" alt="GVMGen mel-spectrogram" loading="lazy" />
+        </div>
       </div>
-      <div class="mel-col">
-        <div class="mel-col-label">VidMuse</div>
-        <video src="samples/video_6/vidmuse.mp4" controls playsinline preload="metadata"></video>
-        <img src="samples/video_6/mel_vidmuse.png" alt="VidMuse mel-spectrogram" loading="lazy" />
+      <div class="mel-row">
+        <div class="mel-row-label">VidMuse</div>
+        <div class="mel-row-body">
+          <video class="mel-row-video" src="samples/video_6/vidmuse.mp4" controls playsinline preload="metadata"></video>
+          <img class="mel-row-img" src="samples/video_6/mel_vidmuse.png" alt="VidMuse mel-spectrogram" loading="lazy" />
+        </div>
       </div>
-      <div class="mel-col">
-        <div class="mel-col-label">Video2Music</div>
-        <video src="samples/video_6/video2music.mp4" controls playsinline preload="metadata"></video>
-        <img src="samples/video_6/mel_video2music.png" alt="Video2Music mel-spectrogram" loading="lazy" />
+      <div class="mel-row">
+        <div class="mel-row-label">Video2Music</div>
+        <div class="mel-row-body">
+          <video class="mel-row-video" src="samples/video_6/video2music.mp4" controls playsinline preload="metadata"></video>
+          <img class="mel-row-img" src="samples/video_6/mel_video2music.png" alt="Video2Music mel-spectrogram" loading="lazy" />
+        </div>
       </div>
-      <div class="mel-col">
-        <div class="mel-col-label">M2UGen</div>
-        <video src="samples/video_6/m2ugen.mp4" controls playsinline preload="metadata"></video>
-        <img src="samples/video_6/mel_m2ugen.png" alt="M2UGen mel-spectrogram" loading="lazy" />
+      <div class="mel-row">
+        <div class="mel-row-label">M2UGen</div>
+        <div class="mel-row-body">
+          <video class="mel-row-video" src="samples/video_6/m2ugen.mp4" controls playsinline preload="metadata"></video>
+          <img class="mel-row-img" src="samples/video_6/mel_m2ugen.png" alt="M2UGen mel-spectrogram" loading="lazy" />
+        </div>
       </div>
     </div>
   </div>
