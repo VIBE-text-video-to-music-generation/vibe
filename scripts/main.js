@@ -95,6 +95,6 @@
     entries.forEach(function (e) {
       if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
   document.querySelectorAll('.reveal').forEach(function (el) { revealObs.observe(el); });
 })();
