@@ -850,3 +850,58 @@ footer {
 @media (max-width: 640px) {
   .mel-row-body { grid-template-columns: 110px 1fr; gap: 12px; }
 }
+
+/* ============================================================
+   MOBILE POLISH — additive only; desktop (≥ 901px) is untouched.
+   Every rule below lives inside a max-width query.
+   ============================================================ */
+@media (max-width: 900px) {
+  /* restore in-page navigation as a compact, horizontally-scrollable strip */
+  .nav-links {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2px;
+    min-width: 0;
+    margin-left: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-mask-image: linear-gradient(to right, #000 90%, transparent);
+            mask-image: linear-gradient(to right, #000 90%, transparent);
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-inner  { gap: 10px; }
+  .nav-brand  { flex: 0 0 auto; }
+  .nav-links a { padding: 6px 12px; font-size: 12px; white-space: nowrap; }
+
+  /* reclaim horizontal space inside cards on smaller screens */
+  .cmp-sample { padding: 16px; }
+  .if-sample  { padding: 16px; }
+  .mel-row    { padding: 14px 16px; }
+}
+
+@media (max-width: 560px) {
+  section { padding: 52px 0; }
+
+  /* long chord/prompt strings must never force horizontal page scroll */
+  .prompt-text,
+  .cmp-caption .prompt-text,
+  .if-scene { overflow-wrap: break-word; word-break: break-word; }
+
+  /* comparison: two tall portrait clips read fine side-by-side; tighten gaps */
+  .video-grid,
+  .video-grid.cmp-others { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .video-card .video-meta { padding: 9px 10px; gap: 5px; }
+  .cmp-hero-card .video-card { max-width: 200px; }
+  .cmp-caption .prompt-text { font-size: 15px; line-height: 1.62; }
+  .cap-hi { font-size: 1.12em; }
+
+  /* instruction-following variants: one clear column instead of squeezed pairs */
+  .if-variants { grid-template-columns: 1fr; }
+
+  /* mel comparison: stack the clip above a full-width, more legible spectrogram */
+  .mel-row-body { grid-template-columns: 1fr; gap: 12px; justify-items: center; }
+  .mel-row-video { max-width: 128px; }
+  .mel-row-img { width: 100%; }
+}
