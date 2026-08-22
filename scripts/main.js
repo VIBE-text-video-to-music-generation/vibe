@@ -22,7 +22,7 @@
       if (e.isIntersecting) v.play().catch(function () {});
       else v.pause();
     });
-  }, { threshold: 0.2 }) : null;
+  }, { threshold: 0.2, rootMargin: '200px 0px' }) : null;
 
   loops.forEach(function (v) {
     v.muted = true; v.loop = true;
