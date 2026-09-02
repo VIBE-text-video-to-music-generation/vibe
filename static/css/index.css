@@ -1,0 +1,1683 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+
+.footer .icon-link {
+    font-size: 25px;
+    color: #000;
+}
+
+.link-block a {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.dnerf {
+  font-variant: small-caps;
+}
+
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser {
+  font-family: 'Google Sans', sans-serif;
+}
+
+
+.publication-title {
+}
+
+.publication-banner {
+  max-height: parent;
+
+}
+
+.publication-banner video {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  object-fit: fit;
+}
+
+.publication-header .hero-body {
+}
+
+.publication-title {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-authors {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-venue {
+    color: #555;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.publication-awards {
+    color: #ff3860;
+    width: fit-content;
+    font-weight: bolder;
+}
+
+.publication-authors {
+}
+
+.publication-authors a:not(.publication-venue) {
+   color: hsl(204, 86%, 36%) !important;
+}
+
+.publication-authors a:hover {
+    text-decoration: underline;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+.publication-banner img {
+}
+
+.publication-authors {
+  /*color: #4286f4;*/
+}
+
+.publication-video {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+
+    overflow: hidden;
+    border-radius: 10px !important;
+}
+
+.publication-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.publication-body img {
+}
+
+.results-carousel {
+  overflow: hidden;
+}
+
+.results-carousel .item {
+  margin: 5px;
+  overflow: hidden;
+  padding: 20px;
+  font-size: 0;
+}
+
+.results-carousel video {
+  margin: 0;
+}
+
+.slider-pagination .slider-page {
+  background: #000000;
+}
+
+.eql-cntrb { 
+  font-size: smaller;
+}
+
+
+
+
+
+/* ==========================================================================
+   VIBE additions.
+   Everything above this line is the template's own stylesheet, untouched.
+   Below is only what the template does not already cover: the side-by-side
+   model comparison, the conditioning badges, the mel-spectrogram rows, and the
+   click-for-sound control. Kept in the template's language: black on white,
+   Google Sans, Bulma's link blue as the only accent.
+   ========================================================================== */
+
+/* The template sets font-size:0 on carousel items to kill inline-block gaps.
+   Our items carry text, so put it back. */
+.results-carousel .item {
+  font-size: 1rem;
+  /* the side padding keeps the carousel's prev/next arrows off the clips,
+     which they sat on top of once the VIBE card moved to the left edge */
+  padding: 10px 46px;
+}
+@media screen and (max-width: 768px) {
+  .results-carousel .item { padding: 10px 34px; }
+}
+
+/* ---------- model comparison row ---------- */
+.model-col { padding: 0 6px; }
+
+/* The result clip is the whole point of the page, so VIBE gets a card of its
+   own with the caption beside it, and the five baselines line up underneath.
+   Same shape as the published reference page. */
+.cmp-hero { margin-bottom: 0.5rem !important; }
+.cmp-hero .prompt-text { max-width: 62ch; }
+.cmp-hero-card { flex: 0 0 auto; width: 320px; max-width: 100%; }
+
+.cmp-others-label + .columns { margin-top: 0; }   /* repay Bulma's -0.75rem pull */
+.cmp-others-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  margin: 3rem 0 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  /* stacked, so the card should fill the width rather than sit at a fixed 320 */
+  .cmp-hero-card { width: 62vw; }
+  .cmp-others-label { text-align: center; }
+}
+
+.model-col video {
+  display: block;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.model-label {
+  text-align: center;
+  margin-top: 8px;
+  line-height: 1.35;
+}
+
+.model-name {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #363636;
+  display: block;
+}
+
+.model-col.is-ours .model-name {
+  color: hsl(204, 86%, 34%);
+  font-weight: 700;
+}
+
+.model-col.is-ours video {
+  outline: 2px solid hsl(204, 86%, 36%);
+  /* .loopvid-wrap clips overflow and the video fills it exactly, so an outline
+     drawn outside the padding box is invisible. Pull it inside the clip. */
+  outline-offset: -2px;
+}
+
+.ours-tag {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: hsl(204, 86%, 34%);
+  margin-left: 3px;
+}
+
+/* What each system was given. This is the fairness argument, so it stays
+   visible on every clip. */
+.cond-badge {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  background: #f5f5f5;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  padding: 1px 5px;
+  margin-top: 4px;
+  white-space: nowrap;
+}
+.cond-vt {
+  color: hsl(204, 86%, 34%);
+  background: hsl(204, 86%, 96%);
+  border-color: hsl(204, 86%, 82%);
+}
+.cond-generic { border-style: dashed; }
+
+/* ---------- captions ---------- */
+.prompt-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  margin-bottom: 6px;
+}
+.prompt-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #4a4a4a;
+  text-align: justify;
+}
+.cap-hi { color: #363636; font-weight: 700; }
+.sample-index {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  margin-bottom: 10px;
+}
+
+/* ---------- instruction following ---------- */
+.if-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  margin-bottom: 6px;
+}
+.if-scene { font-size: 0.85rem; font-weight: 600; color: #363636; margin-top: 8px; }
+.if-label, .if-scene, .if-sub { display: block; }
+.if-sub { font-size: 0.78rem; color: #6b6b6b; }
+.if-instruction { font-size: 0.85rem; line-height: 1.5; color: #4a4a4a; margin-top: 6px; }
+.if-instruction b { color: #363636; }
+
+/* ---------- mel-spectrograms ---------- */
+.mel-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 0;
+  border-bottom: 1px solid #ededed;
+}
+.mel-row:last-child { border-bottom: 0; }
+.mel-row-label { flex: 0 0 120px; font-size: 0.85rem; }
+.mel-row.is-ours .mel-row-label .model-name { color: hsl(204, 86%, 34%); font-weight: 700; }
+.mel-row-video { flex: 0 0 150px; }
+.mel-row-video video { width: 100%; display: block; border-radius: 4px; }
+.mel-row-img { flex: 1 1 auto; min-width: 0; }
+.mel-row-img img { width: 100%; display: block; border: 1px solid #ededed; border-radius: 4px; }
+
+/* ---------- click for sound ----------
+   VIBE clips loop silently, then hand over to the native player on click.
+   The control is labelled rather than an icon, because on this page the audio
+   is the result and turning it on is the primary action. */
+.loopvid-wrap {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.loopvid-wrap > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* transparent, so the inline blur shows through until the poster lands */
+  background: transparent;
+}
+.sound-badge {
+  position: absolute;
+  left: 6px; right: 6px; bottom: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.62);
+  border: 0;
+  border-radius: 3px;
+  padding: 6px 4px;
+  cursor: pointer;
+}
+.sound-badge:hover { background: hsl(204, 86%, 34%); }
+.sound-badge svg { width: 12px; height: 12px; fill: currentColor; flex: none; }
+.mel-row .sound-badge span,
+.model-col .sound-badge span { display: none; }
+.model-col.cmp-hero-card .sound-badge span { display: inline; }
+.loopvid-wrap.audio-on video { outline: 2px solid hsl(204, 86%, 36%); outline-offset: -2px; }
+
+@media screen and (max-width: 768px) {
+  .mel-row { flex-wrap: wrap; gap: 10px; }
+  .mel-row-label { flex: 0 0 100%; }
+  .mel-row-video { flex: 0 0 110px; }
+}
+
+/* Dreamix adds these two; the base template does not ship them. */
+.center-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  height: auto;
+}
+/* Lets a white-background diagram sit flush on the tinted band with no box edge. */
+.blend-img-background { mix-blend-mode: multiply; }
+
+/* Paper logo set alongside the title, matching the \includegraphics in the
+   LaTeX author block. */
+.title-lockup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45em;
+}
+
+/* The <picture> is the flex item, not the <img> inside it, so it is the one
+   that has to refuse to shrink. Without this the title squeezes the logo. */
+.title-lockup > picture {
+  display: block;
+  flex: 0 0 auto;
+  line-height: 0;
+}
+
+.title-logo {
+  display: block;
+  height: 2.6em;
+  width: auto;
+}
+
+@media screen and (max-width: 700px) {
+  .title-lockup { flex-direction: column; gap: 0.15em; }
+  .title-logo   { height: 3.2em; }
+}
+
+/* ---------- banner ----------
+   The first graphic on the page. Loops silently; the sound control sits over
+   it as a compact pill rather than the full-width bar used on the portrait
+   result clips. */
+
+/* Its own white section above the abstract, so the grey tint starts below the
+   video and the frame is never read as part of the tinted panel. */
+.banner-section {
+  /* the hero above already ends in padding, so only a little is needed here */
+  padding-top: 0.5rem;
+  padding-bottom: 3rem;
+}
+
+.banner-wrap {
+  /* sits under the abstract now, so it reads as a figure rather than a hero */
+  max-width: 620px;
+  aspect-ratio: 1280/644;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.banner-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.banner-caption {
+  max-width: 620px;
+  margin: 0.9rem auto 0 !important;
+  font-size: 1rem;
+}
+.banner-video + .sound-badge,
+.banner-wrap .sound-badge {
+  left: auto;
+  right: 12px;
+  top: 12px;
+  bottom: auto;
+  padding: 7px 13px;
+  font-size: 0.66rem;
+  border-radius: 999px;
+}
+.banner-wrap .sound-badge span { display: inline; }
+
+/* Inlined button icons, replacing the FontAwesome/academicons webfonts. */
+.btn-icon {
+  width: 1em;
+  height: 1em;
+  display: block;
+  fill: currentColor;
+}
+
+/* Acceptance line: the template's own accent red, sized up so it reads as news
+   rather than as another metadata row. */
+.publication-venue {
+  color: #ff3860;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  margin: 0 auto;
+}
+
+/* The Hugging Face mark is a specific piece of artwork and a hand-traced path
+   always looks off next to the real one, so the button carries the emoji their
+   own badge uses. Sized to match the inlined SVGs beside it. */
+.btn-emoji {
+  font-size: 1.05em;
+  line-height: 1;
+  display: block;
+  filter: saturate(1.1);
+}
+
+/* The four claims from the repo README, as a 2x2 under the diagram. Reads as
+   captions to the figure rather than as a second abstract. */
+.feature-grid { text-align: left; }
+.feature-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #363636;
+  margin-bottom: 0.3rem;
+}
+.feature-body {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #4a4a4a;
+  margin: 0;
+}
+
+/* BibTeX. The block scrolls sideways on its own rather than pushing the page
+   wide, which is what a long author line would otherwise do on a phone. */
+.bibtex-note {
+  font-size: 0.95rem;
+  color: #4a4a4a;
+}
+#BibTeX pre {
+  background: #f5f5f5;
+  border-radius: 6px;
+  padding: 1.1rem 1.25rem;
+  overflow-x: auto;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  text-align: left;
+}
+/* Wrap rather than scroll. The author line is 8 names long and a hidden
+   horizontal scrollbar just looks like the entry has been truncated. arXiv's
+   export already indents its own fields, so no hanging indent on top. */
+#BibTeX pre code { white-space: pre-wrap; }
+@media screen and (max-width: 768px) {
+  #BibTeX pre { font-size: 0.72rem; }
+}
+
+/* ---------- result tables ---------- */
+
+/* Seven metric columns will not fit a phone, so each table scrolls inside its
+   own box. The page body must never scroll sideways. */
+.table-scroll {
+  /* The screen-reader text in the header cells is position:absolute (Bulma's
+     .is-sr-only). With no positioned ancestor its containing block is the
+     viewport, so it escaped this scroll box and dragged the page out to
+     wherever the wide table had put it. This makes the clip apply. */
+  position: relative;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0.75rem 0 0.5rem;
+  /* Without this the wrapper is sized by the table it is supposed to be
+     clipping, so a wide table pushed the whole page sideways on a phone
+     instead of scrolling inside its own box. inline-size containment says
+     "my width does not depend on my contents", which is exactly the deal. */
+  contain: inline-size;
+}
+.restable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.restable th,
+.restable td { padding: 0.42rem 0.7rem; text-align: right; }
+.restable thead th {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  border-bottom: 2px solid #dbdbdb;
+}
+.restable tbody th[scope="row"] {
+  text-align: left;
+  font-weight: 600;
+  color: #363636;
+  white-space: nowrap;
+}
+.restable thead th:first-child { text-align: left; }
+.restable tbody tr { border-bottom: 1px solid #f0f0f0; }
+
+/* The paper's bold and underline, kept as marks rather than as colour, so the
+   ranking survives a greyscale print and a colour-blind reader. */
+.restable .is-best { font-weight: 700; color: #1a1a1a; }
+.restable .is-second { text-decoration: underline; text-underline-offset: 3px; }
+
+/* VIBE's row, and the ground-truth reference row which is not a competitor. */
+.restable tr.ours { background: #f2eefb; }
+.restable tr.ours th[scope="row"] { color: #5b3a9b; }
+.restable tr.ref { color: #6b6b6b; }
+.restable tr.ref th[scope="row"] { color: #6b6b6b; font-weight: 500; }
+
+/* Baseline-family separators inside the ReelBench table. */
+.restable tr.grp td {
+  text-align: left;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  padding-top: 0.9rem;
+  border-bottom: none;
+}
+.restable .cite {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: #6b6b6b;
+  letter-spacing: 0;
+}
+.restable .arrow { color: #767676; margin-left: 0.25em; font-weight: 400; }
+
+/* Win rates read as a bar behind the number: 50% is the break-even point, so
+   the eye can find the close calls without reading every cell. */
+.winrate span {
+  display: inline-block;
+  position: relative;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  background: linear-gradient(to right,
+    rgba(91, 58, 155, 0.16) var(--w), transparent var(--w));
+}
+
+.restable.is-narrow-table { max-width: 46rem; }
+
+/* Proportional columns rather than content-driven ones: the stage names and
+   descriptions are prose, so letting them dictate width just makes one column
+   enormous. Fixed layout is also the fallback for browsers without `contain`. */
+.restable.curriculum {
+  white-space: normal;
+  table-layout: fixed;
+}
+.restable.curriculum td { text-align: left; }
+.restable.curriculum thead th:nth-child(1) { width: 27%; }
+.restable.curriculum th[scope="row"] { white-space: normal; }
+.restable.curriculum thead th:nth-child(2) { width: 41%; }
+.restable.curriculum thead th:nth-child(3) { width: 19%; }
+.restable.curriculum thead th:nth-child(4) { width: 13%; }
+.stage-num {
+  display: inline-block;
+  width: 1.4em; height: 1.4em;
+  line-height: 1.4em;
+  margin-right: 0.5em;
+  text-align: center;
+  border-radius: 50%;
+  background: #5b3a9b;
+  color: #fff;
+  font-size: 0.72rem;
+}
+.stage-what { color: #4a4a4a; }
+.stage-data { color: #4a4a4a; font-size: 0.82rem; }
+.stage-size { text-align: right !important; color: #6b6b6b; }
+
+.sub-head {
+  margin: 2.5rem 0 0 !important;
+  color: #363636;
+  /* the Method section wraps everything in has-text-centered, which centres a
+     ragged paragraph into a diamond. These two are body copy, not headings. */
+  text-align: left;
+}
+.table-note {
+  text-align: left;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #4a4a4a;
+  margin-top: 0.4rem;
+  max-width: 78ch;
+}
+.results-intro { max-width: 76ch; margin: 0 auto 0.5rem !important; }
+.results-intro .is-best { font-weight: 700; color: #1a1a1a; }
+.results-intro .is-second { text-decoration: underline; text-underline-offset: 3px; }
+
+@media screen and (max-width: 768px) {
+  .restable { font-size: 0.78rem; }
+  .restable th, .restable td { padding: 0.35rem 0.5rem; }
+  .restable.curriculum { font-size: 0.8rem; }
+  .restable.curriculum th[scope="row"] { width: auto; }
+}
+
+/* Inception Score is a mean with a standard deviation; keep the spread visible
+   but subordinate so the column still scans as one number per row. */
+.restable .pm {
+  color: #6b6b6b;
+  font-size: 0.78em;
+  margin-left: 0.3em;
+  font-weight: 400;
+}
+.restable .is-best .pm { font-weight: 400; }
+.restable .is-second .pm { text-decoration: none; }
+
+/* A Bulma column is a flex item, and a flex item's default min-width:auto makes
+   it grow to its widest child. That let the stage table stretch the whole page
+   sideways on a phone instead of scrolling inside .table-scroll. */
+.method-col { min-width: 0; }
+
+/* Acknowledgements, laid out as the Hugging Face model card has it: one
+   middot-separated run of links rather than a bulleted list. */
+/* The section heading sits at the container's left edge while `.content p`
+   centres itself with auto margins, so the heading and its own body text sat
+   on two different left edges. Line everything up with the heading. */
+#acknowledgements .content p,
+#acknowledgements .ack-list,
+#acknowledgements .ack-ask,
+#BibTeX .bibtex-note { margin-left: 0; margin-right: 0; }
+
+/* Leading was 2.1 here against 1.5 on the paragraph above it, a leftover from
+   when this was a standalone list of credits that needed room to breathe. It
+   is a sentence now, and at 2.1 its wrapped lines read as double-spaced while
+   the funding line above looked cramped by comparison. Both sit at 1.75, which
+   is a touch more than body prose because the line is dense with links. */
+#acknowledgements .content p { line-height: 1.75; }
+#acknowledgements .content p:not(:last-child) { margin-bottom: 1.35rem; }
+
+.ack-list {
+  line-height: 1.75;
+  font-size: 0.95rem;
+  max-width: 72ch;
+}
+/* "CMI-RewardBench" was breaking after its hyphen and continuing on the next
+   line as "RewardBench". A name is a unit; the middots are the break points. */
+.ack-list a {
+  white-space: nowrap;
+  color: var(--accent-ink);
+  font-weight: 500;
+}
+.ack-list a:hover { text-decoration: underline; }
+
+.ack-ask {
+  font-size: 0.95rem;
+  color: #4a4a55;
+}
+
+/* ---------- focus, motion, landmarks ---------- */
+
+/* Bulma kills the native outline and substitutes a 1.59:1 box-shadow, which is
+   invisible. These four buttons are the most important links on the page, so
+   they get a real ring. :focus-visible, so a mouse click does not draw one. */
+a:focus-visible,
+button:focus-visible,
+.button:focus-visible,
+[tabindex]:focus-visible,
+video:focus-visible {
+  outline: 3px solid #0f6cbd;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+/* The badge sits on unpredictable video pixels, so a single ring can vanish
+   against a bright frame. White inner, blue outer, survives any background. */
+.sound-badge:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -1px;
+  box-shadow: 0 0 0 5px #0f6cbd;
+}
+/* The carousel arrows and dots are bare divs from the vendored library, so they
+   have no focus style of their own at all. */
+.slider-navigation-previous:focus-visible,
+.slider-navigation-next:focus-visible,
+.slider-page:focus-visible {
+  outline: 3px solid #0f6cbd;
+  outline-offset: 2px;
+}
+/* SC 2.5.8 wants a 24x24 target. Keep the 10px dot, grow the hit area. */
+.slider-page {
+  min-width: 24px;
+  min-height: 24px;
+  background-clip: content-box;
+  padding: 7px;
+  box-sizing: border-box;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: #fff;
+  color: #0c6ba9;
+  font-weight: 600;
+  border: 2px solid #0f6cbd;
+  border-radius: 0 0 4px 0;
+}
+.skip-link:focus { left: 0; }
+
+/* Roughly 20 clips start themselves as you scroll, and the banner loops
+   forever. Someone who has asked the OS for less motion should get none of it:
+   index.js also disables the play observer under this query, so every clip
+   rests on its poster with the badge as the control. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* the vendored carousel scales its arrows and dots on hover */
+  .slider-navigation-previous:hover,
+  .slider-navigation-next:hover,
+  .slider-page:hover { transform: none; }
+}
+
+/* A blocked font request should not change the metrics of the badge, which is
+   sized right at the 24px target minimum. */
+.model-name, .sound-badge, .title-lockup span {
+  font-family: 'Google Sans', 'Noto Sans', -apple-system, BlinkMacSystemFont,
+               'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+.sound-badge { padding: 8px 13px; }
+
+/* ---------- design system ---------- */
+
+/* Bulma trap, and the loudest "not designed" signal on the page: inside a
+   tinted hero it sets .title to rgba(0,0,0,.7) and .subtitle to rgba(0,0,0,.9),
+   so the heading hierarchy literally inverted on every other section. */
+.title,
+.hero.is-light .title { color: #17171b; }
+.subtitle,
+.hero.is-light .subtitle { color: #4a4a55; }
+.hero.is-light a:not(.button),
+.hero.is-light strong { color: revert; }
+
+/* Measure. Prose ran to 145 characters per line in the Method section and 102
+   in the Abstract, against a 60-80 target. The one block that was already
+   right (.cmp-hero .prompt-text, 62ch) shows the technique was known. */
+.content p,
+.table-note,
+.bibtex-note,
+.ack-list,
+.ack-ask,
+.footer .content p {
+  max-width: 68ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+.method-col .content { max-width: 68ch; margin: 0 auto; }
+.method-col .content p { line-height: 1.65; }
+.subtitle {
+  max-width: 64ch;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+/* Justified text at 100+ characters without hyphenation produces visible
+   rivers. <html lang="en"> is now set, so hyphenation can actually run. */
+.content.has-text-justified,
+.prompt-text { hyphens: auto; -webkit-hyphens: auto; }
+
+/* One accent doing every "this is VIBE" job. The page had purple in the tables
+   and Bulma blue in the media sections meaning exactly the same thing. Purple
+   is also what the logo and wordmark actually are, and it measures 8.3:1 on
+   white against the blue's 3:1. */
+:root {
+  --accent:      #5b3a9b;
+  --accent-ink:  #4a2f80;
+  --accent-tint: #f3effb;
+  --accent-line: #cdbde9;
+}
+/* the venue pill is also an <a> inside this block, and it sets its own
+   colour, so it has to be excluded rather than fought with !important */
+.publication-authors a:not(.publication-venue) { color: var(--accent-ink) !important; }
+.model-col.is-ours .model-name,
+.mel-row.is-ours .model-name,
+.ours-tag { color: var(--accent-ink); }
+.model-col.is-ours video,
+.loopvid-wrap.audio-on video { outline-color: var(--accent); }
+.cond-badge.cond-vt {
+  color: var(--accent-ink);
+  background: var(--accent-tint);
+  border-color: var(--accent-line);
+}
+.sound-badge:hover { background: var(--accent); }
+
+/* The venue was Bulma's danger red at 1.25rem bold: an error banner, not news. */
+/* Red, as asked. Not the template's #ff3860 though: this text is 13px bold,
+   which is below the large-text threshold, and #ff3860 measures 3.51:1 on
+   white. #c81e3c is the same hue family and measures 5.13:1 on the tint. */
+/* Plain red line, no pill. Not the template's #ff3860: this runs at 15px bold,
+   below the large-text threshold, and #ff3860 is 3.51:1 on white. #c81e3c is
+   the same hue family at 5.67:1. */
+.publication-venue {
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #c81e3c;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+.publication-venue:hover { color: #9e0f2d; text-decoration: underline; }
+
+/* One vertical rhythm. Section gaps ran 56, 96, 72, 48, 72, 72, 72, 96, 96, 96
+   because .section, .hero > .hero-body and .hero.is-small > .hero-body all
+   carried different padding and adjacent ones stacked. */
+section.section,
+.hero > .hero-body,
+.hero.is-small > .hero-body {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+.banner-section { padding-top: 0.5rem; padding-bottom: 4.5rem; }
+
+/* Sub-heads sat at the same 1.25rem as the lead paragraph above them, so there
+   was no size step at that level, only weight. */
+.sub-head {
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+.sub-head::before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 0.78em;
+  margin-right: 0.6em;
+  vertical-align: -0.02em;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* Tables set like a paper's: a rule above, a rule under the header, a rule
+   below, and nothing in between. There were 12 interior hairlines and no top
+   rule at all, so each table floated free of its own heading. */
+.restable {
+  border-top: 2px solid #17171b;
+  border-bottom: 2px solid #17171b;
+  font-size: 0.9375rem;
+}
+.restable thead th { border-bottom: 1px solid #c9c9d2; padding-top: 0.9rem; }
+.restable tbody tr { border-bottom: 0; }
+.restable tbody tr:hover { background: #fbfbfc; }
+.restable th, .restable td { padding: 0.6rem 0.8rem; }
+.restable tr.ours th[scope="row"] { box-shadow: inset 3px 0 0 var(--accent); }
+.restable tr.grp th {
+  text-align: left;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  padding-top: 1.4rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 0;
+}
+
+/* Win rates were a 34px gradient chip: 54% and 84% differed by 10px, and the
+   50% break-even the note asks the reader to look for was not marked at all. */
+.winrate span {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  width: 8.5rem;
+  padding: 0.22rem 0.55rem;
+  background: linear-gradient(to right, #ded0f4 var(--w), #f4f4f6 var(--w));
+  box-shadow: inset 0 0 0 1px #e4e4ea;
+  font-weight: 600;
+  color: #17171b;
+}
+.winrate span::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 0; bottom: 0;
+  width: 1px;
+  background: #c9c9d2;
+}
+@media screen and (max-width: 768px) { .winrate span { width: 6rem; } }
+
+/* The carousel dots sat on top of the badge row, all one colour, with the
+   active state signalled only by scale(1.4) so they touched their neighbours. */
+#comparison-carousel, #if-carousel { padding-bottom: 2.5rem; }
+.slider-pagination { bottom: -0.5rem !important; }
+.slider-pagination .slider-page {
+  background: #c9c9d2;
+  transition: background .2s ease;
+}
+.slider-pagination .slider-page.is-active {
+  background: var(--accent);
+  transform: none;
+}
+.slider-navigation-previous,
+.slider-navigation-next {
+  background-color: #fff !important;
+  border: 1px solid #e4e4ea !important;
+  box-shadow: 0 1px 3px rgba(23, 23, 27, 0.08);
+}
+
+/* The mobile carousel padding was smaller than the 42px arrows it exists to
+   clear, so they overlapped the clips by 8px on every phone. */
+@media screen and (max-width: 768px) {
+  .results-carousel .item { padding: 10px 44px; }
+}
+
+html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 1.5rem; }
+
+/* Bulma's `.content h2` is (0,1,1) and beats a bare `.title`, so the two
+   headings that live inside a .content block kept the old grey. */
+.content .title,
+.content h2.title { color: #17171b; }
+
+/* ---------- section nav and bibtex copy ---------- */
+
+.vibe-nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(1.6) blur(10px);
+  -webkit-backdrop-filter: saturate(1.6) blur(10px);
+  border-bottom: 1px solid #e4e4ea;
+}
+.vibe-nav-inner {
+  max-width: 1152px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 3.25rem;
+  padding: 0 1.5rem;
+}
+.vibe-nav-brand {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #17171b;
+}
+.vibe-nav-links { display: flex; gap: 1.4rem; margin-left: auto; }
+.vibe-nav-links a {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #6b6b6b;
+  padding: 0.35rem 0;
+  border-bottom: 2px solid transparent;
+}
+.vibe-nav-links a:hover,
+.vibe-nav-links a.is-current {
+  color: #17171b;
+  border-bottom-color: var(--accent);
+}
+.vibe-nav-cta {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #fff;
+  background: #17171b;
+  border-radius: 999px;
+  padding: 0.4rem 0.95rem;
+}
+.vibe-nav-cta:hover { background: var(--accent); color: #fff; }
+@media screen and (max-width: 900px) {
+  .vibe-nav-links { display: none; }
+  .vibe-nav-cta { margin-left: auto; }
+}
+/* the sticky bar would otherwise cover the heading it just jumped to */
+section[id], h2[id] { scroll-margin-top: 4.5rem; }
+
+.bibtex-block { position: relative; }
+.bibtex-copy {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  background: #fff;
+  border: 1px solid #e4e4ea;
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s;
+}
+.bibtex-copy:hover { color: var(--accent-ink); border-color: var(--accent-line); }
+.bibtex-copy.is-done { color: #fff; background: var(--accent); border-color: var(--accent); }
+
+/* The abstract reads as the page's opening statement, so it gets a wider
+   measure than body prose. Still capped: a single paragraph running the full
+   1152px would be ~145 characters a line, which is where the Method section
+   was before. */
+.abstract-body,
+.abstract-body p { max-width: 92ch; margin-left: auto; margin-right: auto; }
+
+/* ---------- video cards, after the public page ---------- */
+
+/* The public page reflows its clips with minmax() instead of Bulma's fixed
+   column modifiers, which is why it survives every viewport between phone and
+   desktop without a breakpoint for each. Same approach here: the row fits as
+   many 170px cards as it can and stretches them to fill. */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 14px;
+  margin-top: 0.25rem;
+}
+@media screen and (max-width: 768px) {
+  /* The carousel keeps 44px of side padding to hold its arrows off the clips,
+     so a slide on a 390px phone has 244px of usable width. 132px could only
+     fit one column in that; 112px fits two, which is what keeps the baseline
+     row a row rather than a five-card tower. */
+  .video-grid { grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: 8px; }
+  .video-grid .model-col .model-label { padding: 7px 8px 9px; }
+}
+
+/* Card treatment, so a baseline clip reads as an object rather than as a
+   floating rectangle, and so the "ours" card is distinguished by the card and
+   not only by a ring on the video. */
+.video-grid .model-col {
+  padding: 0;
+  border: 1px solid #e4e4ea;
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.video-grid .model-col:hover {
+  border-color: var(--accent-line);
+  box-shadow: 0 2px 10px rgba(23, 23, 27, 0.07);
+  transform: translateY(-2px);
+}
+.video-grid .model-col .loopvid-wrap { border-radius: 0; }
+.video-grid .model-col .model-label { padding: 9px 11px 11px; }
+
+/* The badge was a wide pill with a text label sitting across the clip. The
+   public page uses a small circular glyph in the corner, which leaves the
+   frame readable. Text stays for screen readers via aria-label. */
+.sound-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  left: auto;
+  bottom: auto;
+  z-index: 4;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 100px;
+  background: rgba(20, 18, 15, 0.58);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  transition: background .2s ease, transform .2s ease;
+}
+.sound-badge svg { width: 15px; height: 15px; }
+.sound-badge:hover { background: var(--accent); transform: scale(1.06); }
+/* the label is now carried by aria-label, not by visible text */
+.sound-badge span,
+.model-col.cmp-hero-card .sound-badge span,
+.banner-wrap .sound-badge span { display: none; }
+
+/* The banner is a wide hero frame rather than a card, so it keeps a labelled
+   pill: there is room, and it is the page's invitation to click anything. */
+.banner-wrap .sound-badge {
+  width: auto;
+  height: auto;
+  border-radius: 999px;
+  padding: 7px 13px;
+  gap: 6px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.banner-wrap .sound-badge span { display: inline; }
+
+/* Outline on the wrapper with a positive offset, the way the public page does
+   it. The wrapper clips its own contents but not its own outline, so this is
+   visible where an outline on the video was not. */
+.loopvid-wrap.audio-on {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.loopvid-wrap.audio-on video { outline: none; }
+.video-grid .model-col.is-ours { border-color: var(--accent); background: var(--accent-tint); }
+
+/* Google Sans everywhere. The template set it on headings only and left the
+   body on Noto Sans, so the page ran two typefaces that are close enough to
+   read as an inconsistency rather than as a pairing. */
+html, body, button, input, select, textarea,
+.title, .subtitle, .content, .restable, .table-note, .prompt-text,
+.model-name, .sound-badge, .vibe-nav, .publication-authors {
+  font-family: 'Google Sans', 'Noto Sans', -apple-system, BlinkMacSystemFont,
+               'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+/* the BibTeX block stays monospace, it is code */
+#BibTeX pre, #BibTeX code { font-family: 'Inconsolata', ui-monospace, SFMono-Regular,
+               Menlo, Consolas, monospace; }
+
+/* ---------- results charts ---------- */
+
+.metric-grid {
+  display: grid;
+  /* two columns at desktop rather than three: the bars need length to be
+     comparable, and three columns left a seventh card orphaned on its own row */
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 1.4rem 1.6rem;
+  margin: 1.1rem 0 0.75rem;
+}
+/* No full-width span for an odd last chart: stretching one chart to 1152px for
+   seven bars is exactly the sparseness this layout is trying to avoid. */
+.metric-card { margin: 0; }
+.metric-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  text-align: center;
+  gap: 0.4rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #17171b;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px solid #e4e4ea;
+}
+/* The direction arrow sits in parentheses immediately after the metric name,
+   so the name and the direction read as one label rather than as two things at
+   opposite ends of the header. */
+.metric-dir {
+  color: #6b6b6b;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.bar-row {
+  display: grid;
+  grid-template-columns: 1.1rem 6.2rem 1fr 4rem;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.2rem 0;
+}
+.bar-rank {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #a6a6b2;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.bar-row.is-top .bar-rank { color: var(--accent); }
+.bar-row.is-top .bar-name { color: #17171b; font-weight: 600; }
+.bar-name { font-size: 0.76rem; color: #4a4a55; white-space: nowrap; }
+.bar-val {
+  font-size: 0.76rem;
+  color: #6b6b6b;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.bar-track {
+  height: 9px;
+  border-radius: 999px;
+  background: #eeeef2;
+  overflow: hidden;
+}
+.bar-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #d5d5dd, #b9b9c6);
+  /* the bars grow when the card scrolls into view, staggered by nothing more
+     than the browser's own paint order, which is enough to read as motion */
+  transition: width 900ms cubic-bezier(.22, 1, .36, 1);
+}
+.reveal.in-view .bar-fill { width: var(--w); }
+.bar-row.is-ours .bar-name { color: var(--accent-ink); font-weight: 700; }
+.bar-row.is-ours .bar-val { color: var(--accent-ink); font-weight: 700; }
+.bar-row.is-ours .bar-fill { background: linear-gradient(90deg, #7b57c4, var(--accent)); }
+
+/* Reveal-on-scroll, the same idea both reference pages use.
+   Deliberately inverted: the hidden state only exists once JS has added
+   .js-reveal to <html>, so a script that fails to run leaves every card
+   visible rather than leaving the Results section blank. */
+.reveal { opacity: 1; transform: none; }
+.bar-fill { width: var(--w); }
+
+html.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+html.js-reveal .reveal.in-view { opacity: 1; transform: none; }
+html.js-reveal .bar-fill { width: 0; }
+html.js-reveal .reveal.in-view .bar-fill { width: var(--w); }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js-reveal .reveal { opacity: 1; transform: none; transition: none; }
+  .bar-fill, html.js-reveal .bar-fill { width: var(--w); transition: none; }
+}
+
+.table-fold { margin: 0.5rem 0 0; }
+.table-fold > summary {
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  padding: 0.4rem 0;
+}
+.table-fold > summary:hover { color: var(--accent-ink); }
+
+/* ---------- win-rate matrix ---------- */
+
+.matrix { margin: 1.25rem 0 0.5rem; }
+.mx-tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
+.mx-tab {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #6b6b6b;
+  background: #fff;
+  border: 1px solid #e4e4ea;
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  cursor: pointer;
+  transition: color .15s, background .15s, border-color .15s;
+}
+.mx-tab:hover { color: var(--accent-ink); border-color: var(--accent-line); }
+.mx-tab.is-on { color: #fff; background: var(--accent); border-color: var(--accent); }
+/* Was display:none plus an .is-on toggle, back when the four criteria sat
+   behind a tab strip. All four are shown at once now, so the panels are just
+   grid cells. */
+.mx-panel { display: block; }
+
+.mx-table {
+  border-collapse: separate;
+  border-spacing: 3px;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+.mx-table th {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #6b6b6b;
+  white-space: nowrap;
+}
+.mx-table thead th { padding: 0 0 0.3rem; text-align: center; }
+.mx-corner {
+  text-align: left !important;
+  font-style: italic;
+  font-weight: 500;
+  color: #9a9aa5 !important;
+}
+.mx-table tbody th { text-align: right; padding-right: 0.5rem; color: #35353d; }
+.mx-table tr.is-ours th { color: var(--accent-ink); font-weight: 700; }
+.mx-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.74rem;
+  color: #6b6b6b;
+  margin-top: 0.8rem;
+}
+.mx-key { display: inline-block; width: 15px; height: 15px; border-radius: 4px; margin-left: 0.7rem; }
+.mx-key:first-child { margin-left: 0; }
+
+@media screen and (max-width: 768px) {
+  .metric-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+  .bar-row { grid-template-columns: 4.6rem 1fr 3rem; }
+  .mx-cell { width: 2.5rem; height: 1.9rem; font-size: 0.72rem; }
+}
+
+/* The vendor CSS hides the pagination below 800px, so on a phone there was
+   nothing telling you which of six samples you were on. */
+.slider-pagination { display: flex !important; }
+
+/* ---------- instruction following, after the public page ---------- */
+
+.if-samples { display: flex; flex-direction: column; gap: 1.4rem; margin-top: 1.5rem; }
+.if-sample {
+  display: grid;
+  grid-template-columns: 248px 1fr;
+  gap: 1.75rem;
+  align-items: start;
+  border: 1px solid #e4e4ea;
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+.if-source-col { position: sticky; top: 4.5rem; text-align: left; }
+.if-source-col .loopvid-wrap { border-radius: 6px; margin: 0.4rem 0 0.55rem; }
+.if-variants {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.if-variant {
+  border: 1px solid #e4e4ea;
+  background: #fafafc;
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-align: left;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.if-variant:hover {
+  border-color: var(--accent-line);
+  box-shadow: 0 2px 10px rgba(23, 23, 27, 0.07);
+  transform: translateY(-2px);
+}
+.if-variant .loopvid-wrap { border-radius: 6px; }
+.if-variant .prompt-text {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: #4a4a55;
+  max-width: none;
+  margin: 0;
+}
+.emotion-chip {
+  align-self: flex-start;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 3px 12px;
+  border-radius: 100px;
+}
+/* one colour per instruction type, so the same instruction is recognisable
+   across samples at a glance */
+.chip-sad          { background: #4272c9; }
+.chip-love         { background: #c94a83; }
+.chip-happy        { background: #b47d10; }
+.chip-motivational { background: #c2432f; }
+.chip-tempo        { background: var(--accent); }
+
+@media screen and (max-width: 900px) {
+  .if-sample { grid-template-columns: 1fr; gap: 1.1rem; padding: 1rem; }
+  .if-source-col { position: static; max-width: 320px; }
+  .if-variants { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.7rem; }
+}
+
+/* ---------- clip stills ---------- */
+
+/* The poster is a layer of its own beneath the video, so it survives playback
+   starting. Sequence: inline 16px blur (already painted with the HTML) ->
+   poster fades in -> video crossfades in once it has decoded a frame. */
+.clip-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  transition: opacity .35s ease;
+  z-index: 0;
+}
+.loopvid-wrap.poster-on .clip-poster { opacity: 1; }
+
+.loopvid-wrap > video {
+  position: relative;
+  z-index: 1;
+  transition: opacity .3s ease;
+}
+/* Only a wrapper that actually has a poster layer behind it may hide its
+   video. Hiding unconditionally left the banner invisible until it was
+   clicked: it carries a native poster attribute rather than data-poster, so
+   it never gets a .clip-poster layer and never received .video-on. */
+.loopvid-wrap.has-poster > video { opacity: 0; }
+.loopvid-wrap.has-poster > video[controls],
+.loopvid-wrap.has-poster.video-on > video,
+.loopvid-wrap.has-poster.audio-on > video { opacity: 1; }
+
+.loopvid-wrap.clip-failed .clip-poster { opacity: 1; filter: grayscale(1); }
+.loopvid-wrap.clip-failed::after {
+  content: "Clip unavailable";
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 3;
+  padding: 5px 8px;
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(20, 18, 15, 0.72);
+}
+
+.metric-foot {
+  margin: 0.6rem 0 0;
+  font-size: 0.68rem;
+  color: #8a8a96;
+  letter-spacing: 0.02em;
+}
+.metric-name { letter-spacing: 0.09em; }
+/* the winner's bar gets the accent even when it is not VIBE, so the chart is
+   not colour-coded to flatter one system */
+.bar-row.is-top .bar-fill { background: linear-gradient(90deg, #9d86d2, #6f4fb0); }
+.bar-row.is-ours .bar-fill { background: linear-gradient(90deg, #7b57c4, var(--accent)); }
+
+/* Notes belong under the chart they describe, not centred in the section. */
+#results .table-note,
+#results .bibtex-note { margin-left: 0; margin-right: 0; }
+
+@media screen and (max-width: 768px) {
+  .metric-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .bar-row { grid-template-columns: 1rem 4.8rem 1fr 3.4rem; gap: 0.4rem; }
+}
+
+/* ---------- table alignment, reclaimed from Bulma ---------- */
+
+/* Bulma ships:
+     table td:not([align]), table th:not([align]) { text-align: inherit }
+   at specificity (0,1,2). That outranks `.restable td` (0,1,1) and `.mx-cell`
+   (0,1,0), so every alignment set above was being thrown away silently: the
+   result figures inherited left instead of sitting right, and every matrix
+   number sat at the left edge of its own coloured cell instead of centred.
+   Qualifying each selector with the element takes these to (0,2,1), which
+   wins outright. */
+table.restable td,
+table.restable th { text-align: right; }
+table.restable thead th:first-child,
+table.restable tbody th[scope="row"],
+table.restable tr.grp th { text-align: left; }
+table.restable.curriculum td { text-align: left; }
+table.restable.curriculum td.stage-size { text-align: right; }
+
+table.mx-table td,
+table.mx-table thead th { text-align: center; }
+table.mx-table tbody th { text-align: right; }
+table.mx-table th.mx-corner { text-align: left; }
+
+/* ---------- column charts with a real y axis ---------- */
+
+.chart {
+  display: grid;
+  grid-template-columns: 2.3rem 1fr;
+  grid-template-rows: 124px auto;
+  margin-top: 0.7rem;
+}
+.y-axis { position: relative; }
+.y-tick {
+  position: absolute;
+  right: 0.4rem;
+  bottom: var(--p);
+  transform: translateY(50%);
+  font-size: 0.58rem;
+  color: #8a8a96;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.plot {
+  position: relative;
+  border-left: 1px solid #dcdce4;
+  border-bottom: 1px solid #b9b9c6;
+  /* gridlines at the same quarters as the ticks, so the eye can read a value
+     off a bar without tracing back to the axis */
+  background-image: repeating-linear-gradient(
+    to top, #eeeef2 0 1px, transparent 1px 25%);
+}
+.vbars {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  padding: 0 3px;
+}
+.vbar {
+  flex: 1 1 0;
+  min-width: 0;
+  height: var(--h);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.vbar-col {
+  position: absolute;
+  inset: 0;
+  margin: 0 auto;
+  width: 92%;
+  /* capped so the three-bar instruction charts do not become slabs */
+  max-width: 44px;
+  background: var(--c);
+  border-radius: 3px 3px 0 0;
+}
+.vbar-val {
+  position: absolute;
+  bottom: 100%;
+  margin-bottom: 2px;
+  font-size: 0.57rem;
+  color: #6b6b6b;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.vbar.is-top .vbar-val { color: #17171b; font-weight: 700; }
+.vbar.is-top .vbar-col { box-shadow: 0 0 0 2px rgba(23, 23, 27, 0.16); }
+
+.x-axis {
+  grid-column: 2;
+  display: flex;
+  gap: 3px;
+  padding: 5px 3px 0;
+}
+.vbar-name {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+  font-size: 0.56rem;
+  line-height: 1.2;
+  color: #6b6b6b;
+  overflow-wrap: anywhere;
+}
+.vbar-name.is-top { color: #17171b; font-weight: 600; }
+
+/* the whole chart grows out of the axis when it scrolls into view */
+html.js-reveal .vbar { height: 0; transition: height 900ms cubic-bezier(.22, 1, .36, 1); }
+html.js-reveal .reveal.in-view .vbar { height: var(--h); }
+@media (prefers-reduced-motion: reduce) {
+  html.js-reveal .vbar { height: var(--h); transition: none; }
+}
+
+.metric-grid.is-triple { grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+
+
+/* ---------- win-rate matrices, all four at once ---------- */
+
+.mx-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(430px, 1fr));
+  gap: 1.75rem 2rem;
+  margin-top: 1rem;
+}
+.mx-panel { margin: 0; }
+.mx-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #17171b;
+  padding-bottom: 0.45rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #e4e4ea;
+}
+
+/* Single red ramp keyed to the win rate, as in the paper's own tables. */
+.mx-cell {
+  width: 2.9rem;
+  height: 2rem;
+  border-radius: 4px;
+  color: #17171b;
+  background: rgba(165, 15, 21, var(--a));
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.mx-cell.is-dark { color: #fff; }
+.mx-cell span { position: relative; font-weight: 600; }
+.mx-cell:hover { transform: scale(1.12); box-shadow: 0 2px 10px rgba(23, 23, 27, .22); z-index: 2; }
+
+.mx-key { width: 22px; height: 14px; border-radius: 3px; margin: 0; }
+.mx-k1 { background: rgba(165, 15, 21, 0.10); }
+.mx-k2 { background: rgba(165, 15, 21, 0.30); }
+.mx-k3 { background: rgba(165, 15, 21, 0.50); }
+.mx-k4 { background: rgba(165, 15, 21, 0.70); }
+.mx-k5 { background: rgba(165, 15, 21, 0.90); }
+/* Was a grid whose first cell was meant to be the words "win rate". Those were
+   a bare text node, so they became an anonymous grid item that :first-child
+   could not select, and every column after it landed one place out. A single
+   flex row needs no column maths at all. */
+.mx-legend {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 1.1rem;
+  font-size: 0.72rem;
+  color: #6b6b6b;
+}
+.mx-legend-label {
+  font-weight: 600;
+  color: #35353d;
+  margin-right: 0.7rem;
+}
+.mx-scale { font-variant-numeric: tabular-nums; }
+.mx-scale:first-of-type { margin-right: 0.4rem; }
+.mx-scale:last-of-type { margin-left: 0.4rem; }
+
+@media screen and (max-width: 768px) {
+  .mx-grid { grid-template-columns: 1fr; }
+  .vbar-track { height: 106px; }
+  .vbar-name { font-size: 0.55rem; }
+  .vbar-val { font-size: 0.6rem; }
+}
+
+/* The diagonal: a model never competes against itself. A faint hatch reads as
+   "deliberately empty" where a blank cell reads as missing data. */
+.mx-self {
+  background: repeating-linear-gradient(45deg,
+    #fafafc, #fafafc 4px, #f0f0f4 4px, #f0f0f4 8px);
+  border-radius: 4px;
+}
+.mx-table thead abbr {
+  text-decoration: none;
+  border-bottom: 1px dotted #c9c9d2;
+  cursor: help;
+}
+
+/* Each separator is bound to the link after it, so a wrap never leaves a
+   middot stranded at the end of a line. */
+.ack-item { white-space: nowrap; }
+.ack-item + .ack-item { margin-left: 0; }
