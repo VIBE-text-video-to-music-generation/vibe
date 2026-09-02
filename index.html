@@ -1,537 +1,950 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>VIBE — Supplementary Materials</title>
-<meta name="description" content="Supplementary materials for VIBE: Video Instruction-aligned Background music gEneration." />
+  <meta charset="utf-8">
+  <!-- Link preview card: title, blurb, and static/images/social_preview.png -->
+  <meta name="description" content="VIBE is a text-and-video-to-music model that adds depth-wise cross-layer conditioning and reward modeling for controllable, instruction-following background music generation.">
+  <meta property="og:type" content="article"/>
+  <!-- Without og:site_name, Slack labels the card with the bare hostname. -->
+  <meta property="og:site_name" content="VIBE"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:title" content="VIBE: Video Instruction-aligned Background music gEneration"/>
+  <meta property="og:description" content="VIBE is a text-and-video-to-music model that adds depth-wise cross-layer conditioning and reward modeling for controllable, instruction-following background music generation."/>
+  <meta property="og:url" content="https://vibe-text-video-to-music-generation.github.io/vibe/"/>
+  <meta property="og:image" content="https://vibe-text-video-to-music-generation.github.io/vibe/static/images/social_preview.png"/>
+  <meta property="og:image:type" content="image/png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="VIBE: Video Instruction-aligned Background music gEneration. Findings of EMNLP 2026."/>
+  <meta property="article:published_time" content="2026-08-31"/>
+  <meta property="article:modified_time" content="2026-09-02"/>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <meta name="twitter:title" content="VIBE: Video Instruction-aligned Background music gEneration">
+  <meta name="twitter:description" content="VIBE is a text-and-video-to-music model that adds depth-wise cross-layer conditioning and reward modeling for controllable, instruction-following background music generation.">
+  <meta name="twitter:image" content="https://vibe-text-video-to-music-generation.github.io/vibe/static/images/social_preview.png">
+  <meta name="twitter:image:alt" content="VIBE: Video Instruction-aligned Background music gEneration. Findings of EMNLP 2026.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="video-to-music generation, text-and-video-to-music, T+V2M, instruction following, background music generation, diffusion autoregressive, preference optimization, multimodal alignment">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="theme-color" content="#5b3a9b">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="styles/main.css" />
+  <!-- Google Scholar indexing -->
+  <meta name="citation_title" content="VIBE: Video Instruction-aligned Background music gEneration">
+  <meta name="citation_author" content="Bhosale, Aryan Vijay">
+  <meta name="citation_author" content="Lokegaonkar, Vaibhavi">
+  <meta name="citation_author" content="Raj, Vishnu">
+  <meta name="citation_author" content="KV, Gouthaman">
+  <meta name="citation_author" content="Ghosh, Sreyan">
+  <meta name="citation_author" content="Duraiswami, Ramani">
+  <meta name="citation_author" content="Lu, Lie">
+  <meta name="citation_author" content="Manocha, Dinesh">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_online_date" content="2026/08/31">
+  <!-- citation_conference_title, not citation_journal_title: this is the tag
+       and the exact string form the ACL Anthology itself uses for Findings. -->
+  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: EMNLP 2026">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <!-- Scholar wants citation_pdf_url to sit in the same directory as the page
+       declaring it, so this cross-domain arXiv link will not satisfy its
+       crawler. It is still the right link for Zotero, Mendeley and Semantic
+       Scholar, which is where the tags actually earn their keep. Mirror the
+       camera-ready beside index.html to satisfy Scholar too. -->
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2608.30125">
+  <meta name="citation_abstract_html_url" content="https://vibe-text-video-to-music-generation.github.io/vibe/">
+  <meta name="citation_arxiv_id" content="2608.30125">
+  <meta name="citation_language" content="en">
+  <meta name="citation_keywords" content="video-to-music generation, text-and-video-to-music, T+V2M, instruction following, background music generation, diffusion autoregressive, preference optimization, multimodal alignment">
+
+  <title>VIBE: Video Instruction-aligned Background music gEneration</title>
+  <!-- GitHub Pages serves this at both /vibe/ and /vibe/index.html. -->
+  <link rel="canonical" href="https://vibe-text-video-to-music-generation.github.io/vibe/">
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico" sizes="16x16 32x32 48x48 64x64">
+  <link rel="apple-touch-icon" sizes="180x180" href="static/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans&display=swap"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/index.css?v=f971331c">
+
+  <!-- defer, so the parser is never stopped: these run in order, before
+       DOMContentLoaded, which is all index.js needs. bulma-slider is gone
+       because the page has no range inputs, and jQuery is gone because its
+       only use was one $(document).ready. -->
+  <script defer src="static/js/bulma-carousel.min.js?v=aad3a8f2"></script>
+  <script defer src="static/js/index.js?v=fb3b4fee"></script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main">
 
-<nav class="nav">
-  <div class="container nav-inner">
-    <div class="nav-brand">VIBE<span class="accent">.</span></div>
-    <ul class="nav-links">
-      <li><a href="#comparison">Comparison</a></li>
-      <li><a href="#instruction-following">Instruction Following</a></li>
-      <li><a href="#mel-comparison">Mel-spectrograms</a></li>
-    </ul>
+<!-- Section nav. The page is ~10 screens tall; without this the only route to
+     the results is scrolling past 50 clips. -->
+<nav class="vibe-nav" aria-label="Sections">
+  <div class="vibe-nav-inner">
+    <span class="vibe-nav-brand">VIBE</span>
+    <div class="vibe-nav-links">
+      <a href="#h-abstract">Abstract</a>
+      <a href="#h-comparison">Comparison</a>
+      <a href="#h-instruction">Instruction following</a>
+      <a href="#h-method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#BibTeX">BibTeX</a>
+    </div>
+    <a class="vibe-nav-cta" href="https://arxiv.org/abs/2608.30125" target="_blank" rel="noopener">Paper</a>
   </div>
 </nav>
 
-<header class="header">
-  <div class="container reveal">
-    <div class="hero-row">
-      <img class="hero-logo" src="assets/vibe_logo.png" alt="VIBE logo" />
-      <h1>VIBE: Video Instruction-aligned Background music gEneration.</h1>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title title-lockup"><picture><source srcset="static/images/vibe_logo.webp" type="image/webp"><img src="static/images/vibe_logo.png" alt="" class="title-logo" width="288" height="288" fetchpriority="high"></picture><span>VIBE: Video Instruction-aligned Background music gEneration</span></h1>
+          <div class="is-size-5 publication-authors">
+            <!-- TODO: add personal links in AUTHORS to make these names clickable -->
+            <span class="author-block">Aryan Vijay Bhosale<sup>1,*</sup>,</span>
+            <span class="author-block">Vaibhavi Lokegaonkar<sup>1,*</sup>,</span>
+            <span class="author-block">Vishnu Raj<sup>2</sup>,</span>
+            <span class="author-block">Gouthaman KV<sup>2</sup>,</span>
+            <span class="author-block">Sreyan Ghosh<sup>1</sup>,</span>
+            <span class="author-block">Ramani Duraiswami<sup>1</sup>,</span>
+            <span class="author-block">Lie Lu<sup>2</sup>,</span>
+            <span class="author-block">Dinesh Manocha<sup>1</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of Maryland, College Park, USA&nbsp;&nbsp; <sup>2</sup>Dolby Laboratories, USA</span>
+            <span class="eql-cntrb"><small><br><sup>*</sup>Equal Contribution</small></span>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="margin-top:0.4rem">
+            <span class="author-block"><a href="mailto:aryan.vi.bhosale@gmail.com">aryan.vi.bhosale@gmail.com</a>, <a href="mailto:vaibhavilokegaonkar@gmail.com">vaibhavilokegaonkar@gmail.com</a></span>
+          </div>
+
+          <div class="publication-authors" style="margin-top:0.6rem">
+            <a class="publication-venue" href="https://2026.emnlp.org/" target="_blank" rel="noopener"><span aria-hidden="true">&#127881;</span> Accepted to Findings of EMNLP 2026</a>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2608.30125" target="_blank" rel="noopener"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><svg class="btn-icon" viewBox="0 0 384 512" aria-hidden="true"><path d="M369.9 97.9L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zM332.1 128H256V51.9l76.1 76.1zM48 464V48h160v104c0 13.3 10.7 24 24 24h104v288H48zm250.2-143.7c-12.2-12-47-8.7-64.4-6.5-17.2-10.5-28.7-25-36.8-46.3 3.9-16.1 10.1-40.6 5.4-56-4.2-26.2-37.8-23.6-42.6-5.9-4.4 16.1-.4 38.5 7 67.1-10 23.9-24.9 56-35.4 74.4-20 10.3-47 26.2-51 46.2-3.3 15.8 26 55.2 76.1-31.2 22.4-7.4 46.8-16.5 68.4-20.1 18.9 10.2 41 17 55.8 17 25.5 0 28-28.2 17.5-38.7zm-198.1 77.8c5.1-13.7 24.5-29.5 30.4-35-19 30.3-30.4 35.7-30.4 35zm81.6-190.6c7.4 0 6.7 32.1 1.8 40.8-4.4-13.9-4.3-40.8-1.8-40.8zm-24.4 136.6c9.7-16.9 18-37 24.7-54.7 8.3 15.1 18.9 27.2 30.1 35.5-20.8 4.3-38.9 13.1-54.8 19.2zm131.6-5s-5 6-37.3-7.8c35.1-2.6 40.9 5.4 37.3 7.8z"/></svg></span>
+                <span>Paper</span>
+              </a>
+            </span>
+
+            <span class="link-block">
+              <a href="https://arxiv.org/abs/2608.30125" target="_blank" rel="noopener"
+              class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><svg class="btn-icon" viewBox="0 0 512 512" aria-hidden="true"><path d="M446.4 78.9H304.6L201.9 224.4 122 110.5c-4.7-6.7-8.2-9.9-16.7-9.9H65.6c-8.9 0-13 5.9-8.1 12.9l106 150.4L52.9 428.6c-4.9 7-1 12.9 8 12.9h39.7c8.5 0 12-3.2 16.7-9.9l84.6-120.5 84.6 120.5c4.7 6.7 8.2 9.9 16.7 9.9h39.7c8.9 0 12.9-5.9 8-12.9L239.2 263.9 446.4 78.9z"/></svg></span>
+              <span>arXiv</span>
+            </a>
+          </span>
+
+          <span class="link-block">
+            <a href="https://github.com/aryanvibhosale/vibe" target="_blank" rel="noopener"
+            class="external-link button is-normal is-rounded is-dark">
+            <span class="icon"><svg class="btn-icon" viewBox="0 0 496 512" aria-hidden="true"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"/></svg></span>
+            <span>Code</span>
+          </a>
+        </span>
+
+        <span class="link-block">
+          <a href="https://huggingface.co/aryanvibhosale/vibe" target="_blank" rel="noopener"
+          class="external-link button is-normal is-rounded is-dark">
+          <span class="icon"><span class="btn-emoji" aria-hidden="true">🤗</span></span>
+          <span>Checkpoint</span>
+        </a>
+      </span>
+      </div>
     </div>
   </div>
-</header>
-
-<!-- architecture -->
-<div class="container reveal arch-wrap">
-  <img class="vibe-arch" src="assets/main_arch.png" alt="VIBE model architecture" loading="lazy" decoding="async" />
 </div>
+</div>
+</div>
+</section>
 
-<!-- ============== COMPARISON ============== -->
-<section id="comparison">
-  <div class="container reveal">
-    <h2>Comparison with other state-of-the-art models</h2>
 
-    <div class="cmp-sample">
-      <div class="cmp-hero">
-        <div class="cmp-hero-card">
-        <div class="video-card ours">
-          <video src="samples/video_1/vibe.mp4" muted loop playsinline preload="none" data-loop></video>
-          <div class="video-meta">
-            <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
-            <span class="cond-badge cond-vt">Video + Text</span>
-          </div>
-        </div>
-        </div>
-        <div class="cmp-caption">
-          <div class="prompt-label">Caption</div>
-          <div class="prompt-text"><strong class="cap-hi">A dark, atmospheric Trap track</strong> at 150 BPM in B Minor, featuring a deep, resonant 808 bass, crisp trap drums with tight kicks, snappy snares, and rapid hi-hat rolls in a half-time feel, layered with moody synth pads and a haunting bell-like melody, evoking <strong class="cap-hi">a brooding, introspective mood</strong> that shifts from energetic momentum to subdued melancholy, rooted in a static, hypnotic B Minor tonal center with no chord changes, creating a searching, melancholic atmosphere that aligns with the dark trap sub-genre&#x27;s cinematic, urban aesthetic.</div>
-        </div>
-      </div>
-      <div class="video-grid cmp-others">
-        <div class="video-card">
-          <video src="samples/video_1/cmt.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">CMT</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_1/gvmgen.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">GVMGen</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_1/vidmuse.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">VidMuse</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_1/video2music.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">Video2Music</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_1/m2ugen.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">M2UGen</span>
-            <span class="cond-badge cond-generic">Generic text</span>
-          </div>
+<!-- Banner. Sits above the abstract on white, so the grey tint starts below it. -->
+<section class="section banner-section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="loopvid-wrap banner-wrap">
+          <video id="vibe-banner" class="banner-video"
+                 src="static/videos/vibe_banner.mp4"
+                 poster="static/videos/vibe_banner.jpg"
+                 muted loop playsinline preload="none" data-loop data-keep-loop
+                 aria-label="VIBE banner animation"></video>
         </div>
       </div>
     </div>
-    <div class="cmp-sample">
-      <div class="cmp-hero">
-        <div class="cmp-hero-card">
-        <div class="video-card ours">
-          <video src="samples/video_2/vibe.mp4" muted loop playsinline preload="none" data-loop></video>
-          <div class="video-meta">
-            <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
-            <span class="cond-badge cond-vt">Video + Text</span>
-          </div>
-        </div>
-        </div>
-        <div class="cmp-caption">
-          <div class="prompt-label">Caption</div>
-          <div class="prompt-text"><strong class="cap-hi">A high-energy Trap-Hip-Hop track</strong> at 93.75 BPM in F minor, featuring a deep, resonant 808 sub-bass, crisp trap drums with rapid hi-hat rolls, and a bright, melodic synth lead that carries the main hook, layered with a serene and awe-inspiring atmosphere that contrasts the energetic beat, evoking <strong class="cap-hi">a sense of wonder and tranquility</strong> while serving as an ambient backdrop to a nighttime spectacle, blending modern technological elements with universally accessible instrumentation.</div>
-        </div>
-      </div>
-      <div class="video-grid cmp-others">
-        <div class="video-card">
-          <video src="samples/video_2/cmt.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">CMT</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_2/gvmgen.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">GVMGen</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_2/vidmuse.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">VidMuse</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_2/video2music.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">Video2Music</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_2/m2ugen.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">M2UGen</span>
-            <span class="cond-badge cond-generic">Generic text</span>
-          </div>
+  </div>
+</section>
+<!-- End banner -->
+
+
+<!-- Abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-widescreen">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 id="h-abstract" class="title is-3">Abstract</h2>
+        <div class="content has-text-justified abstract-body">
+          <p>Current video-to-music (V2M) models lack semantic control and fail to penalize instruction violations, largely due to their reliance on reconstruction objectives and the representational bottleneck of static cross-modal conditioning in Diffusion Autoregressive (DAR) architectures. To resolve this, we introduce VIBE, a novel text-and-video-to-music (T+V2M) generation model that leverages: (1) Conditioning Connection, a depth-wise cross-layer conditioning mechanism that dynamically bridges the planning and diffusion refinement heads and (2) a comprehensive reward modeling taxonomy, optimizing for both hard, verifiable constraints (e.g., tempo, key) and soft, subjective qualities (e.g., musicality, multimodal alignment) with a structured 5-stage training curriculum. Upon evaluation using audio-visual alignment, instruction following, and audio quality metrics, along with a subjective human evaluation study, we observe that VIBE demonstrates enhanced controllability and instruction adherence while performing comparably to most evaluated baselines on generation fidelity and multimodal alignment.</p>
         </div>
       </div>
     </div>
-    <div class="cmp-sample">
-      <div class="cmp-hero">
-        <div class="cmp-hero-card">
-        <div class="video-card ours">
-          <video src="samples/video_3/vibe.mp4" muted loop playsinline preload="none" data-loop></video>
-          <div class="video-meta">
-            <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
-            <span class="cond-badge cond-vt">Video + Text</span>
+  </div>
+</section>
+<!-- End abstract -->
+
+
+<!-- Comparison with state of the art -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <h2 id="h-comparison" class="title is-3 has-text-centered">Comparison with state-of-the-art models</h2>
+      <div id="comparison-carousel" class="carousel results-carousel">
+        <div class="item">
+          <p class="sample-index">Sample 1 of 6</p>
+          <div class="columns cmp-hero">
+            <div class="column is-narrow">
+              <div class="columns is-mobile is-centered">
+            <div class="column cmp-hero-card model-col is-ours">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQMEBf/EACYQAAIBAgQFBQAAAAAAAAAAAAECAwARBBIxQQUTISKBFTJCYZH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAAL/xAAYEQEBAAMAAAAAAAAAAAAAAAAAEQESIf/aAAwDAQACEQMRAD8Asj528YHmmI+ZnXtzLqKMsixix0+TbChhp4nVyr36+azMHrHxU0006s8bZHBEa3sD90/DyIUzIhW3bYm+mtR8RxEnqfutluFtsKr4dGpw0ZPUkm/7TFtX/9k=')"><video src="samples/video_1/vibe.mp4" playsinline preload="none" data-poster="samples/video_1/vibe.jpg" muted loop data-loop aria-label="VIBE result"></video></div>
+              <div class="model-label">
+                <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
+                <span class="cond-badge cond-vt">Video + Text</span>
+              </div>
+            </div>
+              </div>
+            </div>
+            <div class="column">
+              <p class="prompt-label">Text prompt</p>
+              <p class="prompt-text"><strong class="cap-hi">A dark, atmospheric Trap track</strong> at 150 BPM in B Minor, featuring a deep, resonant 808 bass, crisp trap drums with tight kicks, snappy snares, and rapid hi-hat rolls in a half-time feel, layered with moody synth pads and a haunting bell-like melody, evoking <strong class="cap-hi">a brooding, introspective mood</strong> that shifts from energetic momentum to subdued melancholy, rooted in a static, hypnotic B Minor tonal center with no chord changes, creating a searching, melancholic atmosphere that aligns with the dark trap sub-genre&#x27;s cinematic, urban aesthetic.</p>
+            </div>
+          </div>
+          <p class="cmp-others-label">The same video scored by five other systems</p>
+          <div class="video-grid cmp-others">
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQMEBf/EACYQAAIBAgQFBQAAAAAAAAAAAAECAwARBBIxQQUTISKBFTJCYZH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAAL/xAAYEQEBAAMAAAAAAAAAAAAAAAAAEQESIf/aAAwDAQACEQMRAD8Asj528YHmmI+ZnXtzLqKMsixix0+TbChhp4nVyr36+azMHrHxU0006s8bZHBEa3sD90/DyIUzIhW3bYm+mtR8RxEnqfutluFtsKr4dGpw0ZPUkm/7TFtX/9k=')"><video src="samples/video_1/cmt.mp4" playsinline preload="none" data-poster="samples/video_1/cmt.jpg" controls aria-label="CMT result"></video></div>
+              <div class="model-label">
+                <span class="model-name">CMT</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQMEBf/EACYQAAIBAgQFBQAAAAAAAAAAAAECAwARBBIxQQUTISKBFTJCYZH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAAL/xAAYEQEBAAMAAAAAAAAAAAAAAAAAEQESIf/aAAwDAQACEQMRAD8Asj528YHmmI+ZnXtzLqKMsixix0+TbChhp4nVyr36+azMHrHxU0006s8bZHBEa3sD90/DyIUzIhW3bYm+mtR8RxEnqfutluFtsKr4dGpw0ZPUkm/7TFtX/9k=')"><video src="samples/video_1/gvmgen.mp4" playsinline preload="none" data-poster="samples/video_1/gvmgen.jpg" controls aria-label="GVMGen result"></video></div>
+              <div class="model-label">
+                <span class="model-name">GVMGen</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQMEBf/EACYQAAIBAgQFBQAAAAAAAAAAAAECAwARBBIxQQUTISKBFTJCYZH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAAL/xAAYEQEBAAMAAAAAAAAAAAAAAAAAEQESIf/aAAwDAQACEQMRAD8Asj528YHmmI+ZnXtzLqKMsixix0+TbChhp4nVyr36+azMHrHxU0006s8bZHBEa3sD90/DyIUzIhW3bYm+mtR8RxEnqfutluFtsKr4dGpw0ZPUkm/7TFtX/9k=')"><video src="samples/video_1/vidmuse.mp4" playsinline preload="none" data-poster="samples/video_1/vidmuse.jpg" controls aria-label="VidMuse result"></video></div>
+              <div class="model-label">
+                <span class="model-name">VidMuse</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQMEBf/EACYQAAIBAgQFBQAAAAAAAAAAAAECAwARBBIxQQUTISKBFTJCYZH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAAL/xAAYEQEBAAMAAAAAAAAAAAAAAAAAEQESIf/aAAwDAQACEQMRAD8Asj528YHmmI+ZnXtzLqKMsixix0+TbChhp4nVyr36+azMHrHxU0006s8bZHBEa3sD90/DyIUzIhW3bYm+mtR8RxEnqfutluFtsKr4dGpw0ZPUkm/7TFtX/9k=')"><video src="samples/video_1/video2music.mp4" playsinline preload="none" data-poster="samples/video_1/video2music.jpg" controls aria-label="Video2Music result"></video></div>
+              <div class="model-label">
+                <span class="model-name">Video2Music</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQMEBf/EACYQAAIBAgQFBQAAAAAAAAAAAAECAwARBBIxQQUTISKBFTJCYZH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAAL/xAAYEQEBAAMAAAAAAAAAAAAAAAAAEQESIf/aAAwDAQACEQMRAD8Asj528YHmmI+ZnXtzLqKMsixix0+TbChhp4nVyr36+azMHrHxU0006s8bZHBEa3sD90/DyIUzIhW3bYm+mtR8RxEnqfutluFtsKr4dGpw0ZPUkm/7TFtX/9k=')"><video src="samples/video_1/m2ugen.mp4" playsinline preload="none" data-poster="samples/video_1/m2ugen.jpg" controls aria-label="M2UGen result"></video></div>
+              <div class="model-label">
+                <span class="model-name">M2UGen</span>
+                <span class="cond-badge cond-generic">Generic text</span>
+              </div>
+            </div>
           </div>
         </div>
-        </div>
-        <div class="cmp-caption">
-          <div class="prompt-label">Caption</div>
-          <div class="prompt-text"><strong class="cap-hi">A dark, atmospheric electronic track</strong> at 76.9 BPM in C Major with a subtle lean toward minor tonalities, featuring evolving synth pads, a deep resonant synth bass, a sparse electronic drum pattern with soft kick, crisp snare, and subtle hi-hats, and a clean, immersive stereo mix that emphasizes gentle compression and dynamic breathing, conveying <strong class="cap-hi">an introspective and slightly ominous mood</strong> with a hypnotic, steady 4/4 groove that remains detached and non-synchronized, evoking late-night cityscapes and contemplative visual media through a minimalist, genre-blurring fusion of ambient-electronic and downtempo trip-hop sensibilities.</div>
-        </div>
-      </div>
-      <div class="video-grid cmp-others">
-        <div class="video-card">
-          <video src="samples/video_3/cmt.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">CMT</span>
-            <span class="cond-badge cond-video">Video-only</span>
+        <div class="item">
+          <p class="sample-index">Sample 2 of 6</p>
+          <div class="columns cmp-hero">
+            <div class="column is-narrow">
+              <div class="columns is-mobile is-centered">
+            <div class="column cmp-hero-card model-col is-ours">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAQQAAwb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgADBBETITEUIlFSkf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFhEBAQEAAAAAAAAAAAAAAAAAABEh/9oADAMBAAIRAxEAPwDLLTLHxCaRBwN5aqsRkQgd2+JYH7Sui2K0m6jcEEIoweYvdU7cINBK4I51AIhqP7H7IXY8sZNH/9k=')"><video src="samples/video_2/vibe.mp4" playsinline preload="none" data-poster="samples/video_2/vibe.jpg" muted loop data-loop aria-label="VIBE result"></video></div>
+              <div class="model-label">
+                <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
+                <span class="cond-badge cond-vt">Video + Text</span>
+              </div>
+            </div>
+              </div>
+            </div>
+            <div class="column">
+              <p class="prompt-label">Text prompt</p>
+              <p class="prompt-text"><strong class="cap-hi">A high-energy Trap-Hip-Hop track</strong> at 93.75 BPM in F minor, featuring a deep, resonant 808 sub-bass, crisp trap drums with rapid hi-hat rolls, and a bright, melodic synth lead that carries the main hook, layered with a serene and awe-inspiring atmosphere that contrasts the energetic beat, evoking <strong class="cap-hi">a sense of wonder and tranquility</strong> while serving as an ambient backdrop to a nighttime spectacle, blending modern technological elements with universally accessible instrumentation.</p>
+            </div>
+          </div>
+          <p class="cmp-others-label">The same video scored by five other systems</p>
+          <div class="video-grid cmp-others">
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAQQAAwb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgADBBETITEUIlFSkf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFhEBAQEAAAAAAAAAAAAAAAAAABEh/9oADAMBAAIRAxEAPwDLLTLHxCaRBwN5aqsRkQgd2+JYH7Sui2K0m6jcEEIoweYvdU7cINBK4I51AIhqP7H7IXY8sZNH/9k=')"><video src="samples/video_2/cmt.mp4" playsinline preload="none" data-poster="samples/video_2/cmt.jpg" controls aria-label="CMT result"></video></div>
+              <div class="model-label">
+                <span class="model-name">CMT</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAQQAAwb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgADBBETITEUIlFSkf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFhEBAQEAAAAAAAAAAAAAAAAAABEh/9oADAMBAAIRAxEAPwDLLTLHxCaRBwN5aqsRkQgd2+JYH7Sui2K0m6jcEEIoweYvdU7cINBK4I51AIhqP7H7IXY8sZNH/9k=')"><video src="samples/video_2/gvmgen.mp4" playsinline preload="none" data-poster="samples/video_2/gvmgen.jpg" controls aria-label="GVMGen result"></video></div>
+              <div class="model-label">
+                <span class="model-name">GVMGen</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAQQAAwb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgADBBETITEUIlFSkf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFhEBAQEAAAAAAAAAAAAAAAAAABEh/9oADAMBAAIRAxEAPwDLLTLHxCaRBwN5aqsRkQgd2+JYH7Sui2K0m6jcEEIoweYvdU7cINBK4I51AIhqP7H7IXY8sZNH/9k=')"><video src="samples/video_2/vidmuse.mp4" playsinline preload="none" data-poster="samples/video_2/vidmuse.jpg" controls aria-label="VidMuse result"></video></div>
+              <div class="model-label">
+                <span class="model-name">VidMuse</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAQQAAwb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgADBBETITEUIlFSkf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFhEBAQEAAAAAAAAAAAAAAAAAABEh/9oADAMBAAIRAxEAPwDLLTLHxCaRBwN5aqsRkQgd2+JYH7Sui2K0m6jcEEIoweYvdU7cINBK4I51AIhqP7H7IXY8sZNH/9k=')"><video src="samples/video_2/video2music.mp4" playsinline preload="none" data-poster="samples/video_2/video2music.jpg" controls aria-label="Video2Music result"></video></div>
+              <div class="model-label">
+                <span class="model-name">Video2Music</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAQQAAwb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgADBBETITEUIlFSkf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFhEBAQEAAAAAAAAAAAAAAAAAABEh/9oADAMBAAIRAxEAPwDLLTLHxCaRBwN5aqsRkQgd2+JYH7Sui2K0m6jcEEIoweYvdU7cINBK4I51AIhqP7H7IXY8sZNH/9k=')"><video src="samples/video_2/m2ugen.mp4" playsinline preload="none" data-poster="samples/video_2/m2ugen.jpg" controls aria-label="M2UGen result"></video></div>
+              <div class="model-label">
+                <span class="model-name">M2UGen</span>
+                <span class="cond-badge cond-generic">Generic text</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="video-card">
-          <video src="samples/video_3/gvmgen.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">GVMGen</span>
-            <span class="cond-badge cond-video">Video-only</span>
+        <div class="item">
+          <p class="sample-index">Sample 3 of 6</p>
+          <div class="columns cmp-hero">
+            <div class="column is-narrow">
+              <div class="columns is-mobile is-centered">
+            <div class="column cmp-hero-card model-col is-ours">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgME/8QAIRAAAgEEAgIDAAAAAAAAAAAAAQIDAAQRIRIxE2EjUqH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABYRAQEBAAAAAAAAAAAAAAAAAAASAf/aAAwDAQACEQMRAD8ApcXFy0kUzyiKMfhrLLLeeTkbl9EYwdarWtrM0vyMjRAHWKo1vzjG1yBipVqkrxHkp90QBHG5boHoCjCxLMPqcCnESWI90Sf/2Q==')"><video src="samples/video_3/vibe.mp4" playsinline preload="none" data-poster="samples/video_3/vibe.jpg" muted loop data-loop aria-label="VIBE result"></video></div>
+              <div class="model-label">
+                <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
+                <span class="cond-badge cond-vt">Video + Text</span>
+              </div>
+            </div>
+              </div>
+            </div>
+            <div class="column">
+              <p class="prompt-label">Text prompt</p>
+              <p class="prompt-text"><strong class="cap-hi">A dark, atmospheric electronic track</strong> at 76.9 BPM in C Major with a subtle lean toward minor tonalities, featuring evolving synth pads, a deep resonant synth bass, a sparse electronic drum pattern with soft kick, crisp snare, and subtle hi-hats, and a clean, immersive stereo mix that emphasizes gentle compression and dynamic breathing, conveying <strong class="cap-hi">an introspective and slightly ominous mood</strong> with a hypnotic, steady 4/4 groove that remains detached and non-synchronized, evoking late-night cityscapes and contemplative visual media through a minimalist, genre-blurring fusion of ambient-electronic and downtempo trip-hop sensibilities.</p>
+            </div>
+          </div>
+          <p class="cmp-others-label">The same video scored by five other systems</p>
+          <div class="video-grid cmp-others">
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgME/8QAIRAAAgEEAgIDAAAAAAAAAAAAAQIDAAQRIRIxE2EjUqH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABYRAQEBAAAAAAAAAAAAAAAAAAASAf/aAAwDAQACEQMRAD8ApcXFy0kUzyiKMfhrLLLeeTkbl9EYwdarWtrM0vyMjRAHWKo1vzjG1yBipVqkrxHkp90QBHG5boHoCjCxLMPqcCnESWI90Sf/2Q==')"><video src="samples/video_3/cmt.mp4" playsinline preload="none" data-poster="samples/video_3/cmt.jpg" controls aria-label="CMT result"></video></div>
+              <div class="model-label">
+                <span class="model-name">CMT</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgME/8QAIRAAAgEEAgIDAAAAAAAAAAAAAQIDAAQRIRIxE2EjUqH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABYRAQEBAAAAAAAAAAAAAAAAAAASAf/aAAwDAQACEQMRAD8ApcXFy0kUzyiKMfhrLLLeeTkbl9EYwdarWtrM0vyMjRAHWKo1vzjG1yBipVqkrxHkp90QBHG5boHoCjCxLMPqcCnESWI90Sf/2Q==')"><video src="samples/video_3/gvmgen.mp4" playsinline preload="none" data-poster="samples/video_3/gvmgen.jpg" controls aria-label="GVMGen result"></video></div>
+              <div class="model-label">
+                <span class="model-name">GVMGen</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgME/8QAIRAAAgEEAgIDAAAAAAAAAAAAAQIDAAQRIRIxE2EjUqH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABYRAQEBAAAAAAAAAAAAAAAAAAASAf/aAAwDAQACEQMRAD8ApcXFy0kUzyiKMfhrLLLeeTkbl9EYwdarWtrM0vyMjRAHWKo1vzjG1yBipVqkrxHkp90QBHG5boHoCjCxLMPqcCnESWI90Sf/2Q==')"><video src="samples/video_3/vidmuse.mp4" playsinline preload="none" data-poster="samples/video_3/vidmuse.jpg" controls aria-label="VidMuse result"></video></div>
+              <div class="model-label">
+                <span class="model-name">VidMuse</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgME/8QAIRAAAgEEAgIDAAAAAAAAAAAAAQIDAAQRIRIxE2EjUqH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABYRAQEBAAAAAAAAAAAAAAAAAAASAf/aAAwDAQACEQMRAD8ApcXFy0kUzyiKMfhrLLLeeTkbl9EYwdarWtrM0vyMjRAHWKo1vzjG1yBipVqkrxHkp90QBHG5boHoCjCxLMPqcCnESWI90Sf/2Q==')"><video src="samples/video_3/video2music.mp4" playsinline preload="none" data-poster="samples/video_3/video2music.jpg" controls aria-label="Video2Music result"></video></div>
+              <div class="model-label">
+                <span class="model-name">Video2Music</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgME/8QAIRAAAgEEAgIDAAAAAAAAAAAAAQIDAAQRIRIxE2EjUqH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABYRAQEBAAAAAAAAAAAAAAAAAAASAf/aAAwDAQACEQMRAD8ApcXFy0kUzyiKMfhrLLLeeTkbl9EYwdarWtrM0vyMjRAHWKo1vzjG1yBipVqkrxHkp90QBHG5boHoCjCxLMPqcCnESWI90Sf/2Q==')"><video src="samples/video_3/m2ugen.mp4" playsinline preload="none" data-poster="samples/video_3/m2ugen.jpg" controls aria-label="M2UGen result"></video></div>
+              <div class="model-label">
+                <span class="model-name">M2UGen</span>
+                <span class="cond-badge cond-generic">Generic text</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="video-card">
-          <video src="samples/video_3/vidmuse.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">VidMuse</span>
-            <span class="cond-badge cond-video">Video-only</span>
+        <div class="item">
+          <p class="sample-index">Sample 4 of 6</p>
+          <div class="columns cmp-hero">
+            <div class="column is-narrow">
+              <div class="columns is-mobile is-centered">
+            <div class="column cmp-hero-card model-col is-ours">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAgMEAAH/xAAiEAACAgICAgIDAAAAAAAAAAABAgMRAAQSMSFREyNBYYH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAwT/xAAZEQEAAwEBAAAAAAAAAAAAAAABAAIRAyH/2gAMAwEAAhEDEQA/AD1N95Z5ZPiLcBSi+v7mk2NmRzAIVVZDXK+rzraraqcYrfzfmsfHC07BWFKO6PWZ+YPhGqNXZNLOHJZYwCfbXh6LnjIzEl1Io/rLxpwR9Rgn23nFs32hQAAR+BlqCMHJ/9k=')"><video src="samples/video_4/vibe.mp4" playsinline preload="none" data-poster="samples/video_4/vibe.jpg" muted loop data-loop aria-label="VIBE result"></video></div>
+              <div class="model-label">
+                <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
+                <span class="cond-badge cond-vt">Video + Text</span>
+              </div>
+            </div>
+              </div>
+            </div>
+            <div class="column">
+              <p class="prompt-label">Text prompt</p>
+              <p class="prompt-text"><strong class="cap-hi">An ambient electronic track</strong> at ~81 BPM in E Major, featuring layered evolving synth pads, a deep resonant synth bass, and a simple repetitive synth melody, creating <strong class="cap-hi">a serene, introspective atmosphere with a calm and meditative flow</strong>, devoid of emotional depth or dynamic contrast, serving as a universally accessible backdrop that evokes a sense of spacious stillness and quiet reflection.</p>
+            </div>
+          </div>
+          <p class="cmp-others-label">The same video scored by five other systems</p>
+          <div class="video-grid cmp-others">
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAgMEAAH/xAAiEAACAgICAgIDAAAAAAAAAAABAgMRAAQSMSFREyNBYYH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAwT/xAAZEQEAAwEBAAAAAAAAAAAAAAABAAIRAyH/2gAMAwEAAhEDEQA/AD1N95Z5ZPiLcBSi+v7mk2NmRzAIVVZDXK+rzraraqcYrfzfmsfHC07BWFKO6PWZ+YPhGqNXZNLOHJZYwCfbXh6LnjIzEl1Io/rLxpwR9Rgn23nFs32hQAAR+BlqCMHJ/9k=')"><video src="samples/video_4/cmt.mp4" playsinline preload="none" data-poster="samples/video_4/cmt.jpg" controls aria-label="CMT result"></video></div>
+              <div class="model-label">
+                <span class="model-name">CMT</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAgMEAAH/xAAiEAACAgICAgIDAAAAAAAAAAABAgMRAAQSMSFREyNBYYH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAwT/xAAZEQEAAwEBAAAAAAAAAAAAAAABAAIRAyH/2gAMAwEAAhEDEQA/AD1N95Z5ZPiLcBSi+v7mk2NmRzAIVVZDXK+rzraraqcYrfzfmsfHC07BWFKO6PWZ+YPhGqNXZNLOHJZYwCfbXh6LnjIzEl1Io/rLxpwR9Rgn23nFs32hQAAR+BlqCMHJ/9k=')"><video src="samples/video_4/gvmgen.mp4" playsinline preload="none" data-poster="samples/video_4/gvmgen.jpg" controls aria-label="GVMGen result"></video></div>
+              <div class="model-label">
+                <span class="model-name">GVMGen</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAgMEAAH/xAAiEAACAgICAgIDAAAAAAAAAAABAgMRAAQSMSFREyNBYYH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAwT/xAAZEQEAAwEBAAAAAAAAAAAAAAABAAIRAyH/2gAMAwEAAhEDEQA/AD1N95Z5ZPiLcBSi+v7mk2NmRzAIVVZDXK+rzraraqcYrfzfmsfHC07BWFKO6PWZ+YPhGqNXZNLOHJZYwCfbXh6LnjIzEl1Io/rLxpwR9Rgn23nFs32hQAAR+BlqCMHJ/9k=')"><video src="samples/video_4/vidmuse.mp4" playsinline preload="none" data-poster="samples/video_4/vidmuse.jpg" controls aria-label="VidMuse result"></video></div>
+              <div class="model-label">
+                <span class="model-name">VidMuse</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAgMEAAH/xAAiEAACAgICAgIDAAAAAAAAAAABAgMRAAQSMSFREyNBYYH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAwT/xAAZEQEAAwEBAAAAAAAAAAAAAAABAAIRAyH/2gAMAwEAAhEDEQA/AD1N95Z5ZPiLcBSi+v7mk2NmRzAIVVZDXK+rzraraqcYrfzfmsfHC07BWFKO6PWZ+YPhGqNXZNLOHJZYwCfbXh6LnjIzEl1Io/rLxpwR9Rgn23nFs32hQAAR+BlqCMHJ/9k=')"><video src="samples/video_4/video2music.mp4" playsinline preload="none" data-poster="samples/video_4/video2music.jpg" controls aria-label="Video2Music result"></video></div>
+              <div class="model-label">
+                <span class="model-name">Video2Music</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAgMEAAH/xAAiEAACAgICAgIDAAAAAAAAAAABAgMRAAQSMSFREyNBYYH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAwT/xAAZEQEAAwEBAAAAAAAAAAAAAAABAAIRAyH/2gAMAwEAAhEDEQA/AD1N95Z5ZPiLcBSi+v7mk2NmRzAIVVZDXK+rzraraqcYrfzfmsfHC07BWFKO6PWZ+YPhGqNXZNLOHJZYwCfbXh6LnjIzEl1Io/rLxpwR9Rgn23nFs32hQAAR+BlqCMHJ/9k=')"><video src="samples/video_4/m2ugen.mp4" playsinline preload="none" data-poster="samples/video_4/m2ugen.jpg" controls aria-label="M2UGen result"></video></div>
+              <div class="model-label">
+                <span class="model-name">M2UGen</span>
+                <span class="cond-badge cond-generic">Generic text</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="video-card">
-          <video src="samples/video_3/video2music.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">Video2Music</span>
-            <span class="cond-badge cond-video">Video-only</span>
+        <div class="item">
+          <p class="sample-index">Sample 5 of 6</p>
+          <div class="columns cmp-hero">
+            <div class="column is-narrow">
+              <div class="columns is-mobile is-centered">
+            <div class="column cmp-hero-card model-col is-ours">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwQFAf/EACAQAAICAQQDAQAAAAAAAAAAAAECAAMEERIxUSEiQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAACAf/EABkRAAIDAQAAAAAAAAAAAAAAAAACAREhEv/aAAwDAQACEQMRAD8AorZ6kh/A6PEUyMysOVdWIH2Rcc5TW7qwx7/RD5r3WooNZUqPJ15iZusoirC7ZXoJx7N6IIpdW9lpd/p6hUsZk1JmHXTkwWI//9k=')"><video src="samples/video_5/vibe.mp4" playsinline preload="none" data-poster="samples/video_5/vibe.jpg" muted loop data-loop aria-label="VIBE result"></video></div>
+              <div class="model-label">
+                <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
+                <span class="cond-badge cond-vt">Video + Text</span>
+              </div>
+            </div>
+              </div>
+            </div>
+            <div class="column">
+              <p class="prompt-label">Text prompt</p>
+              <p class="prompt-text"><strong class="cap-hi">A relaxed, atmospheric Lo-fi Hip-Hop track</strong> at ~83 BPM in F♯ minor, featuring a deep, smooth synth bass, a laid-back drum-machine groove, warm sustained synth pads, and a bright, bell-like synth melody in a subtle minor-key progression (F♯m → C♯m → Amaj7 → Dmaj7 → C♯m7 → F♯m7) that drifts across the stereo field, creating <strong class="cap-hi">a calm, contemplative mood with a dreamy, introspective vibe</strong>, evoking a peaceful late-night atmosphere while subtly layering a sense of melancholy and introspection over its chillwave-inspired, low-fi production.</p>
+            </div>
+          </div>
+          <p class="cmp-others-label">The same video scored by five other systems</p>
+          <div class="video-grid cmp-others">
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwQFAf/EACAQAAICAQQDAQAAAAAAAAAAAAECAAMEERIxUSEiQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAACAf/EABkRAAIDAQAAAAAAAAAAAAAAAAACAREhEv/aAAwDAQACEQMRAD8AorZ6kh/A6PEUyMysOVdWIH2Rcc5TW7qwx7/RD5r3WooNZUqPJ15iZusoirC7ZXoJx7N6IIpdW9lpd/p6hUsZk1JmHXTkwWI//9k=')"><video src="samples/video_5/cmt.mp4" playsinline preload="none" data-poster="samples/video_5/cmt.jpg" controls aria-label="CMT result"></video></div>
+              <div class="model-label">
+                <span class="model-name">CMT</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwQFAf/EACAQAAICAQQDAQAAAAAAAAAAAAECAAMEERIxUSEiQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAACAf/EABkRAAIDAQAAAAAAAAAAAAAAAAACAREhEv/aAAwDAQACEQMRAD8AorZ6kh/A6PEUyMysOVdWIH2Rcc5TW7qwx7/RD5r3WooNZUqPJ15iZusoirC7ZXoJx7N6IIpdW9lpd/p6hUsZk1JmHXTkwWI//9k=')"><video src="samples/video_5/gvmgen.mp4" playsinline preload="none" data-poster="samples/video_5/gvmgen.jpg" controls aria-label="GVMGen result"></video></div>
+              <div class="model-label">
+                <span class="model-name">GVMGen</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwQFAf/EACAQAAICAQQDAQAAAAAAAAAAAAECAAMEERIxUSEiQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAACAf/EABkRAAIDAQAAAAAAAAAAAAAAAAACAREhEv/aAAwDAQACEQMRAD8AorZ6kh/A6PEUyMysOVdWIH2Rcc5TW7qwx7/RD5r3WooNZUqPJ15iZusoirC7ZXoJx7N6IIpdW9lpd/p6hUsZk1JmHXTkwWI//9k=')"><video src="samples/video_5/vidmuse.mp4" playsinline preload="none" data-poster="samples/video_5/vidmuse.jpg" controls aria-label="VidMuse result"></video></div>
+              <div class="model-label">
+                <span class="model-name">VidMuse</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwQFAf/EACAQAAICAQQDAQAAAAAAAAAAAAECAAMEERIxUSEiQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAACAf/EABkRAAIDAQAAAAAAAAAAAAAAAAACAREhEv/aAAwDAQACEQMRAD8AorZ6kh/A6PEUyMysOVdWIH2Rcc5TW7qwx7/RD5r3WooNZUqPJ15iZusoirC7ZXoJx7N6IIpdW9lpd/p6hUsZk1JmHXTkwWI//9k=')"><video src="samples/video_5/video2music.mp4" playsinline preload="none" data-poster="samples/video_5/video2music.jpg" controls aria-label="Video2Music result"></video></div>
+              <div class="model-label">
+                <span class="model-name">Video2Music</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwQFAf/EACAQAAICAQQDAQAAAAAAAAAAAAECAAMEERIxUSEiQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAACAf/EABkRAAIDAQAAAAAAAAAAAAAAAAACAREhEv/aAAwDAQACEQMRAD8AorZ6kh/A6PEUyMysOVdWIH2Rcc5TW7qwx7/RD5r3WooNZUqPJ15iZusoirC7ZXoJx7N6IIpdW9lpd/p6hUsZk1JmHXTkwWI//9k=')"><video src="samples/video_5/m2ugen.mp4" playsinline preload="none" data-poster="samples/video_5/m2ugen.jpg" controls aria-label="M2UGen result"></video></div>
+              <div class="model-label">
+                <span class="model-name">M2UGen</span>
+                <span class="cond-badge cond-generic">Generic text</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="video-card">
-          <video src="samples/video_3/m2ugen.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">M2UGen</span>
-            <span class="cond-badge cond-generic">Generic text</span>
+        <div class="item">
+          <p class="sample-index">Sample 6 of 6</p>
+          <div class="columns cmp-hero">
+            <div class="column is-narrow">
+              <div class="columns is-mobile is-centered">
+            <div class="column cmp-hero-card model-col is-ours">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMC/8QAIRAAAgICAQQDAAAAAAAAAAAAAQIDEQASBAUhQVETcbH/xAAWAQEBAQAAAAAAAAAAAAAAAAACAAH/xAAYEQADAQEAAAAAAAAAAAAAAAAAARECIf/aAAwDAQACEQMRAD8AZLyoJEfWZaKmhgo3UMfjmHaq8YWNRqpTU6+jkzxw0hAtSfRzMsWsTtL9KiEkBsENZ7HHHjGJQ2tj8zCNTRlRXbx94+zk1Q2n/9k=')"><video src="samples/video_6/vibe.mp4" playsinline preload="none" data-poster="samples/video_6/vibe.jpg" muted loop data-loop aria-label="VIBE result"></video></div>
+              <div class="model-label">
+                <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
+                <span class="cond-badge cond-vt">Video + Text</span>
+              </div>
+            </div>
+              </div>
+            </div>
+            <div class="column">
+              <p class="prompt-label">Text prompt</p>
+              <p class="prompt-text"><strong class="cap-hi">A modern ambient-electronic track</strong> at ~96.8 BPM in C♯ Major, featuring lush, evolving synth pads, a delicate arpeggiated synth line, and a deep, sustained synth bass, blending ethereal textures with a subtle downtempo groove to evoke <strong class="cap-hi">a serene, introspective, and slightly wistful East Asian Lunar New Year ambiance</strong>, underlining a restrained cultural reverence and traditional reverence without mirroring the visual exuberance, with a calm and contemplative atmosphere layered over a gentle harmonic journey through major-sixth chords and a brief C♯ minor shift, creating a meditative, immersive soundscape rooted in the 2010s-2020s ambient-electronic tradition.</p>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="cmp-sample">
-      <div class="cmp-hero">
-        <div class="cmp-hero-card">
-        <div class="video-card ours">
-          <video src="samples/video_4/vibe.mp4" muted loop playsinline preload="none" data-loop></video>
-          <div class="video-meta">
-            <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
-            <span class="cond-badge cond-vt">Video + Text</span>
-          </div>
-        </div>
-        </div>
-        <div class="cmp-caption">
-          <div class="prompt-label">Caption</div>
-          <div class="prompt-text"><strong class="cap-hi">An ambient electronic track</strong> at ≈81 BPM in E Major, featuring layered evolving synth pads, a deep resonant synth bass, and a simple repetitive synth melody, creating <strong class="cap-hi">a serene, introspective atmosphere with a calm and meditative flow</strong>, devoid of emotional depth or dynamic contrast, serving as a universally accessible backdrop that evokes a sense of spacious stillness and quiet reflection.</div>
-        </div>
-      </div>
-      <div class="video-grid cmp-others">
-        <div class="video-card">
-          <video src="samples/video_4/cmt.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">CMT</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_4/gvmgen.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">GVMGen</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_4/vidmuse.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">VidMuse</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_4/video2music.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">Video2Music</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_4/m2ugen.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">M2UGen</span>
-            <span class="cond-badge cond-generic">Generic text</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="cmp-sample">
-      <div class="cmp-hero">
-        <div class="cmp-hero-card">
-        <div class="video-card ours">
-          <video src="samples/video_5/vibe.mp4" muted loop playsinline preload="none" data-loop></video>
-          <div class="video-meta">
-            <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
-            <span class="cond-badge cond-vt">Video + Text</span>
-          </div>
-        </div>
-        </div>
-        <div class="cmp-caption">
-          <div class="prompt-label">Caption</div>
-          <div class="prompt-text"><strong class="cap-hi">A relaxed, atmospheric Lo-fi Hip-Hop track</strong> at ≈83 BPM in F♯ minor, featuring a deep, smooth synth bass, a laid-back drum-machine groove, warm sustained synth pads, and a bright, bell-like synth melody in a subtle minor-key progression—F♯m → C♯m → Amaj7 → Dmaj7 → C♯m7 → F♯m7—that drifts across the stereo field, creating <strong class="cap-hi">a calm, contemplative mood with a dreamy, introspective vibe</strong>, evoking a peaceful late-night atmosphere while subtly layering a sense of melancholy and introspection over its chillwave-inspired, low-fi production.</div>
-        </div>
-      </div>
-      <div class="video-grid cmp-others">
-        <div class="video-card">
-          <video src="samples/video_5/cmt.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">CMT</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_5/gvmgen.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">GVMGen</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_5/vidmuse.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">VidMuse</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_5/video2music.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">Video2Music</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_5/m2ugen.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">M2UGen</span>
-            <span class="cond-badge cond-generic">Generic text</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="cmp-sample">
-      <div class="cmp-hero">
-        <div class="cmp-hero-card">
-        <div class="video-card ours">
-          <video src="samples/video_6/vibe.mp4" muted loop playsinline preload="none" data-loop></video>
-          <div class="video-meta">
-            <span class="model-name">VIBE <span class="ours-tag">Ours</span></span>
-            <span class="cond-badge cond-vt">Video + Text</span>
-          </div>
-        </div>
-        </div>
-        <div class="cmp-caption">
-          <div class="prompt-label">Caption</div>
-          <div class="prompt-text"><strong class="cap-hi">A modern ambient-electronic track</strong> at ≈96.8 BPM in C♯ Major, featuring lush, evolving synth pads, a delicate arpeggiated synth line, and a deep, sustained synth bass, blending ethereal textures with a subtle downtempo groove to evoke <strong class="cap-hi">a serene, introspective, and slightly wistful East Asian Lunar New Year ambiance</strong>, underlining a restrained cultural reverence and traditional reverence without mirroring the visual exuberance, with a calm and contemplative atmosphere layered over a gentle harmonic journey through major-sixth chords and a brief C♯ minor shift, creating a meditative, immersive soundscape rooted in the 2010s–2020s ambient-electronic tradition.</div>
-        </div>
-      </div>
-      <div class="video-grid cmp-others">
-        <div class="video-card">
-          <video src="samples/video_6/cmt.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">CMT</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_6/gvmgen.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">GVMGen</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_6/vidmuse.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">VidMuse</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_6/video2music.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">Video2Music</span>
-            <span class="cond-badge cond-video">Video-only</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video src="samples/video_6/m2ugen.mp4" controls playsinline preload="none"></video>
-          <div class="video-meta">
-            <span class="model-name">M2UGen</span>
-            <span class="cond-badge cond-generic">Generic text</span>
+          <p class="cmp-others-label">The same video scored by five other systems</p>
+          <div class="video-grid cmp-others">
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAwQBAgX/xAAiEAACAgEEAgMBAAAAAAAAAAABAwIRAAQSEyFBYRQiUZH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABgRAQADAQAAAAAAAAAAAAAAAAABERIx/9oADAMBAAIRAxEAPwB+lSdsgTZF9DxlNS5I0rDpzIm9t+8yWPcshpuBqrB8YVerZxbV7RGrPWU0FFHQ54QE20R/MPpGLTaid3vGBxs+skKo/gIyfgIM+hKNgno5OpKev//Z')"><video src="samples/video_6/cmt.mp4" playsinline preload="none" data-poster="samples/video_6/cmt.jpg" controls aria-label="CMT result"></video></div>
+              <div class="model-label">
+                <span class="model-name">CMT</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMC/8QAIRAAAgICAQQDAAAAAAAAAAAAAQIDEQASBAUhQVETcbH/xAAWAQEBAQAAAAAAAAAAAAAAAAACAAH/xAAYEQADAQEAAAAAAAAAAAAAAAAAARECIf/aAAwDAQACEQMRAD8AZLyoJEfWZaKmhgo3UMfjmHaq8YWNRqpTU6+jkzxw0hAtSfRzMsWsTtL9KiEkBsENZ7HHHjGJQ2tj8zCNTRlRXbx94+zk1Q2n/9k=')"><video src="samples/video_6/gvmgen.mp4" playsinline preload="none" data-poster="samples/video_6/gvmgen.jpg" controls aria-label="GVMGen result"></video></div>
+              <div class="model-label">
+                <span class="model-name">GVMGen</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMC/8QAIRAAAgICAQQDAAAAAAAAAAAAAQIDEQASBAUhQVETcbH/xAAWAQEBAQAAAAAAAAAAAAAAAAACAAH/xAAYEQADAQEAAAAAAAAAAAAAAAAAARECIf/aAAwDAQACEQMRAD8AZLyoJEfWZaKmhgo3UMfjmHaq8YWNRqpTU6+jkzxw0hAtSfRzMsWsTtL9KiEkBsENZ7HHHjGJQ2tj8zCNTRlRXbx94+zk1Q2n/9k=')"><video src="samples/video_6/vidmuse.mp4" playsinline preload="none" data-poster="samples/video_6/vidmuse.jpg" controls aria-label="VidMuse result"></video></div>
+              <div class="model-label">
+                <span class="model-name">VidMuse</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAwQBAgX/xAAiEAACAgICAQUBAAAAAAAAAAABAwIRAAQSIUETIlFhYnH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABgRAQEAAwAAAAAAAAAAAAAAAAARARJB/9oADAMBAAIRAxEAPwB+lSdwgTZF9DxlNlyRqsOuZE3xv7zJY9yyGm4GqsHxhV7bPS4r4iNWespsEKOgNiEBNpBF/wAw+oxabUTy/WHBWz2yQqj8CskaKDPoGNgno5OZLr//2Q==')"><video src="samples/video_6/video2music.mp4" playsinline preload="none" data-poster="samples/video_6/video2music.jpg" controls aria-label="Video2Music result"></video></div>
+              <div class="model-label">
+                <span class="model-name">Video2Music</span>
+                <span class="cond-badge">Video-only</span>
+              </div>
+            </div>
+            <div class=" model-col">
+              <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMC/8QAIRAAAgICAQQDAAAAAAAAAAAAAQIDEQASBAUhQVETcbH/xAAWAQEBAQAAAAAAAAAAAAAAAAACAAH/xAAYEQADAQEAAAAAAAAAAAAAAAAAARECIf/aAAwDAQACEQMRAD8AZLyoJEfWZaKmhgo3UMfjmHaq8YWNRqpTU6+jkzxw0hAtSfRzMsWsTtL9KiEkBsENZ7HHHjGJQ2tj8zCNTRlRXbx94+zk1Q2n/9k=')"><video src="samples/video_6/m2ugen.mp4" playsinline preload="none" data-poster="samples/video_6/m2ugen.jpg" controls aria-label="M2UGen result"></video></div>
+              <div class="model-label">
+                <span class="model-name">M2UGen</span>
+                <span class="cond-badge cond-generic">Generic text</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+<!-- End comparison -->
 
-<!-- ============== INSTRUCTION FOLLOWING ============== -->
-<section id="instruction-following">
-  <div class="container reveal">
-    <h2>Instruction Following</h2>
 
-    <!-- Sample 1 — DIY textured canvas painting -->
-    <div class="if-sample">
-      <div class="if-source-col">
-        <div class="if-label">Input video</div>
-        <video src="instruction_following/sample_1/source.mp4" muted loop playsinline preload="none" data-loop data-static></video>
-        <div class="if-scene">DIY textured canvas painting</div>
-        <div class="if-sub">Same video → 2 prompts</div>
-      </div>
-      <div class="if-variants">
-        <div class="if-variant">
-          <video src="instruction_following/sample_1/sad.mp4" muted loop playsinline preload="none" data-loop></video>
-          <span class="emotion-chip chip-sad">Sad</span>
-          <p class="prompt-text">A deeply sad, melancholic piano ballad …, quiet sorrow …</p>
+<!-- Instruction following -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <h2 id="h-instruction" class="title is-3 has-text-centered">Instruction following</h2>
+      <p class="subtitle has-text-centered">
+        Each block holds the input video fixed and varies only the text instruction. The clip on
+        the left is the silent input; each clip beside it is the same footage scored under a
+        different instruction.
+      </p>
+      <div class="if-samples">
+        <div class="if-sample reveal">
+          <div class="if-source-col">
+            <span class="if-label">Input video</span>
+            <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMC/8QAIhABAAIBAwMFAAAAAAAAAAAAAQIDAAQRIRITQRQiMUJR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQP/xAAYEQEBAAMAAAAAAAAAAAAAAAABAAIhMf/aAAwDAQACEQMRAD8AlbLqcvo6yutnJ6Y78r4MldV20BXfyHGYsnaRdNKTGLwhk+1ESdp6bZjPUfY2IjwP7hvRX94ZSJO+OvumamEDYiPxj6vcchwuJObu/9k=')"><video src="instruction_following/sample_1/source.mp4" playsinline preload="none" data-poster="instruction_following/sample_1/source.jpg" muted loop data-loop data-static aria-label="DIY textured canvas painting, input video"></video></div>
+            <span class="if-scene">DIY textured canvas painting</span>
+            <span class="if-sub">Same video, 2 prompts</span>
+          </div>
+          <div class="if-variants">
+              <div class="if-variant">
+                <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMC/8QAIhABAAIBAwMFAAAAAAAAAAAAAQIDAAQRIRITQRQiMUJR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQP/xAAYEQEBAAMAAAAAAAAAAAAAAAABAAIhMf/aAAwDAQACEQMRAD8AlbLqcvo6yutnJ6Y78r4MldV20BXfyHGYsnaRdNKTGLwhk+1ESdp6bZjPUfY2IjwP7hvRX94ZSJO+OvumamEDYiPxj6vcchwuJObu/9k=')"><video src="instruction_following/sample_1/sad.mp4" playsinline preload="none" data-poster="instruction_following/sample_1/sad.jpg" muted loop data-loop aria-label="DIY textured canvas painting, Sad instruction"></video></div>
+                <span class="emotion-chip chip-sad">Sad</span>
+                <p class="prompt-text">A deeply sad, melancholic piano ballad ..., quiet sorrow ...</p>
+              </div>
+              <div class="if-variant">
+                <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMC/8QAIhABAAIBAwMFAAAAAAAAAAAAAQIDAAQRIRITQRQiMUJR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQP/xAAYEQEBAAMAAAAAAAAAAAAAAAABAAIhMf/aAAwDAQACEQMRAD8AlbLqcvo6yutnJ6Y78r4MldV20BXfyHGYsnaRdNKTGLwhk+1ESdp6bZjPUfY2IjwP7hvRX94ZSJO+OvumamEDYiPxj6vcchwuJObu/9k=')"><video src="instruction_following/sample_1/love.mp4" playsinline preload="none" data-poster="instruction_following/sample_1/love.jpg" muted loop data-loop aria-label="DIY textured canvas painting, Love instruction"></video></div>
+                <span class="emotion-chip chip-love">Love</span>
+                <p class="prompt-text">A warm, romantic love theme ..., gentle heartfelt melody ...</p>
+              </div>
+          </div>
         </div>
-        <div class="if-variant">
-          <video src="instruction_following/sample_1/love.mp4" muted loop playsinline preload="none" data-loop></video>
-          <span class="emotion-chip chip-love">Love</span>
-          <p class="prompt-text">A warm, romantic love theme …, gentle heartfelt melody …</p>
+        <div class="if-sample reveal">
+          <div class="if-source-col">
+            <span class="if-label">Input video</span>
+            <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAgABAwX/xAAkEAACAQMDAwUAAAAAAAAAAAABAgMABBEFEkEUIjETUWFxgf/EABcBAAMBAAAAAAAAAAAAAAAAAAABAgP/xAAWEQEBAQAAAAAAAAAAAAAAAAAAAUH/2gAMAwEAAhEDEQA/AFoMYN8A3AP7VBo01Ut4VZePuhaSC1klmD7VBIBBzinp5Vp+oEi9rE5bk1pacjlG6i6Z7c9p3ZDDmpaPH6LoSc7s5rHUVVLhVRQoCDx80bTww9zUDX//2Q==')"><video src="instruction_following/sample_2/source.mp4" playsinline preload="none" data-poster="instruction_following/sample_2/source.jpg" muted loop data-loop data-static aria-label="Cute dog, input video"></video></div>
+            <span class="if-scene">Cute dog</span>
+            <span class="if-sub">Same video, 3 prompts</span>
+          </div>
+          <div class="if-variants">
+              <div class="if-variant">
+                <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAgABAwX/xAAkEAACAQMDAwUAAAAAAAAAAAABAgMABBEFEkEUIjETUWFxgf/EABcBAAMBAAAAAAAAAAAAAAAAAAABAgP/xAAWEQEBAQAAAAAAAAAAAAAAAAAAAUH/2gAMAwEAAhEDEQA/AFoMYN8A3AP7VBo01Ut4VZePuhaSC1klmD7VBIBBzinp5Vp+oEi9rE5bk1pacjlG6i6Z7c9p3ZDDmpaPH6LoSc7s5rHUVVLhVRQoCDx80bTww9zUDX//2Q==')"><video src="instruction_following/sample_2/sad.mp4" playsinline preload="none" data-poster="instruction_following/sample_2/sad.jpg" muted loop data-loop aria-label="Cute dog, Sad instruction"></video></div>
+                <span class="emotion-chip chip-sad">Sad</span>
+                <p class="prompt-text">A deeply sad, melancholic piano ballad ..., quiet sorrow ...</p>
+              </div>
+              <div class="if-variant">
+                <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAgABAwX/xAAkEAACAQMDAwUAAAAAAAAAAAABAgMABBEFEkEUIjETUWFxgf/EABcBAAMBAAAAAAAAAAAAAAAAAAABAgP/xAAWEQEBAQAAAAAAAAAAAAAAAAAAAUH/2gAMAwEAAhEDEQA/AFoMYN8A3AP7VBo01Ut4VZePuhaSC1klmD7VBIBBzinp5Vp+oEi9rE5bk1pacjlG6i6Z7c9p3ZDDmpaPH6LoSc7s5rHUVVLhVRQoCDx80bTww9zUDX//2Q==')"><video src="instruction_following/sample_2/love.mp4" playsinline preload="none" data-poster="instruction_following/sample_2/love.jpg" muted loop data-loop aria-label="Cute dog, Love instruction"></video></div>
+                <span class="emotion-chip chip-love">Love</span>
+                <p class="prompt-text">A warm, romantic love theme ..., gentle heartfelt melody ...</p>
+              </div>
+              <div class="if-variant">
+                <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAgABAwX/xAAkEAACAQMDAwUAAAAAAAAAAAABAgMABBEFEkEUIjETUWFxgf/EABcBAAMBAAAAAAAAAAAAAAAAAAABAgP/xAAWEQEBAQAAAAAAAAAAAAAAAAAAAUH/2gAMAwEAAhEDEQA/AFoMYN8A3AP7VBo01Ut4VZePuhaSC1klmD7VBIBBzinp5Vp+oEi9rE5bk1pacjlG6i6Z7c9p3ZDDmpaPH6LoSc7s5rHUVVLhVRQoCDx80bTww9zUDX//2Q==')"><video src="instruction_following/sample_2/tempo.mp4" playsinline preload="none" data-poster="instruction_following/sample_2/tempo.jpg" muted loop data-loop aria-label="Cute dog, 125 BPM instruction"></video></div>
+                <span class="emotion-chip chip-tempo">125 BPM</span>
+                <p class="prompt-text">An uplifting melodic electronic track at 125 BPM ...</p>
+              </div>
+          </div>
         </div>
-      </div>
-    </div>
-
-    <!-- Sample 2 — Cute dogs (playful) -->
-    <div class="if-sample">
-      <div class="if-source-col">
-        <div class="if-label">Input video</div>
-        <video src="instruction_following/sample_2/source.mp4" muted loop playsinline preload="none" data-loop data-static></video>
-        <div class="if-scene">Cute dog</div>
-        <div class="if-sub">Same video → 3 prompts</div>
-      </div>
-      <div class="if-variants">
-        <div class="if-variant">
-          <video src="instruction_following/sample_2/sad.mp4" muted loop playsinline preload="none" data-loop></video>
-          <span class="emotion-chip chip-sad">Sad</span>
-          <p class="prompt-text">A deeply sad, melancholic piano ballad …, quiet sorrow …</p>
+        <div class="if-sample reveal">
+          <div class="if-source-col">
+            <span class="if-label">Input video</span>
+            <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFAABAAAAAAAAAAAAAAAAAAAABf/EACEQAAIBBAEFAQAAAAAAAAAAAAECAwAREiFBBRMiMlGB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAXEQEBAQEAAAAAAAAAAAAAAAABACEx/9oADAMBAAIRAxEAPwByYqkbF7423YXotJMoi8esGNtcUg86l+0TZjuiwvYVw11Uv4k81Bq8kZIY2cSFfIcih4lM3UJRNfFPQH79pssSAKKbXUH/ACgRcv/Z')"><video src="instruction_following/sample_3/source.mp4" playsinline preload="none" data-poster="instruction_following/sample_3/source.jpg" muted loop data-loop data-static aria-label="Dogs at play, input video"></video></div>
+            <span class="if-scene">Dogs at play</span>
+            <span class="if-sub">Same video, 2 prompts</span>
+          </div>
+          <div class="if-variants">
+              <div class="if-variant">
+                <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFAABAAAAAAAAAAAAAAAAAAAABf/EACEQAAIBBAEFAQAAAAAAAAAAAAECAwAREiFBBRMiMlGB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAXEQEBAQEAAAAAAAAAAAAAAAABACEx/9oADAMBAAIRAxEAPwByYqkbF7423YXotJMoi8esGNtcUg86l+0TZjuiwvYVw11Uv4k81Bq8kZIY2cSFfIcih4lM3UJRNfFPQH79pssSAKKbXUH/ACgRcv/Z')"><video src="instruction_following/sample_3/happy.mp4" playsinline preload="none" data-poster="instruction_following/sample_3/happy.jpg" muted loop data-loop aria-label="Dogs at play, Happy instruction"></video></div>
+                <span class="emotion-chip chip-happy">Happy</span>
+                <p class="prompt-text">A bright, joyful, upbeat acoustic-pop track ..., pure happiness and fun ...</p>
+              </div>
+              <div class="if-variant">
+                <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFAABAAAAAAAAAAAAAAAAAAAABf/EACEQAAIBBAEFAQAAAAAAAAAAAAECAwAREiFBBRMiMlGB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAXEQEBAQEAAAAAAAAAAAAAAAABACEx/9oADAMBAAIRAxEAPwByYqkbF7423YXotJMoi8esGNtcUg86l+0TZjuiwvYVw11Uv4k81Bq8kZIY2cSFfIcih4lM3UJRNfFPQH79pssSAKKbXUH/ACgRcv/Z')"><video src="instruction_following/sample_3/motivational.mp4" playsinline preload="none" data-poster="instruction_following/sample_3/motivational.jpg" muted loop data-loop aria-label="Dogs at play, Motivational instruction"></video></div>
+                <span class="emotion-chip chip-motivational">Motivational</span>
+                <p class="prompt-text">A powerful, motivational cinematic anthem ..., inspiring triumphant build ...</p>
+              </div>
+          </div>
         </div>
-        <div class="if-variant">
-          <video src="instruction_following/sample_2/love.mp4" muted loop playsinline preload="none" data-loop></video>
-          <span class="emotion-chip chip-love">Love</span>
-          <p class="prompt-text">A warm, romantic love theme …, gentle heartfelt melody …</p>
-        </div>
-        <div class="if-variant">
-          <video src="instruction_following/sample_2/tempo.mp4" muted loop playsinline preload="none" data-loop></video>
-          <span class="emotion-chip chip-tempo">125 BPM</span>
-          <p class="prompt-text">An uplifting melodic electronic track at <strong class="bpm-hl">120 BPM</strong> …</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sample 3 — Cute dogs -->
-    <div class="if-sample">
-      <div class="if-source-col">
-        <div class="if-label">Input video</div>
-        <video src="instruction_following/sample_3/source.mp4" muted loop playsinline preload="none" data-loop data-static></video>
-        <div class="if-scene">Dogs at play</div>
-        <div class="if-sub">Same video → 2 prompts</div>
-      </div>
-      <div class="if-variants">
-        <div class="if-variant">
-          <video src="instruction_following/sample_3/happy.mp4" muted loop playsinline preload="none" data-loop></video>
-          <span class="emotion-chip chip-happy">Happy</span>
-          <p class="prompt-text">A bright, joyful, upbeat acoustic-pop track …, pure happiness and fun …</p>
-        </div>
-        <div class="if-variant">
-          <video src="instruction_following/sample_3/motivational.mp4" muted loop playsinline preload="none" data-loop></video>
-          <span class="emotion-chip chip-motivational">Motivational</span>
-          <p class="prompt-text">A powerful, motivational cinematic anthem …, inspiring triumphant build …</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sample 4 — Taj Mahal -->
-    <div class="if-sample">
-      <div class="if-source-col">
-        <div class="if-label">Input video</div>
-        <video src="instruction_following/sample_4/source.mp4" muted loop playsinline preload="none" data-loop data-static></video>
-        <div class="if-scene">Taj Mahal</div>
-        <div class="if-sub">Same video → 3 prompts</div>
-      </div>
-      <div class="if-variants">
-        <div class="if-variant">
-          <video src="instruction_following/sample_4/sad.mp4" muted loop playsinline preload="none" data-loop></video>
-          <span class="emotion-chip chip-sad">Sad</span>
-          <p class="prompt-text">A deeply sad, melancholic piano ballad …, quiet sorrow …</p>
-        </div>
-        <div class="if-variant">
-          <video src="instruction_following/sample_4/happy.mp4" muted loop playsinline preload="none" data-loop></video>
-          <span class="emotion-chip chip-happy">Happy</span>
-          <p class="prompt-text">A bright, joyful, upbeat acoustic-pop track …, pure happiness and fun …</p>
-        </div>
-        <div class="if-variant">
-          <video src="instruction_following/sample_4/motivational.mp4" muted loop playsinline preload="none" data-loop></video>
-          <span class="emotion-chip chip-motivational">Motivational</span>
-          <p class="prompt-text">A powerful, motivational cinematic anthem …, inspiring triumphant build …</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============== MEL-SPECTROGRAM COMPARISON ============== -->
-<section id="mel-comparison">
-  <div class="container reveal">
-    <h2>Mel-spectrogram comparison</h2>
-    <p class="mel-sub">Log-power mel-spectrograms (0–8&nbsp;kHz) of each system's output for the same input video.</p>
-    <div class="mel-rows">
-      <div class="mel-row ours">
-        <div class="mel-row-label">VIBE <span class="ours-tag">Ours</span></div>
-        <div class="mel-row-body">
-          <video class="mel-row-video" src="samples/video_6/vibe.mp4" muted loop playsinline preload="none" data-loop></video>
-          <img class="mel-row-img" src="samples/video_6/mel_vibe.png" alt="VIBE mel-spectrogram" loading="lazy" />
-        </div>
-      </div>
-      <div class="mel-row">
-        <div class="mel-row-label">CMT</div>
-        <div class="mel-row-body">
-          <video class="mel-row-video" src="samples/video_6/cmt.mp4" controls playsinline preload="none"></video>
-          <img class="mel-row-img" src="samples/video_6/mel_cmt.png" alt="CMT mel-spectrogram" loading="lazy" />
-        </div>
-      </div>
-      <div class="mel-row">
-        <div class="mel-row-label">GVMGen</div>
-        <div class="mel-row-body">
-          <video class="mel-row-video" src="samples/video_6/gvmgen.mp4" controls playsinline preload="none"></video>
-          <img class="mel-row-img" src="samples/video_6/mel_gvmgen.png" alt="GVMGen mel-spectrogram" loading="lazy" />
-        </div>
-      </div>
-      <div class="mel-row">
-        <div class="mel-row-label">VidMuse</div>
-        <div class="mel-row-body">
-          <video class="mel-row-video" src="samples/video_6/vidmuse.mp4" controls playsinline preload="none"></video>
-          <img class="mel-row-img" src="samples/video_6/mel_vidmuse.png" alt="VidMuse mel-spectrogram" loading="lazy" />
-        </div>
-      </div>
-      <div class="mel-row">
-        <div class="mel-row-label">Video2Music</div>
-        <div class="mel-row-body">
-          <video class="mel-row-video" src="samples/video_6/video2music.mp4" controls playsinline preload="none"></video>
-          <img class="mel-row-img" src="samples/video_6/mel_video2music.png" alt="Video2Music mel-spectrogram" loading="lazy" />
-        </div>
-      </div>
-      <div class="mel-row">
-        <div class="mel-row-label">M2UGen</div>
-        <div class="mel-row-body">
-          <video class="mel-row-video" src="samples/video_6/m2ugen.mp4" controls playsinline preload="none"></video>
-          <img class="mel-row-img" src="samples/video_6/mel_m2ugen.png" alt="M2UGen mel-spectrogram" loading="lazy" />
+        <div class="if-sample reveal">
+          <div class="if-source-col">
+            <span class="if-label">Input video</span>
+            <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAQQCAwX/xAAgEAACAgICAgMAAAAAAAAAAAABAgARAyEEEhMiMUFR/8QAFQEBAQAAAAAAAAAAAAAAAAAABQT/xAAaEQACAwEBAAAAAAAAAAAAAAAAAQIREjFB/9oADAMBAAIRAxEAPwBvqPowMAfkRfNm8a+u2hTL2WxqROMqtiKy5ZXTFXmv2JajctXmg6Ni/wAijIoegJM41CXW4gGe2f/Z')"><video src="instruction_following/sample_4/source.mp4" playsinline preload="none" data-poster="instruction_following/sample_4/source.jpg" muted loop data-loop data-static aria-label="Taj Mahal, input video"></video></div>
+            <span class="if-scene">Taj Mahal</span>
+            <span class="if-sub">Same video, 3 prompts</span>
+          </div>
+          <div class="if-variants">
+              <div class="if-variant">
+                <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAQQCAwX/xAAgEAACAgICAgMAAAAAAAAAAAABAgARAyEEEhMiMUFR/8QAFQEBAQAAAAAAAAAAAAAAAAAABQT/xAAaEQACAwEBAAAAAAAAAAAAAAAAAQIREjFB/9oADAMBAAIRAxEAPwBvqPowMAfkRfNm8a+u2hTL2WxqROMqtiKy5ZXTFXmv2JajctXmg6Ni/wAijIoegJM41CXW4gGe2f/Z')"><video src="instruction_following/sample_4/sad.mp4" playsinline preload="none" data-poster="instruction_following/sample_4/sad.jpg" muted loop data-loop aria-label="Taj Mahal, Sad instruction"></video></div>
+                <span class="emotion-chip chip-sad">Sad</span>
+                <p class="prompt-text">A deeply sad, melancholic piano ballad ..., quiet sorrow ...</p>
+              </div>
+              <div class="if-variant">
+                <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAQQCAwX/xAAgEAACAgICAgMAAAAAAAAAAAABAgARAyEEEhMiMUFR/8QAFQEBAQAAAAAAAAAAAAAAAAAABQT/xAAaEQACAwEBAAAAAAAAAAAAAAAAAQIREjFB/9oADAMBAAIRAxEAPwBvqPowMAfkRfNm8a+u2hTL2WxqROMqtiKy5ZXTFXmv2JajctXmg6Ni/wAijIoegJM41CXW4gGe2f/Z')"><video src="instruction_following/sample_4/happy.mp4" playsinline preload="none" data-poster="instruction_following/sample_4/happy.jpg" muted loop data-loop aria-label="Taj Mahal, Happy instruction"></video></div>
+                <span class="emotion-chip chip-happy">Happy</span>
+                <p class="prompt-text">A bright, joyful, upbeat acoustic-pop track ..., pure happiness and fun ...</p>
+              </div>
+              <div class="if-variant">
+                <div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAQQCAwX/xAAgEAACAgICAgMAAAAAAAAAAAABAgARAyEEEhMiMUFR/8QAFQEBAQAAAAAAAAAAAAAAAAAABQT/xAAaEQACAwEBAAAAAAAAAAAAAAAAAQIREjFB/9oADAMBAAIRAxEAPwBvqPowMAfkRfNm8a+u2hTL2WxqROMqtiKy5ZXTFXmv2JajctXmg6Ni/wAijIoegJM41CXW4gGe2f/Z')"><video src="instruction_following/sample_4/motivational.mp4" playsinline preload="none" data-poster="instruction_following/sample_4/motivational.jpg" muted loop data-loop aria-label="Taj Mahal, Motivational instruction"></video></div>
+                <span class="emotion-chip chip-motivational">Motivational</span>
+                <p class="prompt-text">A powerful, motivational cinematic anthem ..., inspiring triumphant build ...</p>
+              </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+<!-- End instruction following -->
 
-<footer>
-  Supplementary Materials · Anonymous Submission
+
+<!-- Method overview -->
+<section class="section hero is-small">
+  <div class="container is-max-widescreen">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full method-col">
+        <h2 id="h-method" class="title is-3">Method overview</h2>
+        <picture>
+          <source srcset="static/images/main_arch.webp?v=54bbcb91" type="image/webp">
+          <img src="static/images/main_arch.png?v=dc79979b" alt="VIBE model architecture"
+               class="center-image blend-img-background"
+               width="4067" height="1703" loading="lazy" decoding="async">
+        </picture>
+        <h3 class="title is-5 sub-head">The five training stages</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="The five training stages, scrollable table">
+          <table class="restable curriculum">
+            <thead><tr><th scope="col">Stage</th><th scope="col">What it adds</th>
+              <th scope="col">Data</th><th scope="col">Examples</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><span class="stage-num">1</span>Music generation pre-training</th><td class="stage-what">Text and music only, no video. Aligns the projectors.</td><td class="stage-data">JamendoMaxCaps</td><td class="stage-size">~1.6M</td></tr>
+              <tr><th scope="row"><span class="stage-num">2</span>Text-to-music instruction SFT</th><td class="stage-what">Instruction-rich captions with tempo and key annotations.</td><td class="stage-data">MusicBench</td><td class="stage-size">52,768</td></tr>
+              <tr><th scope="row"><span class="stage-num">3</span>Text-to-music preference optimization</th><td class="stage-what">DiffusionNFT against CMI-RM plus the hard tempo and key rewards.</td><td class="stage-data">CMI-Pref</td><td class="stage-size">3,527</td></tr>
+              <tr><th scope="row"><span class="stage-num">4</span>Text plus video instruction SFT</th><td class="stage-what">Adds the frozen CLIP encoder and a projection layer trained from scratch.</td><td class="stage-data">V2M + HarmonySet</td><td class="stage-size">60,000</td></tr>
+              <tr><th scope="row"><span class="stage-num">5</span>Omni-modal preference optimization</th><td class="stage-what">DiffusionNFT again, with Qwen2.5-Omni judging video-music alignment too.</td><td class="stage-data">V2M + HarmonySet</td><td class="stage-size">8,000</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End method overview -->
+
+
+<!-- Mel-spectrogram comparison -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <h2 id="h-mel" class="title is-3 has-text-centered">Mel-spectrogram comparison</h2>
+        <div class="mel-row is-ours">
+          <div class="mel-row-label">
+            <span class="model-name">VIBE</span>
+            <span class="cond-badge cond-vt">Video + Text</span>
+          </div>
+          <div class="mel-row-video"><div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMC/8QAIRAAAgICAQQDAAAAAAAAAAAAAQIDEQASBAUhQVETcbH/xAAWAQEBAQAAAAAAAAAAAAAAAAACAAH/xAAYEQADAQEAAAAAAAAAAAAAAAAAARECIf/aAAwDAQACEQMRAD8AZLyoJEfWZaKmhgo3UMfjmHaq8YWNRqpTU6+jkzxw0hAtSfRzMsWsTtL9KiEkBsENZ7HHHjGJQ2tj8zCNTRlRXbx94+zk1Q2n/9k=')"><video src="samples/video_6/vibe.mp4" playsinline preload="none" data-poster="samples/video_6/vibe.jpg" muted loop data-loop aria-label="VIBE clip"></video></div></div>
+          <div class="mel-row-img"><picture><source srcset="samples/video_6/mel_vibe.webp" type="image/webp"><img src="samples/video_6/mel_vibe.png" alt="Mel-spectrogram of the VIBE result" width="1195" height="389" loading="lazy" decoding="async"></picture></div>
+        </div>
+        <div class="mel-row">
+          <div class="mel-row-label">
+            <span class="model-name">CMT</span>
+            <span class="cond-badge">Video-only</span>
+          </div>
+          <div class="mel-row-video"><div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAwQBAgX/xAAiEAACAgEEAgMBAAAAAAAAAAABAwIRAAQSEyFBYRQiUZH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABgRAQADAQAAAAAAAAAAAAAAAAABERIx/9oADAMBAAIRAxEAPwB+lSdsgTZF9DxlNS5I0rDpzIm9t+8yWPcshpuBqrB8YVerZxbV7RGrPWU0FFHQ54QE20R/MPpGLTaid3vGBxs+skKo/gIyfgIM+hKNgno5OpKev//Z')"><video src="samples/video_6/cmt.mp4" playsinline preload="none" data-poster="samples/video_6/cmt.jpg" controls aria-label="CMT clip"></video></div></div>
+          <div class="mel-row-img"><picture><source srcset="samples/video_6/mel_cmt.webp" type="image/webp"><img src="samples/video_6/mel_cmt.png" alt="Mel-spectrogram of the CMT result" width="1195" height="389" loading="lazy" decoding="async"></picture></div>
+        </div>
+        <div class="mel-row">
+          <div class="mel-row-label">
+            <span class="model-name">GVMGen</span>
+            <span class="cond-badge">Video-only</span>
+          </div>
+          <div class="mel-row-video"><div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMC/8QAIRAAAgICAQQDAAAAAAAAAAAAAQIDEQASBAUhQVETcbH/xAAWAQEBAQAAAAAAAAAAAAAAAAACAAH/xAAYEQADAQEAAAAAAAAAAAAAAAAAARECIf/aAAwDAQACEQMRAD8AZLyoJEfWZaKmhgo3UMfjmHaq8YWNRqpTU6+jkzxw0hAtSfRzMsWsTtL9KiEkBsENZ7HHHjGJQ2tj8zCNTRlRXbx94+zk1Q2n/9k=')"><video src="samples/video_6/gvmgen.mp4" playsinline preload="none" data-poster="samples/video_6/gvmgen.jpg" controls aria-label="GVMGen clip"></video></div></div>
+          <div class="mel-row-img"><picture><source srcset="samples/video_6/mel_gvmgen.webp" type="image/webp"><img src="samples/video_6/mel_gvmgen.png" alt="Mel-spectrogram of the GVMGen result" width="1195" height="389" loading="lazy" decoding="async"></picture></div>
+        </div>
+        <div class="mel-row">
+          <div class="mel-row-label">
+            <span class="model-name">VidMuse</span>
+            <span class="cond-badge">Video-only</span>
+          </div>
+          <div class="mel-row-video"><div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMC/8QAIRAAAgICAQQDAAAAAAAAAAAAAQIDEQASBAUhQVETcbH/xAAWAQEBAQAAAAAAAAAAAAAAAAACAAH/xAAYEQADAQEAAAAAAAAAAAAAAAAAARECIf/aAAwDAQACEQMRAD8AZLyoJEfWZaKmhgo3UMfjmHaq8YWNRqpTU6+jkzxw0hAtSfRzMsWsTtL9KiEkBsENZ7HHHjGJQ2tj8zCNTRlRXbx94+zk1Q2n/9k=')"><video src="samples/video_6/vidmuse.mp4" playsinline preload="none" data-poster="samples/video_6/vidmuse.jpg" controls aria-label="VidMuse clip"></video></div></div>
+          <div class="mel-row-img"><picture><source srcset="samples/video_6/mel_vidmuse.webp" type="image/webp"><img src="samples/video_6/mel_vidmuse.png" alt="Mel-spectrogram of the VidMuse result" width="1195" height="389" loading="lazy" decoding="async"></picture></div>
+        </div>
+        <div class="mel-row">
+          <div class="mel-row-label">
+            <span class="model-name">Video2Music</span>
+            <span class="cond-badge">Video-only</span>
+          </div>
+          <div class="mel-row-video"><div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAwQBAgX/xAAiEAACAgICAQUBAAAAAAAAAAABAwIRAAQSIUETIlFhYnH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABgRAQEAAwAAAAAAAAAAAAAAAAARARJB/9oADAMBAAIRAxEAPwB+lSdwgTZF9DxlNlyRqsOuZE3xv7zJY9yyGm4GqsHxhV7bPS4r4iNWespsEKOgNiEBNpBF/wAw+oxabUTy/WHBWz2yQqj8CskaKDPoGNgno5OZLr//2Q==')"><video src="samples/video_6/video2music.mp4" playsinline preload="none" data-poster="samples/video_6/video2music.jpg" controls aria-label="Video2Music clip"></video></div></div>
+          <div class="mel-row-img"><picture><source srcset="samples/video_6/mel_video2music.webp" type="image/webp"><img src="samples/video_6/mel_video2music.png" alt="Mel-spectrogram of the Video2Music result" width="1195" height="389" loading="lazy" decoding="async"></picture></div>
+        </div>
+        <div class="mel-row">
+          <div class="mel-row-label">
+            <span class="model-name">M2UGen</span>
+            <span class="cond-badge cond-generic">Generic text</span>
+          </div>
+          <div class="mel-row-video"><div class="loopvid-wrap" style="aspect-ratio:440/782;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAcABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMC/8QAIRAAAgICAQQDAAAAAAAAAAAAAQIDEQASBAUhQVETcbH/xAAWAQEBAQAAAAAAAAAAAAAAAAACAAH/xAAYEQADAQEAAAAAAAAAAAAAAAAAARECIf/aAAwDAQACEQMRAD8AZLyoJEfWZaKmhgo3UMfjmHaq8YWNRqpTU6+jkzxw0hAtSfRzMsWsTtL9KiEkBsENZ7HHHjGJQ2tj8zCNTRlRXbx94+zk1Q2n/9k=')"><video src="samples/video_6/m2ugen.mp4" playsinline preload="none" data-poster="samples/video_6/m2ugen.jpg" controls aria-label="M2UGen clip"></video></div></div>
+          <div class="mel-row-img"><picture><source srcset="samples/video_6/mel_m2ugen.webp" type="image/webp"><img src="samples/video_6/mel_m2ugen.png" alt="Mel-spectrogram of the M2UGen result" width="1195" height="389" loading="lazy" decoding="async"></picture></div>
+        </div>
+    </div>
+  </div>
+</section>
+<!-- End mel-spectrogram comparison -->
+
+
+
+<!-- Results -->
+<section class="section" id="results">
+  <div class="container is-max-widescreen">
+    <h2 class="title is-3 has-text-centered">Results</h2>
+    <p class="subtitle has-text-centered results-intro">
+      All results are reported on ReelBench. The best result among the generated systems is
+      shown in <span class="is-best">bold</span>. Ground truth is included for reference and is
+      excluded from the ranking.
+    </p>
+
+    <h3 class="title is-5 sub-head">Audio quality and diversity</h3>
+<div class="metric-grid"><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">FAD <span class="metric-dir" title="lower is better">(&#8595;<span class="is-sr-only"> lower is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">30</span><span class="y-tick" style="--p:75%">22.5</span><span class="y-tick" style="--p:50%">15</span><span class="y-tick" style="--p:25%">7.5</span><span class="y-tick" style="--p:0%">0</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#0072b2;--h:29.17%"><span class="vbar-val">8.7522</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#e69f00;--h:11.91%"><span class="vbar-val">3.5729</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#56b4e9;--h:7.67%"><span class="vbar-val">2.3022</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#cc79a7;--h:75.49%"><span class="vbar-val">22.6459</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#009e73;--h:15.26%"><span class="vbar-val">4.5767</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#d55e00;--h:5.04%"><span class="vbar-val">1.511</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#5b3a9b;--h:5.28%"><span class="vbar-val">1.5829</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">CMT</span><span class="vbar-name">GVMGen</span><span class="vbar-name">VidMuse</span><span class="vbar-name">Video2Music</span><span class="vbar-name">M2UGen</span><span class="vbar-name is-top">Video-Robin</span><span class="vbar-name">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">FD <span class="metric-dir" title="lower is better">(&#8595;<span class="is-sr-only"> lower is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">100</span><span class="y-tick" style="--p:75%">75</span><span class="y-tick" style="--p:50%">50</span><span class="y-tick" style="--p:25%">25</span><span class="y-tick" style="--p:0%">0</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#0072b2;--h:37.79%"><span class="vbar-val">37.7945</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#e69f00;--h:16.26%"><span class="vbar-val">16.2638</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#56b4e9;--h:14.54%"><span class="vbar-val">14.5385</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#cc79a7;--h:73.07%"><span class="vbar-val">73.067</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#009e73;--h:27.42%"><span class="vbar-val">27.4208</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#d55e00;--h:10.9%"><span class="vbar-val">10.902</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#5b3a9b;--h:10.13%"><span class="vbar-val">10.1282</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">CMT</span><span class="vbar-name">GVMGen</span><span class="vbar-name">VidMuse</span><span class="vbar-name">Video2Music</span><span class="vbar-name">M2UGen</span><span class="vbar-name">Video-Robin</span><span class="vbar-name is-top">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">KL <span class="metric-dir" title="lower is better">(&#8595;<span class="is-sr-only"> lower is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">2</span><span class="y-tick" style="--p:75%">1.5</span><span class="y-tick" style="--p:50%">1</span><span class="y-tick" style="--p:25%">0.5</span><span class="y-tick" style="--p:0%">0</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#0072b2;--h:86.65%"><span class="vbar-val">1.7329</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#e69f00;--h:77.86%"><span class="vbar-val">1.5573</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#56b4e9;--h:65.97%"><span class="vbar-val">1.3194</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#cc79a7;--h:94.19%"><span class="vbar-val">1.8839</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#009e73;--h:76.5%"><span class="vbar-val">1.5301</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#d55e00;--h:62.78%"><span class="vbar-val">1.2556</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#5b3a9b;--h:66.03%"><span class="vbar-val">1.3205</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">CMT</span><span class="vbar-name">GVMGen</span><span class="vbar-name">VidMuse</span><span class="vbar-name">Video2Music</span><span class="vbar-name">M2UGen</span><span class="vbar-name is-top">Video-Robin</span><span class="vbar-name">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">IS <span class="metric-dir" title="higher is better">(&#8593;<span class="is-sr-only"> higher is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">3</span><span class="y-tick" style="--p:75%">2.25</span><span class="y-tick" style="--p:50%">1.5</span><span class="y-tick" style="--p:25%">0.75</span><span class="y-tick" style="--p:0%">0</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#0072b2;--h:40.81%"><span class="vbar-val">1.2243</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#e69f00;--h:56.95%"><span class="vbar-val">1.7085</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#56b4e9;--h:48.5%"><span class="vbar-val">1.4549</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#cc79a7;--h:34.11%"><span class="vbar-val">1.0233</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#009e73;--h:55.0%"><span class="vbar-val">1.6499</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#d55e00;--h:68.62%"><span class="vbar-val">2.0586</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#5b3a9b;--h:78.59%"><span class="vbar-val">2.3578</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">CMT</span><span class="vbar-name">GVMGen</span><span class="vbar-name">VidMuse</span><span class="vbar-name">Video2Music</span><span class="vbar-name">M2UGen</span><span class="vbar-name">Video-Robin</span><span class="vbar-name is-top">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">IB <span class="metric-dir" title="higher is better">(&#8593;<span class="is-sr-only"> higher is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">0.16</span><span class="y-tick" style="--p:75%">0.12</span><span class="y-tick" style="--p:50%">0.08</span><span class="y-tick" style="--p:25%">0.04</span><span class="y-tick" style="--p:0%">0</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#0072b2;--h:69.94%"><span class="vbar-val">0.1119</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#e69f00;--h:59.81%"><span class="vbar-val">0.0957</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#56b4e9;--h:77.06%"><span class="vbar-val">0.1233</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#cc79a7;--h:29.56%"><span class="vbar-val">0.0473</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#009e73;--h:45.12%"><span class="vbar-val">0.0722</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#d55e00;--h:63.56%"><span class="vbar-val">0.1017</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#5b3a9b;--h:55.5%"><span class="vbar-val">0.0888</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">CMT</span><span class="vbar-name">GVMGen</span><span class="vbar-name is-top">VidMuse</span><span class="vbar-name">Video2Music</span><span class="vbar-name">M2UGen</span><span class="vbar-name">Video-Robin</span><span class="vbar-name">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">Density <span class="metric-dir" title="higher is better">(&#8593;<span class="is-sr-only"> higher is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">1</span><span class="y-tick" style="--p:75%">0.75</span><span class="y-tick" style="--p:50%">0.5</span><span class="y-tick" style="--p:25%">0.25</span><span class="y-tick" style="--p:0%">0</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#0072b2;--h:10.84%"><span class="vbar-val">0.1084</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#e69f00;--h:8.35%"><span class="vbar-val">0.0835</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#56b4e9;--h:13.77%"><span class="vbar-val">0.1377</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#cc79a7;--h:16.47%"><span class="vbar-val">0.1647</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#009e73;--h:10.94%"><span class="vbar-val">0.1094</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#d55e00;--h:13.84%"><span class="vbar-val">0.1384</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#5b3a9b;--h:67.41%"><span class="vbar-val">0.6741</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">CMT</span><span class="vbar-name">GVMGen</span><span class="vbar-name">VidMuse</span><span class="vbar-name">Video2Music</span><span class="vbar-name">M2UGen</span><span class="vbar-name">Video-Robin</span><span class="vbar-name is-top">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">Coverage <span class="metric-dir" title="higher is better">(&#8593;<span class="is-sr-only"> higher is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">0.8</span><span class="y-tick" style="--p:75%">0.6</span><span class="y-tick" style="--p:50%">0.4</span><span class="y-tick" style="--p:25%">0.2</span><span class="y-tick" style="--p:0%">0</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#0072b2;--h:7.67%"><span class="vbar-val">0.0614</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#e69f00;--h:48.51%"><span class="vbar-val">0.3881</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#56b4e9;--h:65.16%"><span class="vbar-val">0.5213</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#cc79a7;--h:1.05%"><span class="vbar-val">0.0084</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#009e73;--h:34.51%"><span class="vbar-val">0.2761</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#d55e00;--h:65.74%"><span class="vbar-val">0.5259</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#5b3a9b;--h:76.19%"><span class="vbar-val">0.6095</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">CMT</span><span class="vbar-name">GVMGen</span><span class="vbar-name">VidMuse</span><span class="vbar-name">Video2Music</span><span class="vbar-name">M2UGen</span><span class="vbar-name">Video-Robin</span><span class="vbar-name is-top">VIBE</span></div></div></figure></div>
+    <details class="table-fold">
+      <summary>Exact figures</summary>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Audio quality and diversity results, scrollable table">
+          <table class="restable">
+            <thead><tr><th scope="col">Model</th><th scope="col">FAD<span class="arrow" aria-hidden="true">&#8595;</span><span class="is-sr-only"> (lower is better)</span></th><th scope="col">FD<span class="arrow" aria-hidden="true">&#8595;</span><span class="is-sr-only"> (lower is better)</span></th><th scope="col">KL<span class="arrow" aria-hidden="true">&#8595;</span><span class="is-sr-only"> (lower is better)</span></th><th scope="col">IS<span class="arrow" aria-hidden="true">&#8593;</span><span class="is-sr-only"> (higher is better)</span></th><th scope="col">IB<span class="arrow" aria-hidden="true">&#8593;</span><span class="is-sr-only"> (higher is better)</span></th><th scope="col">Density<span class="arrow" aria-hidden="true">&#8593;</span><span class="is-sr-only"> (higher is better)</span></th><th scope="col">Coverage<span class="arrow" aria-hidden="true">&#8593;</span><span class="is-sr-only"> (higher is better)</span></th></tr></thead>
+            <tbody>
+              <tr class="ref"><th scope="row">Ground truth</th><td>-</td><td>-</td><td>-</td><td>-</td><td>0.1417</td><td>0.9900</td><td>0.8800</td></tr>
+              <tr class="grp"><th colspan="8" scope="colgroup">Video only</th></tr>
+              <tr><th scope="row">CMT<span class="cite">Di et al., 2021</span></th><td>8.7522</td><td>37.7945</td><td>1.7329</td><td>1.2243<span class="pm">&#177;0.0147</span></td><td><span class="is-second">0.1119</span></td><td>0.1084</td><td>0.0614</td></tr>
+              <tr><th scope="row">GVMGen<span class="cite">Zuo et al., 2025</span></th><td>3.5729</td><td>16.2638</td><td>1.5573</td><td>1.7085<span class="pm">&#177;0.0281</span></td><td>0.0957</td><td>0.0835</td><td>0.3881</td></tr>
+              <tr><th scope="row">VidMuse<span class="cite">Tian et al., 2025</span></th><td>2.3022</td><td>14.5385</td><td><span class="is-second">1.3194</span></td><td>1.4549<span class="pm">&#177;0.0281</span></td><td><span class="is-best">0.1233</span></td><td>0.1377</td><td>0.5213</td></tr>
+              <tr class="grp"><th colspan="8" scope="colgroup">Video plus auxiliary inputs</th></tr>
+              <tr><th scope="row">Video2Music<span class="cite">Kang et al., 2024</span></th><td>22.6459</td><td>73.0670</td><td>1.8839</td><td>1.0233<span class="pm">&#177;0.0014</span></td><td>0.0473</td><td><span class="is-second">0.1647</span></td><td>0.0084</td></tr>
+              <tr><th scope="row">M2UGen<span class="cite">Liu et al., 2024</span></th><td>4.5767</td><td>27.4208</td><td>1.5301</td><td>1.6499<span class="pm">&#177;0.0567</span></td><td>0.0722</td><td>0.1094</td><td>0.2761</td></tr>
+              <tr class="grp"><th colspan="8" scope="colgroup">Text plus video</th></tr>
+              <tr><th scope="row">Video-Robin<span class="cite">Lokegaonkar et al., 2026</span></th><td><span class="is-best">1.5110</span></td><td><span class="is-second">10.9020</span></td><td><span class="is-best">1.2556</span></td><td><span class="is-second">2.0586<span class="pm">&#177;0.0472</span></span></td><td>0.1017</td><td>0.1384</td><td><span class="is-second">0.5259</span></td></tr>
+              <tr class="ours"><th scope="row">VIBE<span class="cite">ours</span></th><td><span class="is-second">1.5829</span></td><td><span class="is-best">10.1282</span></td><td>1.3205</td><td><span class="is-best">2.3578<span class="pm">&#177;0.0798</span></span></td><td>0.0888</td><td><span class="is-best">0.6741</span></td><td><span class="is-best">0.6095</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+    </details>
+    <p class="table-note">
+      VIBE attains the best FD, Inception Score, Density and Coverage among all evaluated
+      systems. The marginal regression in FAD, KL and ImageBind score relative to Video-Robin is
+      expected: reinforcement finetuning trades distributional proximity for generative
+      diversity and instruction adherence. This is reflected in Coverage, which rises from 0.526
+      to 0.610, and in Density, which rises from 0.138 to 0.674.
+    </p>
+
+    <h3 class="title is-5 sub-head">Following the instruction</h3>
+<div class="metric-grid is-triple"><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">Tempo accuracy, exact <span class="metric-dir" title="higher is better">(&#8593;<span class="is-sr-only"> higher is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">30</span><span class="y-tick" style="--p:75%">22.5</span><span class="y-tick" style="--p:50%">15</span><span class="y-tick" style="--p:25%">7.5</span><span class="y-tick" style="--p:0%">0</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#d55e00;--h:73.33%"><span class="vbar-val">22</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#a98fd8;--h:77.33%"><span class="vbar-val">23.2</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#5b3a9b;--h:80.67%"><span class="vbar-val">24.2</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">Video-Robin</span><span class="vbar-name">VIBE w/o S5</span><span class="vbar-name is-top">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">Tempo accuracy, octave-equivalent <span class="metric-dir" title="higher is better">(&#8593;<span class="is-sr-only"> higher is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">40</span><span class="y-tick" style="--p:75%">30</span><span class="y-tick" style="--p:50%">20</span><span class="y-tick" style="--p:25%">10</span><span class="y-tick" style="--p:0%">0</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#d55e00;--h:74.25%"><span class="vbar-val">29.7</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#a98fd8;--h:74.0%"><span class="vbar-val">29.6</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#5b3a9b;--h:78.5%"><span class="vbar-val">31.4</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">Video-Robin</span><span class="vbar-name">VIBE w/o S5</span><span class="vbar-name is-top">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">Key accuracy, exact <span class="metric-dir" title="higher is better">(&#8593;<span class="is-sr-only"> higher is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">4</span><span class="y-tick" style="--p:75%">3</span><span class="y-tick" style="--p:50%">2</span><span class="y-tick" style="--p:25%">1</span><span class="y-tick" style="--p:0%">0</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#d55e00;--h:67.5%"><span class="vbar-val">2.7</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#a98fd8;--h:65.0%"><span class="vbar-val">2.6</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#5b3a9b;--h:77.5%"><span class="vbar-val">3.1</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">Video-Robin</span><span class="vbar-name">VIBE w/o S5</span><span class="vbar-name is-top">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">Key accuracy, loose <span class="metric-dir" title="higher is better">(&#8593;<span class="is-sr-only"> higher is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">16</span><span class="y-tick" style="--p:75%">12</span><span class="y-tick" style="--p:50%">8</span><span class="y-tick" style="--p:25%">4</span><span class="y-tick" style="--p:0%">0</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#d55e00;--h:63.12%"><span class="vbar-val">10.1</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#a98fd8;--h:61.88%"><span class="vbar-val">9.9</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#5b3a9b;--h:68.12%"><span class="vbar-val">10.9</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">Video-Robin</span><span class="vbar-name">VIBE w/o S5</span><span class="vbar-name is-top">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">Tempo error, MAE in BPM <span class="metric-dir" title="lower is better">(&#8595;<span class="is-sr-only"> lower is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">40</span><span class="y-tick" style="--p:75%">30</span><span class="y-tick" style="--p:50%">20</span><span class="y-tick" style="--p:25%">10</span><span class="y-tick" style="--p:0%">0</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#d55e00;--h:83.58%"><span class="vbar-val">33.43</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#a98fd8;--h:81.92%"><span class="vbar-val">32.77</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#5b3a9b;--h:81.05%"><span class="vbar-val">32.42</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">Video-Robin</span><span class="vbar-name">VIBE w/o S5</span><span class="vbar-name is-top">VIBE</span></div></div></figure></div>
+    <details class="table-fold">
+      <summary>Exact figures</summary>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Instruction-following results, scrollable table">
+          <table class="restable is-narrow-table">
+            <thead><tr><th scope="col">Metric</th><th scope="col">Video-Robin</th>
+              <th scope="col">VIBE without stage 5</th><th scope="col">VIBE</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Tempo accuracy, exact<span class="arrow" aria-hidden="true">&#8593;</span><span class="is-sr-only"> (higher is better)</span></th><td>22.0</td><td>23.2</td><td><span class="is-best">24.2</span></td></tr>
+              <tr><th scope="row">Tempo accuracy, octave-equivalent<span class="arrow" aria-hidden="true">&#8593;</span><span class="is-sr-only"> (higher is better)</span></th><td>29.7</td><td>29.6</td><td><span class="is-best">31.4</span></td></tr>
+              <tr><th scope="row">Key accuracy, exact<span class="arrow" aria-hidden="true">&#8593;</span><span class="is-sr-only"> (higher is better)</span></th><td>2.7</td><td>2.6</td><td><span class="is-best">3.1</span></td></tr>
+              <tr><th scope="row">Key accuracy, loose<span class="arrow" aria-hidden="true">&#8593;</span><span class="is-sr-only"> (higher is better)</span></th><td>10.1</td><td>9.9</td><td><span class="is-best">10.9</span></td></tr>
+              <tr><th scope="row">Tempo error, MAE in BPM<span class="arrow" aria-hidden="true">&#8595;</span><span class="is-sr-only"> (lower is better)</span></th><td>33.43</td><td>32.77</td><td><span class="is-best">32.42</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+    </details>
+    <p class="table-note">
+      Absolute values are low across all systems, and exact key identification in particular
+      remains difficult for every model evaluated. The informative comparison is therefore a
+      relative one: VIBE improves over Video-Robin on all five metrics and over its own Stage 5
+      ablation on all five, which isolates omni-modal preference tuning, rather than the
+      architecture alone, as the source of the gain. Tempo is scored correct within 10 percent
+      of the target; the loose key criterion additionally accepts relative and parallel keys.
+    </p>
+
+    <h3 class="title is-5 sub-head">Human A/B testing results</h3>
+    <p class="table-note">
+      Each cell is the win rate of the row model against the column model: the percentage of
+      paired comparisons in which listeners preferred the row model's output over the column
+      model's, so 50 is parity and above 50 is a win for the row.
+    </p>
+<div class="matrix reveal"><div class="mx-grid"><figure class="mx-panel"><figcaption class="mx-title">Audio quality</figcaption><div class="table-scroll" tabindex="0" role="region" aria-label="Audio quality win rate matrix, scrollable table"><table class="mx-table"><caption class="is-sr-only">Audio quality: percentage of comparisons the row model won against the column model</caption><thead><tr><th scope="col" class="mx-corner">wins vs</th><th scope="col"><abbr title="CMT">CMT</abbr></th><th scope="col"><abbr title="GVMGen">GVM</abbr></th><th scope="col"><abbr title="M2UGen">M2U</abbr></th><th scope="col"><abbr title="Video2Music">V2M</abbr></th><th scope="col"><abbr title="VidMuse">VdM</abbr></th><th scope="col"><abbr title="Video-Robin">V-R</abbr></th><th scope="col"><abbr title="VIBE">VIBE</abbr></th></tr></thead><tbody><tr><th scope="row">CMT</th><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.514" title="CMT beat GVMGen in 51% of comparisons"><span>51</span></td><td class="mx-cell" style="--a:0.597" title="CMT beat M2UGen in 57% of comparisons"><span>57</span></td><td class="mx-cell" style="--a:0.333" title="CMT beat Video2Music in 38% of comparisons"><span>38</span></td><td class="mx-cell" style="--a:0.278" title="CMT beat VidMuse in 34% of comparisons"><span>34</span></td><td class="mx-cell" style="--a:0.222" title="CMT beat Video-Robin in 30% of comparisons"><span>30</span></td><td class="mx-cell" style="--a:0.208" title="CMT beat VIBE in 29% of comparisons"><span>29</span></td></tr><tr><th scope="row">GVMGen</th><td class="mx-cell" style="--a:0.486" title="GVMGen beat CMT in 49% of comparisons"><span>49</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.403" title="GVMGen beat M2UGen in 43% of comparisons"><span>43</span></td><td class="mx-cell" style="--a:0.319" title="GVMGen beat Video2Music in 37% of comparisons"><span>37</span></td><td class="mx-cell" style="--a:0.389" title="GVMGen beat VidMuse in 42% of comparisons"><span>42</span></td><td class="mx-cell" style="--a:0.125" title="GVMGen beat Video-Robin in 23% of comparisons"><span>23</span></td><td class="mx-cell" style="--a:0.097" title="GVMGen beat VIBE in 21% of comparisons"><span>21</span></td></tr><tr><th scope="row">M2UGen</th><td class="mx-cell" style="--a:0.403" title="M2UGen beat CMT in 43% of comparisons"><span>43</span></td><td class="mx-cell" style="--a:0.597" title="M2UGen beat GVMGen in 57% of comparisons"><span>57</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.375" title="M2UGen beat Video2Music in 41% of comparisons"><span>41</span></td><td class="mx-cell" style="--a:0.181" title="M2UGen beat VidMuse in 27% of comparisons"><span>27</span></td><td class="mx-cell" style="--a:0.278" title="M2UGen beat Video-Robin in 34% of comparisons"><span>34</span></td><td class="mx-cell" style="--a:0.250" title="M2UGen beat VIBE in 32% of comparisons"><span>32</span></td></tr><tr><th scope="row">Video2Music</th><td class="mx-cell is-dark" style="--a:0.667" title="Video2Music beat CMT in 62% of comparisons"><span>62</span></td><td class="mx-cell is-dark" style="--a:0.681" title="Video2Music beat GVMGen in 63% of comparisons"><span>63</span></td><td class="mx-cell is-dark" style="--a:0.625" title="Video2Music beat M2UGen in 59% of comparisons"><span>59</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.486" title="Video2Music beat VidMuse in 49% of comparisons"><span>49</span></td><td class="mx-cell" style="--a:0.222" title="Video2Music beat Video-Robin in 30% of comparisons"><span>30</span></td><td class="mx-cell" style="--a:0.194" title="Video2Music beat VIBE in 28% of comparisons"><span>28</span></td></tr><tr><th scope="row">VidMuse</th><td class="mx-cell is-dark" style="--a:0.722" title="VidMuse beat CMT in 66% of comparisons"><span>66</span></td><td class="mx-cell is-dark" style="--a:0.611" title="VidMuse beat GVMGen in 58% of comparisons"><span>58</span></td><td class="mx-cell is-dark" style="--a:0.819" title="VidMuse beat M2UGen in 73% of comparisons"><span>73</span></td><td class="mx-cell" style="--a:0.514" title="VidMuse beat Video2Music in 51% of comparisons"><span>51</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.472" title="VidMuse beat Video-Robin in 48% of comparisons"><span>48</span></td><td class="mx-cell" style="--a:0.444" title="VidMuse beat VIBE in 46% of comparisons"><span>46</span></td></tr><tr><th scope="row">Video-Robin</th><td class="mx-cell is-dark" style="--a:0.778" title="Video-Robin beat CMT in 70% of comparisons"><span>70</span></td><td class="mx-cell is-dark" style="--a:0.875" title="Video-Robin beat GVMGen in 77% of comparisons"><span>77</span></td><td class="mx-cell is-dark" style="--a:0.722" title="Video-Robin beat M2UGen in 66% of comparisons"><span>66</span></td><td class="mx-cell is-dark" style="--a:0.778" title="Video-Robin beat Video2Music in 70% of comparisons"><span>70</span></td><td class="mx-cell" style="--a:0.528" title="Video-Robin beat VidMuse in 52% of comparisons"><span>52</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.222" title="Video-Robin beat VIBE in 30% of comparisons"><span>30</span></td></tr><tr class="is-ours"><th scope="row">VIBE</th><td class="mx-cell is-dark" style="--a:0.792" title="VIBE beat CMT in 71% of comparisons"><span>71</span></td><td class="mx-cell is-dark" style="--a:0.903" title="VIBE beat GVMGen in 79% of comparisons"><span>79</span></td><td class="mx-cell is-dark" style="--a:0.750" title="VIBE beat M2UGen in 68% of comparisons"><span>68</span></td><td class="mx-cell is-dark" style="--a:0.806" title="VIBE beat Video2Music in 72% of comparisons"><span>72</span></td><td class="mx-cell" style="--a:0.556" title="VIBE beat VidMuse in 54% of comparisons"><span>54</span></td><td class="mx-cell is-dark" style="--a:0.778" title="VIBE beat Video-Robin in 70% of comparisons"><span>70</span></td><td class="mx-self" aria-label="same model"></td></tr></tbody></table></div></figure><figure class="mx-panel"><figcaption class="mx-title">Musicality</figcaption><div class="table-scroll" tabindex="0" role="region" aria-label="Musicality win rate matrix, scrollable table"><table class="mx-table"><caption class="is-sr-only">Musicality: percentage of comparisons the row model won against the column model</caption><thead><tr><th scope="col" class="mx-corner">wins vs</th><th scope="col"><abbr title="CMT">CMT</abbr></th><th scope="col"><abbr title="GVMGen">GVM</abbr></th><th scope="col"><abbr title="M2UGen">M2U</abbr></th><th scope="col"><abbr title="Video2Music">V2M</abbr></th><th scope="col"><abbr title="VidMuse">VdM</abbr></th><th scope="col"><abbr title="Video-Robin">V-R</abbr></th><th scope="col"><abbr title="VIBE">VIBE</abbr></th></tr></thead><tbody><tr><th scope="row">CMT</th><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.458" title="CMT beat GVMGen in 47% of comparisons"><span>47</span></td><td class="mx-cell is-dark" style="--a:0.625" title="CMT beat M2UGen in 59% of comparisons"><span>59</span></td><td class="mx-cell" style="--a:0.361" title="CMT beat Video2Music in 40% of comparisons"><span>40</span></td><td class="mx-cell" style="--a:0.361" title="CMT beat VidMuse in 40% of comparisons"><span>40</span></td><td class="mx-cell" style="--a:0.153" title="CMT beat Video-Robin in 25% of comparisons"><span>25</span></td><td class="mx-cell" style="--a:0.139" title="CMT beat VIBE in 24% of comparisons"><span>24</span></td></tr><tr><th scope="row">GVMGen</th><td class="mx-cell" style="--a:0.542" title="GVMGen beat CMT in 53% of comparisons"><span>53</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.347" title="GVMGen beat M2UGen in 39% of comparisons"><span>39</span></td><td class="mx-cell" style="--a:0.319" title="GVMGen beat Video2Music in 37% of comparisons"><span>37</span></td><td class="mx-cell" style="--a:0.333" title="GVMGen beat VidMuse in 38% of comparisons"><span>38</span></td><td class="mx-cell" style="--a:0.264" title="GVMGen beat Video-Robin in 33% of comparisons"><span>33</span></td><td class="mx-cell" style="--a:0.236" title="GVMGen beat VIBE in 31% of comparisons"><span>31</span></td></tr><tr><th scope="row">M2UGen</th><td class="mx-cell" style="--a:0.375" title="M2UGen beat CMT in 41% of comparisons"><span>41</span></td><td class="mx-cell is-dark" style="--a:0.653" title="M2UGen beat GVMGen in 61% of comparisons"><span>61</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.375" title="M2UGen beat Video2Music in 41% of comparisons"><span>41</span></td><td class="mx-cell" style="--a:0.208" title="M2UGen beat VidMuse in 29% of comparisons"><span>29</span></td><td class="mx-cell" style="--a:0.333" title="M2UGen beat Video-Robin in 38% of comparisons"><span>38</span></td><td class="mx-cell" style="--a:0.333" title="M2UGen beat VIBE in 38% of comparisons"><span>38</span></td></tr><tr><th scope="row">Video2Music</th><td class="mx-cell is-dark" style="--a:0.639" title="Video2Music beat CMT in 60% of comparisons"><span>60</span></td><td class="mx-cell is-dark" style="--a:0.681" title="Video2Music beat GVMGen in 63% of comparisons"><span>63</span></td><td class="mx-cell is-dark" style="--a:0.625" title="Video2Music beat M2UGen in 59% of comparisons"><span>59</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.319" title="Video2Music beat VidMuse in 37% of comparisons"><span>37</span></td><td class="mx-cell" style="--a:0.278" title="Video2Music beat Video-Robin in 34% of comparisons"><span>34</span></td><td class="mx-cell" style="--a:0.250" title="Video2Music beat VIBE in 32% of comparisons"><span>32</span></td></tr><tr><th scope="row">VidMuse</th><td class="mx-cell is-dark" style="--a:0.639" title="VidMuse beat CMT in 60% of comparisons"><span>60</span></td><td class="mx-cell is-dark" style="--a:0.667" title="VidMuse beat GVMGen in 62% of comparisons"><span>62</span></td><td class="mx-cell is-dark" style="--a:0.792" title="VidMuse beat M2UGen in 71% of comparisons"><span>71</span></td><td class="mx-cell is-dark" style="--a:0.681" title="VidMuse beat Video2Music in 63% of comparisons"><span>63</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.403" title="VidMuse beat Video-Robin in 43% of comparisons"><span>43</span></td><td class="mx-cell" style="--a:0.375" title="VidMuse beat VIBE in 41% of comparisons"><span>41</span></td></tr><tr><th scope="row">Video-Robin</th><td class="mx-cell is-dark" style="--a:0.847" title="Video-Robin beat CMT in 75% of comparisons"><span>75</span></td><td class="mx-cell is-dark" style="--a:0.736" title="Video-Robin beat GVMGen in 67% of comparisons"><span>67</span></td><td class="mx-cell is-dark" style="--a:0.667" title="Video-Robin beat M2UGen in 62% of comparisons"><span>62</span></td><td class="mx-cell is-dark" style="--a:0.722" title="Video-Robin beat Video2Music in 66% of comparisons"><span>66</span></td><td class="mx-cell" style="--a:0.597" title="Video-Robin beat VidMuse in 57% of comparisons"><span>57</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.458" title="Video-Robin beat VIBE in 47% of comparisons"><span>47</span></td></tr><tr class="is-ours"><th scope="row">VIBE</th><td class="mx-cell is-dark" style="--a:0.861" title="VIBE beat CMT in 76% of comparisons"><span>76</span></td><td class="mx-cell is-dark" style="--a:0.764" title="VIBE beat GVMGen in 69% of comparisons"><span>69</span></td><td class="mx-cell is-dark" style="--a:0.667" title="VIBE beat M2UGen in 62% of comparisons"><span>62</span></td><td class="mx-cell is-dark" style="--a:0.750" title="VIBE beat Video2Music in 68% of comparisons"><span>68</span></td><td class="mx-cell is-dark" style="--a:0.625" title="VIBE beat VidMuse in 59% of comparisons"><span>59</span></td><td class="mx-cell" style="--a:0.542" title="VIBE beat Video-Robin in 53% of comparisons"><span>53</span></td><td class="mx-self" aria-label="same model"></td></tr></tbody></table></div></figure><figure class="mx-panel"><figcaption class="mx-title">Video-music alignment</figcaption><div class="table-scroll" tabindex="0" role="region" aria-label="Video-music alignment win rate matrix, scrollable table"><table class="mx-table"><caption class="is-sr-only">Video-music alignment: percentage of comparisons the row model won against the column model</caption><thead><tr><th scope="col" class="mx-corner">wins vs</th><th scope="col"><abbr title="CMT">CMT</abbr></th><th scope="col"><abbr title="GVMGen">GVM</abbr></th><th scope="col"><abbr title="M2UGen">M2U</abbr></th><th scope="col"><abbr title="Video2Music">V2M</abbr></th><th scope="col"><abbr title="VidMuse">VdM</abbr></th><th scope="col"><abbr title="Video-Robin">V-R</abbr></th><th scope="col"><abbr title="VIBE">VIBE</abbr></th></tr></thead><tbody><tr><th scope="row">CMT</th><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.514" title="CMT beat GVMGen in 51% of comparisons"><span>51</span></td><td class="mx-cell" style="--a:0.431" title="CMT beat M2UGen in 45% of comparisons"><span>45</span></td><td class="mx-cell" style="--a:0.597" title="CMT beat Video2Music in 57% of comparisons"><span>57</span></td><td class="mx-cell" style="--a:0.194" title="CMT beat VidMuse in 28% of comparisons"><span>28</span></td><td class="mx-cell" style="--a:0.042" title="CMT beat Video-Robin in 17% of comparisons"><span>17</span></td><td class="mx-cell" style="--a:0.028" title="CMT beat VIBE in 16% of comparisons"><span>16</span></td></tr><tr><th scope="row">GVMGen</th><td class="mx-cell" style="--a:0.486" title="GVMGen beat CMT in 49% of comparisons"><span>49</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.403" title="GVMGen beat M2UGen in 43% of comparisons"><span>43</span></td><td class="mx-cell" style="--a:0.542" title="GVMGen beat Video2Music in 53% of comparisons"><span>53</span></td><td class="mx-cell" style="--a:0.306" title="GVMGen beat VidMuse in 36% of comparisons"><span>36</span></td><td class="mx-cell" style="--a:0.153" title="GVMGen beat Video-Robin in 25% of comparisons"><span>25</span></td><td class="mx-cell" style="--a:0.125" title="GVMGen beat VIBE in 23% of comparisons"><span>23</span></td></tr><tr><th scope="row">M2UGen</th><td class="mx-cell" style="--a:0.569" title="M2UGen beat CMT in 55% of comparisons"><span>55</span></td><td class="mx-cell" style="--a:0.597" title="M2UGen beat GVMGen in 57% of comparisons"><span>57</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.569" title="M2UGen beat Video2Music in 55% of comparisons"><span>55</span></td><td class="mx-cell" style="--a:0.181" title="M2UGen beat VidMuse in 27% of comparisons"><span>27</span></td><td class="mx-cell" style="--a:0.236" title="M2UGen beat Video-Robin in 31% of comparisons"><span>31</span></td><td class="mx-cell" style="--a:0.222" title="M2UGen beat VIBE in 30% of comparisons"><span>30</span></td></tr><tr><th scope="row">Video2Music</th><td class="mx-cell" style="--a:0.403" title="Video2Music beat CMT in 43% of comparisons"><span>43</span></td><td class="mx-cell" style="--a:0.458" title="Video2Music beat GVMGen in 47% of comparisons"><span>47</span></td><td class="mx-cell" style="--a:0.431" title="Video2Music beat M2UGen in 45% of comparisons"><span>45</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.208" title="Video2Music beat VidMuse in 29% of comparisons"><span>29</span></td><td class="mx-cell" style="--a:0.181" title="Video2Music beat Video-Robin in 27% of comparisons"><span>27</span></td><td class="mx-cell" style="--a:0.153" title="Video2Music beat VIBE in 25% of comparisons"><span>25</span></td></tr><tr><th scope="row">VidMuse</th><td class="mx-cell is-dark" style="--a:0.806" title="VidMuse beat CMT in 72% of comparisons"><span>72</span></td><td class="mx-cell is-dark" style="--a:0.694" title="VidMuse beat GVMGen in 64% of comparisons"><span>64</span></td><td class="mx-cell is-dark" style="--a:0.819" title="VidMuse beat M2UGen in 73% of comparisons"><span>73</span></td><td class="mx-cell is-dark" style="--a:0.792" title="VidMuse beat Video2Music in 71% of comparisons"><span>71</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.375" title="VidMuse beat Video-Robin in 41% of comparisons"><span>41</span></td><td class="mx-cell" style="--a:0.347" title="VidMuse beat VIBE in 39% of comparisons"><span>39</span></td></tr><tr><th scope="row">Video-Robin</th><td class="mx-cell is-dark" style="--a:0.958" title="Video-Robin beat CMT in 83% of comparisons"><span>83</span></td><td class="mx-cell is-dark" style="--a:0.847" title="Video-Robin beat GVMGen in 75% of comparisons"><span>75</span></td><td class="mx-cell is-dark" style="--a:0.764" title="Video-Robin beat M2UGen in 69% of comparisons"><span>69</span></td><td class="mx-cell is-dark" style="--a:0.819" title="Video-Robin beat Video2Music in 73% of comparisons"><span>73</span></td><td class="mx-cell is-dark" style="--a:0.625" title="Video-Robin beat VidMuse in 59% of comparisons"><span>59</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.236" title="Video-Robin beat VIBE in 31% of comparisons"><span>31</span></td></tr><tr class="is-ours"><th scope="row">VIBE</th><td class="mx-cell is-dark" style="--a:0.972" title="VIBE beat CMT in 84% of comparisons"><span>84</span></td><td class="mx-cell is-dark" style="--a:0.875" title="VIBE beat GVMGen in 77% of comparisons"><span>77</span></td><td class="mx-cell is-dark" style="--a:0.778" title="VIBE beat M2UGen in 70% of comparisons"><span>70</span></td><td class="mx-cell is-dark" style="--a:0.847" title="VIBE beat Video2Music in 75% of comparisons"><span>75</span></td><td class="mx-cell is-dark" style="--a:0.653" title="VIBE beat VidMuse in 61% of comparisons"><span>61</span></td><td class="mx-cell is-dark" style="--a:0.764" title="VIBE beat Video-Robin in 69% of comparisons"><span>69</span></td><td class="mx-self" aria-label="same model"></td></tr></tbody></table></div></figure><figure class="mx-panel"><figcaption class="mx-title">Overall</figcaption><div class="table-scroll" tabindex="0" role="region" aria-label="Overall win rate matrix, scrollable table"><table class="mx-table"><caption class="is-sr-only">Overall: percentage of comparisons the row model won against the column model</caption><thead><tr><th scope="col" class="mx-corner">wins vs</th><th scope="col"><abbr title="CMT">CMT</abbr></th><th scope="col"><abbr title="GVMGen">GVM</abbr></th><th scope="col"><abbr title="M2UGen">M2U</abbr></th><th scope="col"><abbr title="Video2Music">V2M</abbr></th><th scope="col"><abbr title="VidMuse">VdM</abbr></th><th scope="col"><abbr title="Video-Robin">V-R</abbr></th><th scope="col"><abbr title="VIBE">VIBE</abbr></th></tr></thead><tbody><tr><th scope="row">CMT</th><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.542" title="CMT beat GVMGen in 53% of comparisons"><span>53</span></td><td class="mx-cell" style="--a:0.542" title="CMT beat M2UGen in 53% of comparisons"><span>53</span></td><td class="mx-cell" style="--a:0.500" title="CMT beat Video2Music in 50% of comparisons"><span>50</span></td><td class="mx-cell" style="--a:0.278" title="CMT beat VidMuse in 34% of comparisons"><span>34</span></td><td class="mx-cell" style="--a:0.069" title="CMT beat Video-Robin in 19% of comparisons"><span>19</span></td><td class="mx-cell" style="--a:0.056" title="CMT beat VIBE in 18% of comparisons"><span>18</span></td></tr><tr><th scope="row">GVMGen</th><td class="mx-cell" style="--a:0.458" title="GVMGen beat CMT in 47% of comparisons"><span>47</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.403" title="GVMGen beat M2UGen in 43% of comparisons"><span>43</span></td><td class="mx-cell" style="--a:0.417" title="GVMGen beat Video2Music in 44% of comparisons"><span>44</span></td><td class="mx-cell" style="--a:0.278" title="GVMGen beat VidMuse in 34% of comparisons"><span>34</span></td><td class="mx-cell" style="--a:0.222" title="GVMGen beat Video-Robin in 30% of comparisons"><span>30</span></td><td class="mx-cell" style="--a:0.194" title="GVMGen beat VIBE in 28% of comparisons"><span>28</span></td></tr><tr><th scope="row">M2UGen</th><td class="mx-cell" style="--a:0.458" title="M2UGen beat CMT in 47% of comparisons"><span>47</span></td><td class="mx-cell" style="--a:0.597" title="M2UGen beat GVMGen in 57% of comparisons"><span>57</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.431" title="M2UGen beat Video2Music in 45% of comparisons"><span>45</span></td><td class="mx-cell" style="--a:0.181" title="M2UGen beat VidMuse in 27% of comparisons"><span>27</span></td><td class="mx-cell" style="--a:0.236" title="M2UGen beat Video-Robin in 31% of comparisons"><span>31</span></td><td class="mx-cell" style="--a:0.222" title="M2UGen beat VIBE in 30% of comparisons"><span>30</span></td></tr><tr><th scope="row">Video2Music</th><td class="mx-cell" style="--a:0.500" title="Video2Music beat CMT in 50% of comparisons"><span>50</span></td><td class="mx-cell" style="--a:0.583" title="Video2Music beat GVMGen in 56% of comparisons"><span>56</span></td><td class="mx-cell" style="--a:0.569" title="Video2Music beat M2UGen in 55% of comparisons"><span>55</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.208" title="Video2Music beat VidMuse in 29% of comparisons"><span>29</span></td><td class="mx-cell" style="--a:0.222" title="Video2Music beat Video-Robin in 30% of comparisons"><span>30</span></td><td class="mx-cell" style="--a:0.194" title="Video2Music beat VIBE in 28% of comparisons"><span>28</span></td></tr><tr><th scope="row">VidMuse</th><td class="mx-cell is-dark" style="--a:0.722" title="VidMuse beat CMT in 66% of comparisons"><span>66</span></td><td class="mx-cell is-dark" style="--a:0.722" title="VidMuse beat GVMGen in 66% of comparisons"><span>66</span></td><td class="mx-cell is-dark" style="--a:0.819" title="VidMuse beat M2UGen in 73% of comparisons"><span>73</span></td><td class="mx-cell is-dark" style="--a:0.792" title="VidMuse beat Video2Music in 71% of comparisons"><span>71</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.375" title="VidMuse beat Video-Robin in 41% of comparisons"><span>41</span></td><td class="mx-cell" style="--a:0.347" title="VidMuse beat VIBE in 39% of comparisons"><span>39</span></td></tr><tr><th scope="row">Video-Robin</th><td class="mx-cell is-dark" style="--a:0.931" title="Video-Robin beat CMT in 81% of comparisons"><span>81</span></td><td class="mx-cell is-dark" style="--a:0.778" title="Video-Robin beat GVMGen in 70% of comparisons"><span>70</span></td><td class="mx-cell is-dark" style="--a:0.764" title="Video-Robin beat M2UGen in 69% of comparisons"><span>69</span></td><td class="mx-cell is-dark" style="--a:0.778" title="Video-Robin beat Video2Music in 70% of comparisons"><span>70</span></td><td class="mx-cell is-dark" style="--a:0.625" title="Video-Robin beat VidMuse in 59% of comparisons"><span>59</span></td><td class="mx-self" aria-label="same model"></td><td class="mx-cell" style="--a:0.292" title="Video-Robin beat VIBE in 35% of comparisons"><span>35</span></td></tr><tr class="is-ours"><th scope="row">VIBE</th><td class="mx-cell is-dark" style="--a:0.944" title="VIBE beat CMT in 82% of comparisons"><span>82</span></td><td class="mx-cell is-dark" style="--a:0.806" title="VIBE beat GVMGen in 72% of comparisons"><span>72</span></td><td class="mx-cell is-dark" style="--a:0.778" title="VIBE beat M2UGen in 70% of comparisons"><span>70</span></td><td class="mx-cell is-dark" style="--a:0.806" title="VIBE beat Video2Music in 72% of comparisons"><span>72</span></td><td class="mx-cell is-dark" style="--a:0.653" title="VIBE beat VidMuse in 61% of comparisons"><span>61</span></td><td class="mx-cell is-dark" style="--a:0.708" title="VIBE beat Video-Robin in 65% of comparisons"><span>65</span></td><td class="mx-self" aria-label="same model"></td></tr></tbody></table></div></figure></div><p class="mx-legend"><span class="mx-legend-label">Win rate</span><span class="mx-scale">20%</span><span class="mx-key mx-k1"></span><span class="mx-key mx-k2"></span><span class="mx-key mx-k3"></span><span class="mx-key mx-k4"></span><span class="mx-key mx-k5"></span><span class="mx-scale">80%</span></p></div>
+
+    <h3 class="title is-5 sub-head">Gemini omni-judge scores</h3>
+<div class="metric-grid"><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">Rhythm <span class="metric-dir" title="higher is better">(&#8593;<span class="is-sr-only"> higher is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">4</span><span class="y-tick" style="--p:75%">3.5</span><span class="y-tick" style="--p:50%">3</span><span class="y-tick" style="--p:25%">2.5</span><span class="y-tick" style="--p:0%">2</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#009e73;--h:24.5%"><span class="vbar-val">2.49</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#cc79a7;--h:31.1%"><span class="vbar-val">2.622</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#d55e00;--h:39.3%"><span class="vbar-val">2.786</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#5b3a9b;--h:40.8%"><span class="vbar-val">2.816</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">M2UGen</span><span class="vbar-name">Video2Music</span><span class="vbar-name">Video-Robin</span><span class="vbar-name is-top">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">Theme <span class="metric-dir" title="higher is better">(&#8593;<span class="is-sr-only"> higher is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">4</span><span class="y-tick" style="--p:75%">3.5</span><span class="y-tick" style="--p:50%">3</span><span class="y-tick" style="--p:25%">2.5</span><span class="y-tick" style="--p:0%">2</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#009e73;--h:36.55%"><span class="vbar-val">2.731</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#cc79a7;--h:37.2%"><span class="vbar-val">2.744</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#d55e00;--h:44.5%"><span class="vbar-val">2.89</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#5b3a9b;--h:45.5%"><span class="vbar-val">2.91</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">M2UGen</span><span class="vbar-name">Video2Music</span><span class="vbar-name">Video-Robin</span><span class="vbar-name is-top">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">Emotion <span class="metric-dir" title="higher is better">(&#8593;<span class="is-sr-only"> higher is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">4</span><span class="y-tick" style="--p:75%">3.5</span><span class="y-tick" style="--p:50%">3</span><span class="y-tick" style="--p:25%">2.5</span><span class="y-tick" style="--p:0%">2</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#009e73;--h:50.0%"><span class="vbar-val">3</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#cc79a7;--h:37.2%"><span class="vbar-val">2.744</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#d55e00;--h:55.0%"><span class="vbar-val">3.1</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#5b3a9b;--h:51.4%"><span class="vbar-val">3.028</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">M2UGen</span><span class="vbar-name">Video2Music</span><span class="vbar-name is-top">Video-Robin</span><span class="vbar-name">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">Culture <span class="metric-dir" title="higher is better">(&#8593;<span class="is-sr-only"> higher is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">4</span><span class="y-tick" style="--p:75%">3.5</span><span class="y-tick" style="--p:50%">3</span><span class="y-tick" style="--p:25%">2.5</span><span class="y-tick" style="--p:0%">2</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#009e73;--h:62.75%"><span class="vbar-val">3.255</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#cc79a7;--h:64.65%"><span class="vbar-val">3.293</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#d55e00;--h:78.25%"><span class="vbar-val">3.565</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#5b3a9b;--h:79.05%"><span class="vbar-val">3.581</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">M2UGen</span><span class="vbar-name">Video2Music</span><span class="vbar-name">Video-Robin</span><span class="vbar-name is-top">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">Temporal <span class="metric-dir" title="higher is better">(&#8593;<span class="is-sr-only"> higher is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">3</span><span class="y-tick" style="--p:75%">2.75</span><span class="y-tick" style="--p:50%">2.5</span><span class="y-tick" style="--p:25%">2.25</span><span class="y-tick" style="--p:0%">2</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#009e73;--h:14.3%"><span class="vbar-val">2.143</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#cc79a7;--h:26.8%"><span class="vbar-val">2.268</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#d55e00;--h:47.2%"><span class="vbar-val">2.472</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#5b3a9b;--h:58.9%"><span class="vbar-val">2.589</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">M2UGen</span><span class="vbar-name">Video2Music</span><span class="vbar-name">Video-Robin</span><span class="vbar-name is-top">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">Instr. fit <span class="metric-dir" title="higher is better">(&#8593;<span class="is-sr-only"> higher is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">4</span><span class="y-tick" style="--p:75%">3.5</span><span class="y-tick" style="--p:50%">3</span><span class="y-tick" style="--p:25%">2.5</span><span class="y-tick" style="--p:0%">2</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#009e73;--h:55.0%"><span class="vbar-val">3.1</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#cc79a7;--h:54.5%"><span class="vbar-val">3.09</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#d55e00;--h:60.0%"><span class="vbar-val">3.2</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#5b3a9b;--h:62.0%"><span class="vbar-val">3.24</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">M2UGen</span><span class="vbar-name">Video2Music</span><span class="vbar-name">Video-Robin</span><span class="vbar-name is-top">VIBE</span></div></div></figure><figure class="metric-card reveal"><figcaption class="metric-head"><span class="metric-name">Overall <span class="metric-dir" title="higher is better">(&#8593;<span class="is-sr-only"> higher is better</span>)</span></span></figcaption><div class="chart"><div class="y-axis"><span class="y-tick" style="--p:100%">4</span><span class="y-tick" style="--p:75%">3.5</span><span class="y-tick" style="--p:50%">3</span><span class="y-tick" style="--p:25%">2.5</span><span class="y-tick" style="--p:0%">2</span></div><div class="plot"><div class="vbars"><div class="vbar" style="--c:#009e73;--h:36.2%"><span class="vbar-val">2.724</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#cc79a7;--h:33.85%"><span class="vbar-val">2.677</span><span class="vbar-col"></span></div><div class="vbar" style="--c:#d55e00;--h:37.65%"><span class="vbar-val">2.753</span><span class="vbar-col"></span></div><div class="vbar is-top" style="--c:#5b3a9b;--h:42.15%"><span class="vbar-val">2.843</span><span class="vbar-col"></span></div></div></div><div class="x-axis"><span class="vbar-name">M2UGen</span><span class="vbar-name">Video2Music</span><span class="vbar-name">Video-Robin</span><span class="vbar-name is-top">VIBE</span></div></div></figure></div>
+    <details class="table-fold">
+      <summary>Exact figures</summary>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Omni-modal judge scores, scrollable table">
+          <table class="restable">
+            <thead><tr><th scope="col">Model</th><th scope="col">Rhythm</th><th scope="col">Theme</th><th scope="col">Emotion</th><th scope="col">Culture</th><th scope="col">Temporal</th><th scope="col">Instr. fit</th><th scope="col">Overall</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">M2UGen</th><td>2.490</td><td>2.731</td><td>3.000</td><td>3.255</td><td>2.143</td><td>3.100</td><td>2.724</td></tr>
+              <tr><th scope="row">Video2Music</th><td>2.622</td><td>2.744</td><td>2.744</td><td>3.293</td><td>2.268</td><td>3.090</td><td>2.677</td></tr>
+              <tr><th scope="row">Video-Robin</th><td>2.786</td><td>2.890</td><td><span class="is-best">3.100</span></td><td>3.565</td><td>2.472</td><td>3.200</td><td>2.753</td></tr>
+              <tr class="ours"><th scope="row">VIBE</th><td><span class="is-best">2.816</span></td><td><span class="is-best">2.910</span></td><td>3.028</td><td><span class="is-best">3.581</span></td><td><span class="is-best">2.589</span></td><td><span class="is-best">3.240</span></td><td><span class="is-best">2.843</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+    </details>
+    <p class="table-note">
+      Gemini is employed as an omni-modal judge, observing the video and the generated music and
+      scoring seven axes of audio-visual alignment. VIBE obtains the highest score on six of the
+      seven axes and on overall alignment; Video-Robin retains emotion alignment. An automatic
+      judge is not a substitute for human assessment, which is why the A/B study above is
+      reported alongside it.
+    </p>
+  </div>
+</section>
+<!-- End results -->
+
+
+<!-- Acknowledgements -->
+<section class="section" id="acknowledgements">
+  <div class="container is-max-widescreen content">
+    <h2 class="title">Acknowledgements</h2>
+    <p>
+      Research at the University of Maryland is partially supported by Adobe, Amazon, NVIDIA
+      and Sesame.
+    </p>
+    <p class="ack-list">
+      This work builds on <span class="ack-item"><a href="https://arxiv.org/abs/2604.17656" target="_blank" rel="noopener">Video-Robin</a></span>, <span class="ack-item"><a href="https://github.com/OpenBMB/VoxCPM" target="_blank" rel="noopener">VoxCPM</a></span>, <span class="ack-item"><a href="https://github.com/OpenBMB/MiniCPM" target="_blank" rel="noopener">MiniCPM-4</a></span>, <span class="ack-item"><a href="https://github.com/FunAudioLLM/CosyVoice" target="_blank" rel="noopener">CosyVoice</a></span>, <span class="ack-item"><a href="https://github.com/descriptinc/descript-audio-codec" target="_blank" rel="noopener">DAC</a></span>, <span class="ack-item"><a href="https://github.com/QwenLM/Qwen2.5-Omni" target="_blank" rel="noopener">Qwen2.5-Omni</a></span>, <span class="ack-item"><a href="https://github.com/tencent-ailab/MuQ" target="_blank" rel="noopener">MuQ / MuQ-MuLan</a></span> and <span class="ack-item"><a href="https://github.com/Haiwen-Xia/CMI-RewardBench" target="_blank" rel="noopener">CMI-RewardBench</a></span>. Please consider citing these alongside VIBE.
+    </p>
+  </div>
+</section>
+<!-- End acknowledgements -->
+
+
+<!-- BibTeX -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-widescreen content">
+    <h2 class="title">BibTeX</h2>
+    <p class="bibtex-note">
+      Please cite the paper as below. If you build on the released code, please also consider
+      citing VoxCPM (arXiv:2509.24650), which VIBE extends, along with the projects listed
+      under Acknowledgements.
+    </p>
+    <div class="bibtex-block">
+      <button type="button" class="bibtex-copy" data-copy="#bibtex-src">Copy</button>
+      <pre id="bibtex-src"><code>@misc{bhosale2026vibevideoinstructionalignedbackground,
+      title={VIBE: Video Instruction-aligned Background music gEneration},
+      author={Aryan Vijay Bhosale and Vaibhavi Lokegaonkar and Vishnu Raj and Gouthaman KV and Sreyan Ghosh and Ramani Duraiswami and Lie Lu and Dinesh Manocha},
+      year={2026},
+      eprint={2608.30125},
+      archivePrefix={arXiv},
+      primaryClass={cs.SD},
+      url={https://arxiv.org/abs/2608.30125},
+}</code></pre>
+    </div>
+  </div>
+</section>
+<!-- End BibTeX -->
+
+
+</main>
+
+<footer class="footer">
+  <div class="container is-max-widescreen">
+    <div class="columns">
+      <div class="column">
+        <div class="content">
+          <p>
+            Code is released under
+            <a href="https://github.com/aryanvibhosale/vibe/blob/main/LICENSE" target="_blank" rel="noopener">Apache-2.0</a>. Some
+            third-party components carry their own terms and are not redistributed; see the
+            repository's NOTICE before commercial use. Generated audio may contain artifacts,
+            particularly for instructions far from the training distribution, and we recommend
+            marking generated audio as AI-generated.
+          </p>
+          <p>
+            This page was built using the <a
+            href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+            target="_blank">Academic Project Page Template</a> which was adopted from the <a
+            href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link
+            back to this page in the footer. This website is licensed under a <a rel="license"
+            href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </footer>
 
-<script src="scripts/main.js"></script>
 </body>
 </html>
